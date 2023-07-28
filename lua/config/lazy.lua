@@ -6,26 +6,58 @@ if not vim.loop.fs_stat(lazypath) then
 end
 vim.opt.rtp:prepend(vim.env.LAZY or lazypath)
 
-require("lazy").setup({
-  spec = {
-    -- add LazyVim and import its plugins
-    { "LazyVim/LazyVim", import = "lazyvim.plugins" },
-    -- import any extras modules here
-    { import = "lazyvim.plugins.extras.editor.flash" },
-    { import = "lazyvim.plugins.extras.editor.mini-files" },
-    { import = "lazyvim.plugins.extras.lang.json" },
-    { import = "lazyvim.plugins.extras.lang.python" },
-    { import = "lazyvim.plugins.extras.test.core" },
-    -- { import = "lazyvim.plugins.extras.ui.mini-animate" },
-    -- { import = "lazyvim.plugins.extras.util.mini-hipatterns" },
-    -- import/override with your plugins
+local test_spec_separated = {
+  { "LazyVim/LazyVim" },
+  { import = "lazyvim.plugins.colorscheme" },
+  { import = "lazyvim.plugins.coding" },
+  { import = "lazyvim.plugins.core" },
+  { import = "lazyvim.plugins.editor" },
+  { import = "lazyvim.plugins.lsp" },
+  { import = "lazyvim.plugins.treesitter" },
+  { import = "lazyvim.plugins.ui" },
+  { import = "lazyvim.plugins.util" },
+}
 
-    { import = "plugins" },
-    { import = "plugins.extras.editor.flash" },
-    { import = "plugins.extras.editor.mini-files" },
-    { import = "plugins.extras.test.core" },
-  },
-  -- dev = { patterns = jit.os:find("Windows") and {} or { "abeldekat", "LazyVim" } },
+local test_spec_default = {
+  -- add LazyVim and import its plugins:
+  { "LazyVim/LazyVim", import = "lazyvim.plugins" },
+  -- { import = "lazyvim.plugins.extras.editor.leap" },
+  { "akinsho/bufferline.nvim", enabled = false },
+}
+
+local full_spec = {
+  -- add LazyVim and import its plugins:
+  { "LazyVim/LazyVim", import = "lazyvim.plugins" },
+
+  -- import any extras modules here:
+  -- editor:
+  -- { import = "lazyvim.plugins.extras.editor.leap" },
+  { import = "lazyvim.plugins.extras.editor.mini-files" },
+  -- ui:
+  -- { import = "lazyvim.plugins.extras.util.mini-hipatterns" },
+  -- core:
+  { import = "lazyvim.plugins.extras.test.core" },
+  -- { import = "lazyvim.plugins.extras.dap.core" },
+  -- lang:
+  { import = "lazyvim.plugins.extras.lang.json" },
+  { import = "lazyvim.plugins.extras.lang.python" },
+  { import = "lazyvim.plugins.extras.lang.python-semshi" },
+
+  -- import/override with your plugins:
+  { import = "plugins" },
+  -- editor:
+  { import = "plugins.extras.editor.mini-files" },
+  -- core:
+  { import = "plugins.extras.test.core" },
+  -- lang:
+  { import = "plugins.extras.lang.python" },
+}
+
+require("lazy").setup({
+  -- spec = test_spec_separated, -- some lsp errors?
+  -- spec = test_spec_default,
+  spec = full_spec,
+  -- dev = { patterns = jit.os:find("Windows") and {} or { "abeldekat", "LazyVim", "lazy.nvim" } },
   defaults = {
     -- By default, only LazyVim plugins will be lazy-loaded. Your custom plugins will load during startup.
     -- If you know what you're doing, you can set this to `true` to have all your custom plugins lazy-loaded by default.

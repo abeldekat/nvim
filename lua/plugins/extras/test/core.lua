@@ -1,16 +1,7 @@
 return {
-  {
-    "folke/which-key.nvim",
-    opts = function(_, opts)
-      opts.defaults["<leader>t"] = { name = "+tesT" }
-    end,
-  },
 
   {
     "nvim-neotest/neotest",
-    dependencies = {
-      "nvim-neotest/neotest-python",
-    },
     -- opts = function(_, opts)
     --   opts.adapters["neotest-python"] = {
     --     dap = { justMyCode = false },

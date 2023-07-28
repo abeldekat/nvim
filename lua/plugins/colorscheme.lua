@@ -40,11 +40,12 @@ local all = {
     name = "catppuccin",
     opts = {
       integrations = {
-        nvmtree = false,
+        nvimtree = false,
         neotree = false,
         harpoon = true,
-        -- unsure:
-        markdown = true,
+        dropbar = {
+          enabled = false,
+        },
       },
     },
     config = function(_, opts)
@@ -63,25 +64,11 @@ local all = {
     name = "colors_astrotheme",
     main = "astrotheme",
     opts = function()
+      vim.o.background = Dynamic.prefer_light and "light" or "dark"
       local opts = {
         palette = Dynamic.prefer_light and "astrolight" or "astrodark",
       }
       return opts
-    end,
-    lazy = lazy_one,
-  },
-
-  {
-    "Shatur/neovim-ayu",
-    name = "colors_ayu",
-    main = "ayu",
-    config = function()
-      vim.o.background = Dynamic.prefer_light and "light" or "dark"
-      local opts = {
-        mirage = true, -- on dark choose mirage
-        overrides = {},
-      }
-      require("ayu").setup(opts)
     end,
     lazy = lazy_one,
   },
@@ -123,6 +110,18 @@ local all = {
     config = function()
       -- light bg -> lotus, dark bg -> wave
       vim.o.background = Dynamic.prefer_light and "light" or "dark"
+
+      if Dynamic.prefer_light then
+        require("kanagawa").setup({
+          overrides = function(colors)
+            return {
+              -- Improve FlashLabel:
+              -- Substitute = { fg = theme.ui.fg, bg = theme.vcs.removed },
+              Substitute = { fg = colors.theme.ui.fg_reverse, bg = colors.theme.vcs.removed },
+            }
+          end,
+        })
+      end
     end,
     lazy = lazy_one,
   },
@@ -183,6 +182,21 @@ local all = {
     main = "bamboo",
     opts = function()
       return { style = "vulgaris", toggle_style_key = "<leader>a" }
+    end,
+    lazy = lazy_second,
+  },
+
+  {
+    "Shatur/neovim-ayu",
+    name = "colors_ayu",
+    main = "ayu",
+    config = function()
+      vim.o.background = Dynamic.prefer_light and "light" or "dark"
+      local opts = {
+        mirage = true, -- on dark choose mirage
+        overrides = {},
+      }
+      require("ayu").setup(opts)
     end,
     lazy = lazy_second,
   },

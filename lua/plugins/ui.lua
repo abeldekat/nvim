@@ -77,8 +77,8 @@ return {
       table.insert(opts.sections.lualine_x, "encoding")
       opts.sections.lualine_y = { "progress" } -- default lualine
       opts.sections.lualine_z = { "location" } -- default lualine
-      opts.extensions = { "lazy" } -- no neotree, try new lazy extension
-
+      -- opts.extensions = {} -- this costs peformance? Loads devicons...
+      --
       return opts
     end,
   },

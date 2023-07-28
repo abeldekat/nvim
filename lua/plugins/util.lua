@@ -2,6 +2,7 @@ return {
   -- ---------------------------------------------
   -- overriding ....
   -- ---------------------------------------------
+
   { -- session management, override q keys
     "folke/persistence.nvim",
     keys = function(_, _)
@@ -30,11 +31,14 @@ return {
       }
     end,
   },
+
   -- ---------------------------------------------
   -- adding ....
   -- also interesting:
   -- https://github.com/michaelb/sniprun, included in astro community
+  -- https://github.com/toppair/peek.nvim/issues/47
   -- ---------------------------------------------
+
   {
     -- Find neovim terminal job id: echo &channel
     "jpalardy/vim-slime",
@@ -43,6 +47,7 @@ return {
       vim.g.slime_target = "neovim"
     end,
   },
+
   {
     "iamcco/markdown-preview.nvim",
     ft = "markdown",
@@ -55,17 +60,19 @@ return {
       vim.g.mkdp_browser = "firefox"
     end,
   },
-  {
-    "lukas-reineke/headlines.nvim",
-    ft = "markdown",
-    dependencies = "nvim-treesitter/nvim-treesitter",
-    config = true,
-  },
+
   {
     "ellisonleao/glow.nvim",
     cmd = "Glow",
     config = true,
   },
+
+  -- {
+  --   "lukas-reineke/headlines.nvim",
+  --   ft = "markdown",
+  --   dependencies = "nvim-treesitter/nvim-treesitter",
+  --   config = true,
+  -- },
 
   -- iron.nvim does not work consistently
   -- {

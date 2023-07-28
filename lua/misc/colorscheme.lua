@@ -1,5 +1,5 @@
 -- using sed for color and prefer_light:
-local color = 'astrotheme'
+local color = 'tokyonight'
 local prefer_light = false
 -- end using sed
 
