@@ -64,7 +64,13 @@ return {
   {
     "ellisonleao/glow.nvim",
     cmd = "Glow",
-    config = true,
+    keys = {
+      { "<leader>mg", "<cmd>Glow<cr>", desc = "Markdown [G]low" },
+    },
+    opts = {
+      width_ratio = 0.8, --0.7
+      height_ratio = 0.8, --0.7
+    },
   },
 
   -- {

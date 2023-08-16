@@ -23,13 +23,29 @@ return {
   -- ---------------------------------------------
   {
     "nvim-telescope/telescope.nvim",
-    -- add fzf native
     dependencies = {
-      "nvim-telescope/telescope-fzf-native.nvim",
-      build = "make",
-      config = function()
-        require("telescope").load_extension("fzf")
-      end,
+      -- add fzf native
+      {
+        "nvim-telescope/telescope-fzf-native.nvim",
+        build = "make",
+        config = function()
+          require("telescope").load_extension("fzf")
+        end,
+      },
+      -- Zoxide file integration, c-b integration to file browser fails...
+      {
+        "jvgrootveld/telescope-zoxide",
+        keys = {
+          {
+            "<space>fz",
+            ":Telescope zoxide list<cr>",
+            desc = "Zoxide file navigation",
+          },
+        },
+        config = function()
+          require("telescope").load_extension("zoxide")
+        end,
+      },
     },
     keys = {
       -- ---------------------------------------------
@@ -78,6 +94,7 @@ return {
 
   {
     "folke/which-key.nvim",
+    -- enabled = false,
     event = function()
       return {} -- removes verylazy event
     end,
@@ -163,6 +180,11 @@ return {
 
   { "echasnovski/mini.cursorword", event = { "BufReadPost", "BufNewFile" }, config = true },
 
+  -- { -- testing lazy loading vim functions call floaterm#new(v:true, 'fzf', {}, {})
+  --   "voldikss/vim-floaterm",
+  --   lazy = true, -- as expected, cannot call the function when lazy
+  -- },
+
   { --To map /: use <C-_> instead of <C-/>.
     "akinsho/toggleterm.nvim",
     version = "*",
@@ -186,10 +208,10 @@ return {
   },
 
   {
-    -- also seen <leader> ha hn hp ht
+    -- keys seen in other configs:
+    -- <leader> ha hn hp ht
     -- ctrln ctrpp for prev and next
     "ThePrimeagen/harpoon",
-
     -- stylua: ignore start
     keys = {
       { "<leader>h",
@@ -225,23 +247,7 @@ return {
         end, desc = "[H]arpoon Nav File 4", },
     },
     -- stylua: ignore end
-
     opts = { tabline = false },
-  },
-
-  -- Zoxide file integration, c-b integration to file browser fails...
-  {
-    "jvgrootveld/telescope-zoxide",
-    keys = {
-      {
-        "<space>fz",
-        ":Telescope zoxide list<cr>",
-        desc = "Zoxide file navigation",
-      },
-    },
-    config = function()
-      require("telescope").load_extension("zoxide")
-    end,
   },
 
   {
@@ -280,34 +286,86 @@ return {
     },
   },
 
-  -- { -- copied partially from astronvim, using <leader><leader>
-  --   "cbochs/grapple.nvim",
-  --   dependencies = { "nvim-lua/plenary.nvim" },
-  --   cmd = { "Grapple" },
-  --   -- cond = false,
+  -- {
+  --   "echasnovski/mini.clue",
+  --   event = "VeryLazy",
   --   keys = {
   --     {
-  --       "<leader>j",
+  --       "<leader>mu",
   --       function()
-  --         require("grapple").select({ key = "placeholder" })
+  --         require("mini.clue")
   --       end,
-  --       desc = "Select name",
+  --       desc = "Mini.clue activation",
   --     },
-  --     {
-  --       "<leader>J",
-  --       function()
-  --         require("grapple").toggle({ key = "placeholder" })
-  --       end,
-  --       desc = "Toggle name",
-  --     },
-  --     { "m" .. "a", "<cmd>GrappleTag<CR>", desc = "Add file" },
-  --     { "m" .. "d", "<cmd>GrappleUntag<CR>", desc = "Remove file" },
-  --     { "m" .. "t", "<cmd>GrappleToggle<CR>", desc = "Toggle a file" },
-  --     { "m" .. "e", "<cmd>GrapplePopup tags<CR>", desc = "Select from tags" },
-  --     { "m" .. "s", "<cmd>GrapplePopup scopes<CR>", desc = "Select a project scope" },
-  --     { "m" .. "x", "<cmd>GrappleReset<CR>", desc = "Clear tags from current project" },
-  --     { "<C-n>", "<cmd>GrappleCycle forward<CR>", desc = "Select next tag" },
-  --     { "<C-p>", "<cmd>GrappleCycle backward<CR>", desc = "Select previous tag" },
   --   },
+  --   opts = function(_, _)
+  --     local miniclue = require("mini.clue")
+  --     return {
+  --       window = {
+  --         -- config = { anchor = "SE", row = "auto", col = "auto" },
+  --         config = { width = "auto" },
+  --       },
+  --
+  --       triggers = {
+  --         -- Leader triggers
+  --         { mode = "n", keys = "<Leader>" },
+  --         { mode = "x", keys = "<Leader>" },
+  --
+  --         -- Built-in completion
+  --         { mode = "i", keys = "<C-x>" },
+  --
+  --         -- `g` key
+  --         { mode = "n", keys = "g" },
+  --         { mode = "x", keys = "g" },
+  --
+  --         -- Marks
+  --         { mode = "n", keys = "'" },
+  --         { mode = "n", keys = "`" },
+  --         { mode = "x", keys = "'" },
+  --         { mode = "x", keys = "`" },
+  --
+  --         -- Registers
+  --         { mode = "n", keys = '"' },
+  --         { mode = "x", keys = '"' },
+  --         { mode = "i", keys = "<C-r>" },
+  --         { mode = "c", keys = "<C-r>" },
+  --
+  --         -- Window commands
+  --         { mode = "n", keys = "<C-w>" },
+  --
+  --         -- `z` key
+  --         { mode = "n", keys = "z" },
+  --         { mode = "x", keys = "z" },
+  --       },
+  --
+  --       clues = {
+  --         -- Enhance this by adding descriptions for <Leader> mapping groups
+  --         miniclue.gen_clues.builtin_completion(),
+  --         miniclue.gen_clues.g(),
+  --         miniclue.gen_clues.marks(),
+  --         miniclue.gen_clues.registers(),
+  --         miniclue.gen_clues.windows(),
+  --         miniclue.gen_clues.z(),
+  --       },
+  --     }
+  --   end,
   -- },
+
+  -- git blame
+  {
+    "f-person/git-blame.nvim",
+    cmd = "GitBlameToggle",
+    keys = {
+      {
+        "<leader>gt",
+        function()
+          vim.cmd("GitBlameToggle")
+        end,
+        desc = "[T]oggle gitblame",
+      },
+    },
+    config = function()
+      vim.g.gitblame_date_format = "%x"
+    end,
+  },
 }

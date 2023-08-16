@@ -24,7 +24,7 @@ return {
   -- ---------------------------------------------
   {
     "folke/noice.nvim",
-    enabled = true,
+    -- enabled = false,
     keys = {
       { "<S-Enter>", false, mode = "c" }, -- does not trigger, change to alt
       {
