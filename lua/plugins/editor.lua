@@ -158,7 +158,7 @@ return {
 
   {
     "takac/vim-hardtime",
-    lazy = false,
+    lazy = true,
     init = function()
       vim.g.hardtime_default_on = 1
     end,
@@ -223,28 +223,17 @@ return {
           local num = tonumber(vim.fn.input("GoTo terminal window number: "))
           require("harpoon.term").gotoTerminal(num)
         end, desc = "[H]arpoon Terminal Window", },
-      { "ma",
+      { "mm",
         function()
           return require("harpoon.mark").add_file()
-        end, desc = "Harpoon [A]dd file", },
+        end, desc = "Harpoon [M]ark", },
 
-      -- fast access: "qwer"
-      { "mq",
-        function()
-          return require("harpoon.ui").nav_file(1)
-        end, desc = "Harpoon [S]how File 1", },
-      { "mw",
-        function()
-          return require("harpoon.ui").nav_file(2)
-        end, desc = "[H]arpoon Nav File 2", },
-      { "me",
-        function()
-          return require("harpoon.ui").nav_file(3)
-        end, desc = "[H]arpoon Nav File 3", },
-      { "mr",
-        function()
-          return require("harpoon.ui").nav_file(4)
-        end, desc = "[H]arpoon Nav File 4", },
+      -- fast access: "as"
+      -- fast access: "zx"
+      { "ma", function() return require("harpoon.ui").nav_file(1) end, desc = "Harpoon File 1", },
+      { "ms", function() return require("harpoon.ui").nav_file(2) end, desc = "Harpoon File 2", },
+      { "mz", function() return require("harpoon.ui").nav_file(3) end, desc = "Harpoon File 3", },
+      { "mx", function() return require("harpoon.ui").nav_file(4) end, desc = "Harpoon File 4", },
     },
     -- stylua: ignore end
     opts = { tabline = false },
@@ -364,8 +353,8 @@ return {
         desc = "[T]oggle gitblame",
       },
     },
-    config = function()
-      vim.g.gitblame_date_format = "%x"
-    end,
+    opts = {
+      date_format = "%x",
+    },
   },
 }

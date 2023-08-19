@@ -28,8 +28,6 @@ local full_spec = {
   { import = "plugins.extras.test.core" },
   -- lang:
   { import = "plugins.extras.lang.python" },
-  -- extra, not in lazyvim:
-  { import = "plugins.extras.firenvim" },
 }
 
 local dev_plugins = {} -- { "LazyVim", "lazy.nvim" } -- jit.os:find("Windows") and {}
