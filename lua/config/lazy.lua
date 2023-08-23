@@ -7,27 +7,29 @@ vim.opt.rtp:prepend(vim.env.LAZY or lazypath)
 
 local full_spec = {
   { "LazyVim/LazyVim", import = "lazyvim.plugins" },
-  -- editor:
+  --> editor:
   { import = "lazyvim.plugins.extras.editor.mini-files" },
-  -- ui:
-  -- { import = "lazyvim.plugins.extras.ui.mini-starter" },
-  -- { import = "lazyvim.plugins.extras.util.mini-hipatterns" },
-  -- core:
-  { import = "lazyvim.plugins.extras.test.core" },
-  { import = "lazyvim.plugins.extras.dap.core" },
-  -- lang:
-  { import = "lazyvim.plugins.extras.lang.json" },
-  { import = "lazyvim.plugins.extras.lang.python" },
-  { import = "lazyvim.plugins.extras.lang.python-semshi" },
+  { import = "plugins.extras.editor.mini-files" },
+  -- --> ui:
+  -- -- { import = "lazyvim.plugins.extras.util.mini-hipatterns" },
+  -- --> test:
+  -- { import = "lazyvim.plugins.extras.test.core" },
+  -- { import = "plugins.extras.test.core" },
+  -- --> dap:
+  -- { import = "lazyvim.plugins.extras.dap.core" },
+  -- --> lang, json:
+  -- { import = "lazyvim.plugins.extras.lang.json" },
+  -- --> lang, python:
+  -- { import = "lazyvim.plugins.extras.lang.python" },
+  -- { import = "lazyvim.plugins.extras.lang.python-semshi" },
+  -- { import = "plugins.extras.lang.python" },
 
   -- import/override with your plugins:
   { import = "plugins" },
-  -- editor:
-  { import = "plugins.extras.editor.mini-files" },
-  -- core:
-  { import = "plugins.extras.test.core" },
-  -- lang:
-  { import = "plugins.extras.lang.python" },
+  -- { import = "plugins.extras.colors" },
+  { import = "plugins.extras.colors.group_one" },
+  { import = "plugins.extras.colors.group_two" },
+  { import = "plugins.extras.colors.group_three" },
 }
 
 local dev_plugins = {} -- { "LazyVim", "lazy.nvim" } -- jit.os:find("Windows") and {}

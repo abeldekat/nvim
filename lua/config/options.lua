@@ -29,12 +29,12 @@ vim.opt.colorcolumn = "80"
 vim.opt.timeoutlen = 600 --300
 
 -- folding
-vim.opt.foldlevel = 99 -- set high foldlevel for nvim-ufo
-vim.opt.foldlevelstart = 99 -- start with all code unfolded
 vim.opt.foldenable = true
 vim.opt.foldcolumn = "0"
 vim.opt.foldmethod = "expr"
 vim.opt.foldexpr = "nvim_treesitter#foldexpr()"
+vim.opt.foldlevel = 99 -- set high foldlevel for nvim-ufo
+vim.opt.foldlevelstart = 99 -- start with all code unfolded
 
 -- checkhealth:
 vim.g.python3_host_prog = "/usr/bin/python" -- archlinux: global python-pynvim

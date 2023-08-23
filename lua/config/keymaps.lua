@@ -96,16 +96,18 @@ map("n", "<C-N>", "<C-d>zz", { desc = "Dow[N] half page, better ctrl-d" })
 
 -- Add show tabs to tabs submenu
 map("n", "<leader><tab>s", "<cmd>tabs<cr>", { desc = "[S]how Tabs" })
+
 -- Remap all leader q mappings, see unmap above
 -- Step 1: See plugins, util, persistence, override q keys
 -- Step 2: map("n", "<leader>qq", "<cmd>qa<cr>", { desc = "Quit all" })
 map("n", "<leader>q", "<cmd>q<cr>", { desc = "Faster [Q]uit" })
 -- Lazy uses ctrl-s
 map("n", "<leader>w", "<cmd>w<cr><esc>", { desc = "Faster [W]rite" })
+
 -- Remap lazy ui, leader l now available, see unmap above
-map("n", "<leader>mz", "<cmd>Lazy<cr>", { desc = "La[Z]y Command" })
+map("n", "<leader>mz", "<cmd>Lazy<cr>", { desc = "La[Z]y" })
 -- LazyVim Changelog, see unmap above
-map("n", "<leader>mc", Util.changelog, { desc = "LazyVim [C]hangelog" })
+map("n", "<leader>mC", Util.changelog, { desc = "Lazy [C]hangelog" })
 
 --------------------------------------------------------------------------
 -- Primeagen:

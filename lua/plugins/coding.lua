@@ -3,16 +3,14 @@ return {
   -- observing ....
   -- ---------------------------------------------
   -- NOTE: mini.ai:
-  -- vib, viq, vi?. Mini does not override B
+  -- vib, viq, vi?. Mini does not override capital B
   -- incremental, g[
+  -- in insertmode, press C-v, now the character will not be interpreted by ai
   -- lazyvim config: vio(treesitter block). Also overrides mini f with treesiter f
 
   -- ---------------------------------------------
   -- disabling ....
   -- ---------------------------------------------
-  -- testing:
-  -- { "echasnovski/mini.ai", enabled = false },
-  -- { "echasnovski/mini.pairs", enabled = false }
 
   -- ---------------------------------------------
   -- overriding ....

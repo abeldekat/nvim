@@ -32,7 +32,7 @@ return {
 
   {
     "kevinhwang91/nvim-ufo",
-    -- version = "^1",
+    -- cond = false,
     dependencies = { "kevinhwang91/promise-async" },
     event = { "BufReadPost", "BufNewFile", "InsertEnter" },
     init = function()
@@ -52,28 +52,19 @@ return {
         require("ufo").peekFoldedLinesUnderCursor()
       end, { desc = "Preview folds" })
     end,
-    opts = { -- copied from astronvim
-      provider_selector = function(_, filetype, buftype)
-        local function handleFallbackException(bufnr, err, providerName)
-          if type(err) == "string" and err:match("UfoFallbackException") then
-            return require("ufo").getFolds(bufnr, providerName)
-          else
-            return require("promise").reject(err)
-          end
-        end
+    opts = function()
+      local ftMap = {
+        vim = { "treesitter", "indent" },
+      }
 
-        return (filetype == "" or buftype == "nofile") and "indent" -- only use indent until a file is opened
-          or function(bufnr)
-            return require("ufo")
-              .getFolds(bufnr, "lsp")
-              :catch(function(err)
-                return handleFallbackException(bufnr, err, "treesitter")
-              end)
-              :catch(function(err)
-                return handleFallbackException(bufnr, err, "indent")
-              end)
-          end
-      end,
-    },
+      -- https://github.com/kevinhwang91/nvim-ufo/blob/main/doc/example.lua
+      return {
+        open_fold_hl_timeout = 0,
+        -- close_fold_kinds = { "imports" },
+        provider_selector = function(bufnr, filetype, buftype)
+          return ftMap[filetype] or { "lsp", "indent" }
+        end,
+      }
+    end,
   },
 }

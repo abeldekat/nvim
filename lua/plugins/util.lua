@@ -12,21 +12,21 @@ return {
           function()
             require("persistence").load()
           end,
-          desc = "Restore [S]ession",
+          desc = "[S]ession restore",
         },
         {
           "<leader>ml",
           function()
             require("persistence").load({ last = true })
           end,
-          desc = "Restore [L]ast Session",
+          desc = "Session restore [L]ast",
         },
         {
           "<leader>md",
           function()
             require("persistence").stop()
           end,
-          desc = "[D]on't Save Current Session",
+          desc = "Session [D]on't Save",
         },
       }
     end,
@@ -41,8 +41,9 @@ return {
 
   {
     -- Find neovim terminal job id: echo &channel
+    -- After repl starts: use <c-c><c-c>
     "jpalardy/vim-slime",
-    keys = { { "<leader>mr", "", desc = "Load slime [R]epl, and use <c-c><c-c>" } },
+    keys = { { "<leader>mr", "", desc = "[R]epl" } },
     init = function()
       vim.g.slime_target = "neovim"
     end,
@@ -52,7 +53,7 @@ return {
     "iamcco/markdown-preview.nvim",
     ft = "markdown",
     keys = {
-      { "<leader>mm", "<cmd>MarkdownPreviewToggle<cr>", desc = "Toggle [M]arkdown Preview" },
+      { "<leader>mm", "<cmd>MarkdownPreviewToggle<cr>", desc = "[M]arkdown preview" },
     },
     build = "cd app && npm install && git reset --hard",
     init = function()
