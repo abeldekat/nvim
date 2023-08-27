@@ -99,16 +99,7 @@ return {
       return which_key_autoload and { "VeryLazy" } or {}
     end,
     keys = function() -- Stock LazyVim: no keys
-      return which_key_autoload and {}
-        or {
-          {
-            "<leader>mw",
-            function()
-              require("which-key")
-            end,
-            desc = "[W]hich-key",
-          },
-        }
+      return which_key_autoload and {} or { { "<leader>mw", desc = "[W]hich-key" } }
     end,
     opts = function(_, opts)
       opts.defaults["<leader>q"] = nil -- no submenu, immediate quit
@@ -144,26 +135,26 @@ return {
     },
   },
 
-  {
-    "echasnovski/mini.comment",
-    event = function()
-      return { "BufReadPost", "BufNewFile" } -- VeryLazy
-    end,
-  },
-
-  {
-    "echasnovski/mini.pairs",
-    event = function()
-      return { "BufReadPost", "BufNewFile" } -- VeryLazy
-    end,
-  },
-
-  {
-    "echasnovski/mini.ai",
-    event = function()
-      return { "BufReadPost", "BufNewFile" } -- VeryLazy
-    end,
-  },
+  -- {
+  --   "echasnovski/mini.comment",
+  --   event = function()
+  --     return { "BufReadPost", "BufNewFile", "BufWritePost" } -- VeryLazy
+  --   end,
+  -- },
+  --
+  -- {
+  --   "echasnovski/mini.pairs",
+  --   event = function()
+  --     return { "BufReadPost", "BufNewFile", "BufWritePost" } -- VeryLazy
+  --   end,
+  -- },
+  --
+  -- {
+  --   "echasnovski/mini.ai",
+  --   event = function()
+  --     return { "BufReadPost", "BufNewFile", "BufWritePost" } -- VeryLazy
+  --   end,
+  -- },
   -- ---------------------------------------------
   -- adding ....
   -- ---------------------------------------------
@@ -201,6 +192,7 @@ return {
     end,
   },
 
+  -- replaces vim-illuminate
   { "echasnovski/mini.cursorword", event = { "BufReadPost", "BufNewFile" }, config = true },
 
   { --To map /: use <C-_> instead of <C-/>.

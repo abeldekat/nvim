@@ -23,16 +23,7 @@ return {
       return autoload and { "VeryLazy" } or {}
     end,
     keys = function()
-      return autoload and {}
-        or {
-          {
-            "<leader>mc",
-            function()
-              require("mini.clue")
-            end,
-            desc = "[C]lue",
-          },
-        }
+      return autoload and {} or { { "<leader>mc", desc = "[C]lue" } }
     end,
     opts = function(_, _)
       local miniclue = require("mini.clue")

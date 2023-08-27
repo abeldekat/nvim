@@ -16,16 +16,16 @@ local full_spec = {
   --> util:
   -- { import = "lazyvim.plugins.extras.util.mini-hipatterns" },
   --> test:
-  -- { import = "lazyvim.plugins.extras.test.core" },
-  -- { import = "plugins.extras.test.core" },
+  { import = "lazyvim.plugins.extras.test.core" },
+  { import = "plugins.extras.test.core" },
   --> dap:
-  -- { import = "lazyvim.plugins.extras.dap.core" },
+  { import = "lazyvim.plugins.extras.dap.core" },
   --> lang, json:
-  -- { import = "lazyvim.plugins.extras.lang.json" },
+  { import = "lazyvim.plugins.extras.lang.json" },
   --> lang, python:
-  -- { import = "lazyvim.plugins.extras.lang.python" },
-  -- { import = "lazyvim.plugins.extras.lang.python-semshi" },
-  -- { import = "plugins.extras.lang.python" },
+  { import = "lazyvim.plugins.extras.lang.python" },
+  { import = "lazyvim.plugins.extras.lang.python-semshi" },
+  { import = "plugins.extras.lang.python" },
 
   { import = "plugins" },
   { import = "plugins.extras.colors.group_one" },

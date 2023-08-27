@@ -16,10 +16,7 @@ return {
   -- overriding ....
   -- ---------------------------------------------
   {
-    "echasnovski/mini.surround",
-    event = function()
-      return { "BufReadPost", "BufNewFile" } -- "VeryLazy"
-    end,
+    "echasnovski/mini.surround", -- lazyloaded by keys
     opts = {
       mappings = {
         add = "<leader>za", -- Add surrounding in Normal and Visual modes
@@ -38,15 +35,19 @@ return {
   -- ---------------------------------------------
   {
     "echasnovski/mini.operators",
-    event = { "BufReadPost", "BufNewFile" },
+    event = "VeryLazy",
+    -- event = function()
+    --   return { "BufReadPost", "BufNewFile", "BufWritePost" } -- VeryLazy
+    -- end,
+    -- keys = {
+    --   { "cr", desc = "Replace", mode = { "n", "v" } },
+    --   { "g=", desc = "Evaluate", mode = { "n", "v" } },
+    --   { "gm", desc = "Multiply", mode = { "n", "v" } }, -- overrides half a screen width to the right
+    --   { "gs", desc = "Sort", mode = { "n", "v" } }, -- overrides go sleep
+    --   { "gx", desc = "Exchange", mode = { "n", "v" } }, -- overrides netrw mapping
+    -- },
     opts = {
-      -- g= evaluate
-      -- gx exchange (overrides netrw mapping)
-      -- gm multiply (overrides half a screen width to the right)
-      -- gr replace with register (conflicts with lsp gr)
-      -- gs sort (overrides go sleep)
-
-      replace = { prefix = "cr" }, -- gr is taken...
+      replace = { prefix = "cr" }, -- lsp: gr is taken...
     },
   },
 }
