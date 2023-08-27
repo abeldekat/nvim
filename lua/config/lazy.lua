@@ -5,31 +5,36 @@ if not vim.loop.fs_stat(lazypath) then
 end
 vim.opt.rtp:prepend(vim.env.LAZY or lazypath)
 
+-- approach: group each extra with its override
 local full_spec = {
   { "LazyVim/LazyVim", import = "lazyvim.plugins" },
   --> editor:
   { import = "lazyvim.plugins.extras.editor.mini-files" },
   { import = "plugins.extras.editor.mini-files" },
-  -- --> ui:
-  -- -- { import = "lazyvim.plugins.extras.util.mini-hipatterns" },
-  -- --> test:
+  --> ui:
+  -- { import = "lazyvim.plugins.extras.ui.mini-starter" },
+  --> util:
+  -- { import = "lazyvim.plugins.extras.util.mini-hipatterns" },
+  --> test:
   -- { import = "lazyvim.plugins.extras.test.core" },
   -- { import = "plugins.extras.test.core" },
-  -- --> dap:
+  --> dap:
   -- { import = "lazyvim.plugins.extras.dap.core" },
-  -- --> lang, json:
+  --> lang, json:
   -- { import = "lazyvim.plugins.extras.lang.json" },
-  -- --> lang, python:
+  --> lang, python:
   -- { import = "lazyvim.plugins.extras.lang.python" },
   -- { import = "lazyvim.plugins.extras.lang.python-semshi" },
   -- { import = "plugins.extras.lang.python" },
 
-  -- import/override with your plugins:
   { import = "plugins" },
-  -- { import = "plugins.extras.colors" },
   { import = "plugins.extras.colors.group_one" },
   { import = "plugins.extras.colors.group_two" },
   { import = "plugins.extras.colors.group_three" },
+
+  -- currently operator pending is discouraged:
+  { "echasnovski/mini.clue", lazy = true },
+  -- { import = "plugins.extras.editor.mini-clue" }, -- added, not in LazyVim
 }
 
 local dev_plugins = {} -- { "LazyVim", "lazy.nvim" } -- jit.os:find("Windows") and {}

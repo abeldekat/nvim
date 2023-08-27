@@ -17,6 +17,9 @@ return {
   -- ---------------------------------------------
   {
     "echasnovski/mini.surround",
+    event = function()
+      return { "BufReadPost", "BufNewFile" } -- "VeryLazy"
+    end,
     opts = {
       mappings = {
         add = "<leader>za", -- Add surrounding in Normal and Visual modes
@@ -27,6 +30,23 @@ return {
         replace = "<leader>zr", -- Replace surrounding
         update_n_lines = "<leader>zn", -- Update `n_lines`
       },
+    },
+  },
+
+  -- ---------------------------------------------
+  -- adding ....
+  -- ---------------------------------------------
+  {
+    "echasnovski/mini.operators",
+    event = { "BufReadPost", "BufNewFile" },
+    opts = {
+      -- g= evaluate
+      -- gx exchange (overrides netrw mapping)
+      -- gm multiply (overrides half a screen width to the right)
+      -- gr replace with register (conflicts with lsp gr)
+      -- gs sort (overrides go sleep)
+
+      replace = { prefix = "cr" }, -- gr is taken...
     },
   },
 }

@@ -121,7 +121,8 @@ map("n", "<leader>mC", Util.changelog, { desc = "Lazy [C]hangelog" })
 -- remember di, with cursor before. No need to navigate
 
 -- "The greatest remap ever..."
-map("x", "<leader>p", '"_dP', { desc = "Enhanced paste. Delete to sink" })
+-- ...But v_P is also good... Now using mini.operators
+-- map("x", "<leader>p", '"_dP', { desc = "Enhanced paste. Delete to sink" })
 
 -- Not compatible with mini.animate:
 map("n", "<C-d>", "<C-d>zz", { desc = "better ctrl-d" })

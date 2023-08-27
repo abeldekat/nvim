@@ -1,23 +1,20 @@
--- extras editor: mini-files
+-- { -- testing lazy loading vim functions call floaterm#new(v:true, 'fzf', {}, {})
+--   "voldikss/vim-floaterm",
+--   lazy = true, -- as expected, cannot call the function when lazy
+-- },
+
 local Util = require("lazyvim.util")
-local clues_enabled = true
-local clues_event = true
-local which_key_enabled = true
-local which_key_event = false
+local which_key_autoload = false
 
 return {
-  -- extras mini-files: replacement for neo-tree
-
   -- ---------------------------------------------
   -- disabling ....
   -- ---------------------------------------------
-
-  -- always disabled:
   { "nvim-neo-tree/neo-tree.nvim", enabled = false },
 
   -- NOTE: vim-illuminate:
   -- <a-n>, <a-p> as keymaps, <a-i> as textobject, without the i and a verbs
-  -- lazyvim also provides reference movements:[[,]], Untouched: [], ][
+  -- lazyvim also provides reference movements:[[,]], Not overridden: [], ][
   -- --> replace with mini.cursorword:
   -- disadvantage: no prev and next with treesitter/lsp/regexp
   { "RRethy/vim-illuminate", enabled = false },
@@ -82,7 +79,7 @@ return {
       { "<leader>r", Util.telescope("live_grep"), desc = "G[R]ep (root)" },
       -- "<leader>fR":
       { "<leader>?", Util.telescope("oldfiles", { cwd = vim.loop.cwd() }), desc = "[O]ld files (cwd)" },
-      { -- From Example: Add a keymap to browse plugin files
+      { -- the example: Add a keymap to browse plugin files
         "<leader>fp",
         function()
           require("telescope.builtin").find_files({ cwd = require("lazy.core.config").options.root })
@@ -98,19 +95,21 @@ return {
 
   {
     "folke/which-key.nvim",
-    cond = which_key_enabled,
     event = function()
-      return which_key_event and { "VeryLazy" } or {}
+      return which_key_autoload and { "VeryLazy" } or {}
     end,
-    keys = {
-      {
-        "<leader>mw",
-        function()
-          require("which-key")
-        end,
-        desc = "[W]hich-key",
-      },
-    },
+    keys = function() -- Stock LazyVim: no keys
+      return which_key_autoload and {}
+        or {
+          {
+            "<leader>mw",
+            function()
+              require("which-key")
+            end,
+            desc = "[W]hich-key",
+          },
+        }
+    end,
     opts = function(_, opts)
       opts.defaults["<leader>q"] = nil -- no submenu, immediate quit
       opts.defaults["<leader>w"] = nil -- no submenu, immediate write
@@ -145,6 +144,26 @@ return {
     },
   },
 
+  {
+    "echasnovski/mini.comment",
+    event = function()
+      return { "BufReadPost", "BufNewFile" } -- VeryLazy
+    end,
+  },
+
+  {
+    "echasnovski/mini.pairs",
+    event = function()
+      return { "BufReadPost", "BufNewFile" } -- VeryLazy
+    end,
+  },
+
+  {
+    "echasnovski/mini.ai",
+    event = function()
+      return { "BufReadPost", "BufNewFile" } -- VeryLazy
+    end,
+  },
   -- ---------------------------------------------
   -- adding ....
   -- ---------------------------------------------
@@ -183,11 +202,6 @@ return {
   },
 
   { "echasnovski/mini.cursorword", event = { "BufReadPost", "BufNewFile" }, config = true },
-
-  -- { -- testing lazy loading vim functions call floaterm#new(v:true, 'fzf', {}, {})
-  --   "voldikss/vim-floaterm",
-  --   lazy = true, -- as expected, cannot call the function when lazy
-  -- },
 
   { --To map /: use <C-_> instead of <C-/>.
     "akinsho/toggleterm.nvim",
@@ -277,87 +291,6 @@ return {
       },
       use_default_keymaps = false, -- changed
     },
-  },
-
-  {
-    "echasnovski/mini.clue",
-    event = function()
-      return clues_event and { "VeryLazy" } or {}
-    end,
-    cond = clues_enabled,
-    keys = {
-      {
-        "<leader>mc",
-        function()
-          require("mini.clue")
-        end,
-        desc = "[C]lue",
-      },
-    },
-    opts = function(_, _)
-      local miniclue = require("mini.clue")
-      return {
-        window = {
-          -- config = { anchor = "SE", row = "auto", col = "auto" },
-          config = { width = "auto" },
-        },
-
-        triggers = {
-          -- Leader triggers
-          { mode = "n", keys = "<Leader>" },
-          { mode = "x", keys = "<Leader>" },
-
-          -- Built-in completion
-          { mode = "i", keys = "<C-x>" },
-
-          -- `g` key
-          { mode = "n", keys = "g" },
-          { mode = "x", keys = "g" },
-
-          -- Marks
-          { mode = "n", keys = "'" },
-          { mode = "n", keys = "`" },
-          { mode = "x", keys = "'" },
-          { mode = "x", keys = "`" },
-
-          -- Registers
-          { mode = "n", keys = '"' },
-          { mode = "x", keys = '"' },
-          { mode = "i", keys = "<C-r>" },
-          { mode = "c", keys = "<C-r>" },
-
-          -- Window commands
-          { mode = "n", keys = "<C-w>" },
-
-          -- `z` key
-          { mode = "n", keys = "z" },
-          { mode = "x", keys = "z" },
-        },
-
-        clues = {
-          -- Enhance this by adding descriptions for <Leader> mapping groups
-          miniclue.gen_clues.builtin_completion(),
-          miniclue.gen_clues.g(),
-          miniclue.gen_clues.marks(),
-          miniclue.gen_clues.registers(),
-          miniclue.gen_clues.windows(),
-          miniclue.gen_clues.z(),
-
-          { mode = "n", keys = "<leader><tab>", desc = "+tabs" },
-          { mode = "n", keys = "<leader>b", desc = "+buffer" },
-          { mode = "n", keys = "<leader>c", desc = "+code" },
-          { mode = "n", keys = "<leader>d", desc = "+debug" },
-          { mode = "n", keys = "<leader>f", desc = "+file/find" },
-          { mode = "n", keys = "<leader>g", desc = "+git" },
-          { mode = "n", keys = "<leader>gh", desc = "+hunks" },
-          { mode = "n", keys = "<leader>m", desc = "+misc" },
-          { mode = "n", keys = "<leader>s", desc = "+search" },
-          { mode = "n", keys = "<leader>t", desc = "+test" },
-          { mode = "n", keys = "<leader>u", desc = "+ui" },
-          { mode = "n", keys = "<leader>x", desc = "+diagnostics/quickfix" },
-        },
-      }
-    end,
   },
 
   -- git blame
