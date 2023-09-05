@@ -19,7 +19,7 @@ local full_spec = {
   { import = "lazyvim.plugins.extras.test.core" },
   { import = "plugins.extras.test.core" },
   --> dap:
-  { import = "lazyvim.plugins.extras.dap.core" },
+  -- { import = "lazyvim.plugins.extras.dap.core" },
   --> lang, json:
   { import = "lazyvim.plugins.extras.lang.json" },
   --> lang, python:
@@ -29,8 +29,8 @@ local full_spec = {
 
   { import = "plugins" },
   { import = "plugins.extras.colors.group_one" },
-  { import = "plugins.extras.colors.group_two" },
-  { import = "plugins.extras.colors.group_three" },
+  -- { import = "plugins.extras.colors.group_two" },
+  -- { import = "plugins.extras.colors.group_three" },
 
   -- currently operator pending is discouraged:
   { "echasnovski/mini.clue", lazy = true },

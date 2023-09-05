@@ -50,46 +50,53 @@ return {
     },
     keys = {
       -- ---------------------------------------------
-      -- disabling ....
+      -- change top-level keys:
       -- ---------------------------------------------
-      { "<leader>,", false }, -- not in use
-      { "<leader><space>", false }, -- not in use
-      -- ---------------------------------------------
-      -- overriding ....
-      -- ---------------------------------------------
-      -- "<leader>," into:
-      { "<leader>o", "<cmd>Telescope buffers show_all_buffers=true<cr>", desc = "[O]pen Buffers" },
-      -- "<leader>sb" copied to:
+
+      -- "leader ,", switch buffer:
+      { "<leader>o", "<cmd>Telescope buffers show_all_buffers=true<cr>", desc = "[O]ther buffers" },
+      { "<leader>,", false }, -- disable to use harpoon
+
+      -- "leader /", live grep:
       {
-        "<leader>/",
+        "<leader>e",
+        function()
+          Util.telescope("live_grep", require("telescope.themes").get_ivy({}))()
+        end,
+        desc = "Gr[e]p (root)",
+      },
+      {
+        "<leader>/", -- buffer fuzzy find, from "leader sb"
         function()
           require("telescope.builtin").current_buffer_fuzzy_find(require("telescope.themes").get_dropdown({
             winblend = 10,
             previewer = false,
           }))
         end,
-        desc = "S[/]earch Current Buffer",
+        desc = "Search in buffer",
       },
+
       -- ---------------------------------------------
-      -- adding ....
+      -- add new bindings:
       -- ---------------------------------------------
-      -- "<leader><space>", same as "<leader>ff":
-      { "<leader>e", Util.telescope("files"), desc = "[E]xplore Files (root)" },
-      -- "<leader>/":
-      { "<leader>r", Util.telescope("live_grep"), desc = "G[R]ep (root)" },
-      -- "<leader>fR":
-      { "<leader>?", Util.telescope("oldfiles", { cwd = vim.loop.cwd() }), desc = "[O]ld files (cwd)" },
-      { -- the example: Add a keymap to browse plugin files
+      -- oldfiles, from "leader fR":
+      {
+        "<leader>r",
+        function()
+          Util.telescope("oldfiles", { cwd = vim.loop.cwd() })()
+        end,
+        desc = "[R]ecent (cwd)",
+      },
+      -- plugins, from the example:
+      {
         "<leader>fp",
         function()
           require("telescope.builtin").find_files({ cwd = require("lazy.core.config").options.root })
         end,
         desc = "[P]lugin Files",
       },
-      -- git blame commits
-      { "<leader>gb", "<cmd>Telescope git_bcommits<cr>", desc = "Buffer [B]lame Commits" },
-      -- Add telescope builtIn:
-      { "<leader>si", "<cmd>Telescope<cr>", desc = "Telescope Built[I]n" },
+      { "<leader>gb", "<cmd>Telescope git_bcommits<cr>", desc = "Buffer [b]lame Commits" },
+      { "<leader>si", "<cmd>Telescope<cr>", desc = "Telescope built[i]n" },
     },
   },
 
@@ -98,17 +105,20 @@ return {
     event = function()
       return which_key_autoload and { "VeryLazy" } or {}
     end,
-    keys = function() -- Stock LazyVim: no keys
-      return which_key_autoload and {} or { { "<leader>mw", desc = "[W]hich-key" } }
+    keys = function() -- no keys defined in LazyVim
+      -- stylua: ignore start
+      return which_key_autoload and {}
+        or {{ "<leader>mw", function() require("which-key") end, desc = "[W]hich-key" }}
+      -- stylua: ignore end
     end,
     opts = function(_, opts)
       opts.defaults["<leader>q"] = nil -- no submenu, immediate quit
       opts.defaults["<leader>w"] = nil -- no submenu, immediate write
 
       -- delete buffer, session commands and lazy
-      opts.defaults["<leader>m"] = { name = "+[M]isc" }
+      opts.defaults["<leader>m"] = { name = "+[m]isc" }
       opts.defaults["gz"] = nil
-      opts.defaults["<leader>z"] = { name = "+[Z]urround" }
+      opts.defaults["<leader>z"] = { name = "+[z]urround" }
       return opts
     end,
   },
@@ -172,7 +182,7 @@ return {
 
   {
     "takac/vim-hardtime",
-    -- lazy = false,
+    lazy = false,
     init = function()
       vim.g.hardtime_default_on = 1
     end,
@@ -218,34 +228,36 @@ return {
   },
 
   {
-    -- keys seen in other configs:
-    -- <leader> ha hn hp ht
-    -- ctrln ctrpp for prev and next
+    -- keys seen in other configs: <leader> ha hn hp ht, ctrln ctrlp for prev and next
     "ThePrimeagen/harpoon",
-    -- stylua: ignore start
-    keys = {
-      { "<leader>h",
-        function()
-          return require("harpoon.ui").toggle_quick_menu()
-        end, desc = "[H]arpoon",},
-      { "<leader>fh",
-        function()
-          local num = tonumber(vim.fn.input("GoTo terminal window number: "))
-          require("harpoon.term").gotoTerminal(num)
-        end, desc = "[H]arpoon Terminal Window", },
-      { "mm",
-        function()
-          return require("harpoon.mark").add_file()
-        end, desc = "Harpoon [M]ark", },
+    keys = function()
+      local function nav(a_number)
+        require("harpoon.ui").nav_file(a_number)
+      end
 
-      -- fast access: "as"
-      -- fast access: "zx"
-      { "ma", function() return require("harpoon.ui").nav_file(1) end, desc = "Harpoon File 1", },
-      { "ms", function() return require("harpoon.ui").nav_file(2) end, desc = "Harpoon File 2", },
-      { "mz", function() return require("harpoon.ui").nav_file(3) end, desc = "Harpoon File 3", },
-      { "mx", function() return require("harpoon.ui").nav_file(4) end, desc = "Harpoon File 4", },
-    },
-    -- stylua: ignore end
+      return {
+        -- stylua: ignore start
+        { "<leader>,",
+          function()
+            require("harpoon.ui").toggle_quick_menu()
+          end, desc = "[H]arpoon", },
+        { "ma",
+          function()
+            require("harpoon.mark").add_file()
+          end, desc = "Harpoon [A]dd", },
+        { "<leader>h", function() nav(1) end, desc = "Harpoon 1", },
+        { "<leader>j", function() nav(2) end, desc = "Harpoon 2", },
+        { "<leader>k", function() nav(3) end, desc = "Harpoon 3", },
+        { "<leader>l", function() nav(4) end, desc = "Harpoon 4", },
+
+        { "<leader>fh",
+          function()
+            local num = tonumber(vim.fn.input("GoTo terminal window number: "))
+            require("harpoon.term").gotoTerminal(num)
+          end, desc = "[H]arpoon Terminal Window" },
+        -- stylua: ignore end
+      }
+    end,
     opts = { tabline = false },
   },
 

@@ -54,6 +54,14 @@ return {
   },
 
   {
+    "lunarvim/lunar.nvim",
+    name = "colors_lunar",
+    main = "lunar",
+    lazy = is_lazy,
+    cond = is_cond,
+  },
+
+  {
     "lunarvim/onedarker.nvim",
     name = "colors_onedarker",
     main = "onedarker",

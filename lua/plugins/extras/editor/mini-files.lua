@@ -13,7 +13,7 @@ return {
       },
     },
     keys = {
-      { -- Oil has key "mk", copy <leader>fm to "ml"
+      { -- Oil has key "mk", copy LazyVim's <leader>fm to "ml"
         "ml",
         function()
           require("mini.files").open(vim.api.nvim_buf_get_name(0), true)

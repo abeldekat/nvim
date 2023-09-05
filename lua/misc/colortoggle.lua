@@ -16,7 +16,7 @@ function M.add_toggle(opts)
     vim.defer_fn(function()
       vim.api.nvim_echo({ { info, "InfoMsg" } }, true, {})
     end, 250)
-  end, { desc = "[A]lternate Colors" })
+  end, { desc = "[A]lternate colors" })
 end
 
 return M

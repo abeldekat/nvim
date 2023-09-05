@@ -1,5 +1,4 @@
 -- Keymaps are automatically loaded on the VeryLazy event
--- Add any additional keymaps here
 --
 -- disabled bufferline, removes mappings pin with leader bP and bp
 -- disabled neotree: leader e available
@@ -7,36 +6,25 @@
 -- remapped persistence to "leader z": leader q available
 -- remapped all "leader w": leader w available
 --
--- Important differences: Old neovim config to stock lazy:
--- Buffers: "leader r" is "leader ,"
--- Find files: "leader e" is leader leader(git files...)
--- Live grep: "leader r" is "leader /"
--- Recent files: "leader o" is "leader fr"
--- Alternate: "leader a" is "leader `"
--- Split window: is "leader -" and "leader |"
+-- file navigation design:
 --
--- new file browse design:
+-- "leader space": LazyVim default, telescope files
+-- "leader o": telescope switch buffer
+-- "leader ,": harpoon ui, replacing telescope switch buffer
 --
--- "leader leader": not needed, available
--- "leader l": not needed, available
--- "leader ,": not needed, available
--- "leader b": mini.bufremove, not used often
--- "leader h": harpoon ui
--- "leader o": telescope open buffers
--- "leader /": telescope current buffer search
--- "leader e": telescope git files
--- "leader r": telescope grep files
--- "leader ?": telescope oldfiles, current working dir
+-- "leader h": harpoon file 1
+-- "leader j": harpoon file 2
+-- "leader k": harpoon file 3
+-- "leader l": harpoon file 4
 --
--- "mk": oil
+-- "leader e": telescope live grep, replacing neotree
+-- "leader /": telescope current buffer search, replacing telescope live grep
+-- "leader r": telescope oldfiles, current working dir
+--
+-- Special mark keys(a, k, l):
+-- "ma": harpoon add
+-- "mk": oil file browser (strongest rolling fingers...)
 -- "ml": mini file browser
-
--- See lazyvim config keymaps.lua, without the lazy keymaps check
--- local function map(mode, lhs, rhs, opts)
---   opts = opts or {}
---   opts.silent = opts.silent ~= false
---   vim.keymap.set(mode, lhs, rhs, opts)
--- end
 
 local Util = require("lazyvim.util")
 
@@ -63,7 +51,7 @@ for _, key in pairs({
   "<c-/>", -- dummy which key, lazyterm
   "<S-h>", -- bprev
   "<S-l>", -- bnext
-  "<leader>l", -- lazy
+  -- "<leader>l", -- lazy, now harpoon 4
   "<leader>L", -- lazy changelog
   "<leader>wd", -- delete window, <C-W>c, now just quit
   "<leader>ww", -- other window, <C-W>p, not necessary
@@ -88,7 +76,7 @@ end
 
 -- right hand improvement:
 -- c-n can behave like j and enter, also sometimes "next":
-map("n", "<C-N>", "<C-d>zz", { desc = "Dow[N] half page, better ctrl-d" })
+map("n", "<C-N>", "<C-d>zz", { desc = "Dow[n] half page, better ctrl-d" })
 
 --------------------------------------------------------------------------
 -- Add mappings
@@ -100,14 +88,14 @@ map("n", "<leader><tab>s", "<cmd>tabs<cr>", { desc = "[S]how Tabs" })
 -- Remap all leader q mappings, see unmap above
 -- Step 1: See plugins, util, persistence, override q keys
 -- Step 2: map("n", "<leader>qq", "<cmd>qa<cr>", { desc = "Quit all" })
-map("n", "<leader>q", "<cmd>q<cr>", { desc = "Faster [Q]uit" })
+map("n", "<leader>q", "<cmd>q<cr>", { desc = "[Q]uit" })
 -- Lazy uses ctrl-s
-map("n", "<leader>w", "<cmd>w<cr><esc>", { desc = "Faster [W]rite" })
+map("n", "<leader>w", "<cmd>w<cr><esc>", { desc = "[W]rite" })
 
 -- Remap lazy ui, leader l now available, see unmap above
-map("n", "<leader>mz", "<cmd>Lazy<cr>", { desc = "La[Z]y" })
+map("n", "<leader>mz", "<cmd>Lazy<cr>", { desc = "La[z]y" })
 -- LazyVim Changelog, see unmap above
-map("n", "<leader>mC", Util.changelog, { desc = "Lazy [C]hangelog" })
+map("n", "<leader>mC", Util.changelog, { desc = "Lazy [c]hangelog" })
 
 --------------------------------------------------------------------------
 -- Primeagen:

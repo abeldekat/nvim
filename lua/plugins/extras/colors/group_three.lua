@@ -1,3 +1,7 @@
+-- Test:askify/visual_studio_code
+-- Test:talha-akram/noctis.nvim
+-- Test:verf/deepwhite.nvim
+
 local Dynamic = require("misc.colorscheme")
 local is_lazy = true
 local is_cond = true
@@ -11,18 +15,6 @@ return {
     branch = "neovim",
     config = function()
       vim.o.background = Dynamic.prefer_light and "light" or "dark"
-    end,
-    lazy = is_lazy,
-    cond = is_cond,
-  },
-
-  { -- dark and light with soft, "", and hard contrast
-    "ellisonleao/gruvbox.nvim",
-    name = "colors_gruvbox",
-    main = "gruvbox",
-    opts = function()
-      vim.o.background = Dynamic.prefer_light and "light" or "dark"
-      return { contrast = "soft", italic = { strings = false } }
     end,
     lazy = is_lazy,
     cond = is_cond,

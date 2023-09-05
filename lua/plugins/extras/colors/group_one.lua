@@ -51,6 +51,18 @@ return {
     cond = is_cond,
   },
 
+  { -- dark and light with soft, "", and hard contrast
+    "ellisonleao/gruvbox.nvim",
+    name = "colors_gruvbox",
+    main = "gruvbox",
+    opts = function()
+      vim.o.background = Dynamic.prefer_light and "light" or "dark"
+      return { contrast = "soft", italic = { strings = false } }
+    end,
+    lazy = is_lazy,
+    cond = is_cond,
+  },
+
   {
     "rebelot/kanagawa.nvim",
     name = "colors_kanagawa",
@@ -117,14 +129,6 @@ return {
       require("onedarkpro").setup(opts)
       require("onedarkpro.config").set_theme(theme)
     end,
-    lazy = is_lazy,
-    cond = is_cond,
-  },
-
-  {
-    "lunarvim/lunar.nvim",
-    name = "colors_lunar",
-    main = "lunar",
     lazy = is_lazy,
     cond = is_cond,
   },
