@@ -2,11 +2,10 @@ return {
   -- ---------------------------------------------
   -- observing ....
   -- ---------------------------------------------
-  -- NOTE: mini.ai:
-  -- vib, viq, vi?. Mini does not override capital B
-  -- incremental, g[
-  -- in insertmode, press C-v, now the character will not be interpreted by ai
-  -- lazyvim config: vio(treesitter block). Also overrides mini f with treesiter f
+  -- NOTE: mini.ai: see treesitter.lua
+
+  -- NOTE: mini.pairs
+  -- in insertmode, press C-v, now the character will not be interpreted
 
   -- ---------------------------------------------
   -- disabling ....
@@ -36,9 +35,6 @@ return {
   {
     "echasnovski/mini.operators",
     event = "VeryLazy",
-    -- event = function()
-    --   return { "BufReadPost", "BufNewFile", "BufWritePost" } -- VeryLazy
-    -- end,
     -- keys = {
     --   { "cr", desc = "Replace", mode = { "n", "v" } },
     --   { "g=", desc = "Evaluate", mode = { "n", "v" } },

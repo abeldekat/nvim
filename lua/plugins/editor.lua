@@ -182,7 +182,7 @@ return {
 
   {
     "takac/vim-hardtime",
-    lazy = false,
+    lazy = true,
     init = function()
       vim.g.hardtime_default_on = 1
     end,
