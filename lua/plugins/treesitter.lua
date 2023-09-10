@@ -16,28 +16,18 @@ return {
   -- punctuation (like `_`, `*`, `,`, etc.),
   -- whitespace (space, tab, etc.)
   -- --> Without mini.ai, first navigate to identifier
-  --
-  -- dot repeat: missing with treesitter textobject?
-  --
-  -- Is it possible to use mini.ai and textobjects together?
-  -- Removing the overlap, without mini.ai's gen_spec.treesitter?
   {
     "echasnovski/mini.ai",
     enabled = false,
-    -- opts = function(_, opts)
-    --   opts.custom_textobjects = {
-    --     t = false, -- fallback to neovim for tags
-    --   }
-    -- end,
   },
 
   -- treesitter textobjects: b is stock neovim, uses k for block
   {
     "nvim-treesitter/nvim-treesitter",
     dependencies = {
-      -- mini.ai disabled: override lazyvim's dependencies. No need for load_textobjects.
       {
         "nvim-treesitter/nvim-treesitter-textobjects",
+        -- mini.ai disabled: override lazyvim's conditional loading
         init = function() end, -- override
       },
     },
@@ -54,6 +44,11 @@ return {
             ["ic"] = { query = "@class.inner", desc = "inside class" },
             ["a?"] = { query = "@conditional.outer", desc = "around conditional" },
             ["i?"] = { query = "@conditional.inner", desc = "inside conditional" },
+
+            -- TODO: Test this:
+            -- ["at"] = { query = "@function.outer", desc = "around function " },
+            -- ["it"] = { query = "@function.inner", desc = "inside function " },
+
             ["af"] = { query = "@function.outer", desc = "around function " },
             ["if"] = { query = "@function.inner", desc = "inside function " },
             ["al"] = { query = "@loop.outer", desc = "around loop" },
@@ -107,7 +102,7 @@ return {
       })
     end,
     config = function(_, opts) -- override
-      -- mini.ai disabled: No need for load_textobjects.
+      -- mini.ai disabled: override lazyvim's conditional loading
 
       if type(opts.ensure_installed) == "table" then
         ---@type table<string, boolean>
