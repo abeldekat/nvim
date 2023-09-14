@@ -17,7 +17,6 @@
 -- }
 
 -- basic
--- vim.opt.cmdheight = 0
 vim.opt.showtabline = 0 -- never show tabs, 1 is default, 2, -- always show tabs
 vim.opt.colorcolumn = "80"
 
@@ -29,17 +28,14 @@ vim.opt.colorcolumn = "80"
 vim.opt.timeoutlen = 600 --300
 
 -- folding
-vim.opt.foldenable = true
-vim.opt.foldcolumn = "0"
 vim.opt.foldmethod = "expr"
 vim.opt.foldexpr = "nvim_treesitter#foldexpr()"
-vim.opt.foldlevel = 99 -- set high foldlevel for nvim-ufo
-vim.opt.foldlevelstart = 99 -- start with all code unfolded
+vim.opt.foldlevel = 99
 
 -- checkhealth:
 vim.g.python3_host_prog = "/usr/bin/python" -- archlinux: global python-pynvim
 
--- TODO: Find out what this means:
+-- TODO:
 -- vim.g.loaded_python3_provider = 0
 -- vim.g.loaded_perl_provider = 0
 -- vim.g.loaded_ruby_provider = 0

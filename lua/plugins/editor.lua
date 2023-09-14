@@ -7,17 +7,26 @@ local Util = require("lazyvim.util")
 local which_key_autoload = false
 
 return {
+
+  -- ---------------------------------------------
+  -- observing ....
+  -- ---------------------------------------------
+  -- NOTE: vim-illuminate:
+  --
+  -- lazyvim overrides(using require("illuminate")["goto_" .. dir .. "_reference"](false)):
+  -- [[ section backward or to the previous "{" in the first column.
+  -- ]] section forwards or to the next "{" in the first column.
+  -- quote:
+  -- You'll also get <a-n> and <a-p> as keymaps to move between references
+  -- and <a-i> as a textobject for the reference illuminated under the cursor.
+  -- { "RRethy/vim-illuminate", enabled = false },
+
   -- ---------------------------------------------
   -- disabling ....
   -- ---------------------------------------------
   { "nvim-neo-tree/neo-tree.nvim", enabled = false },
-
-  -- NOTE: vim-illuminate:
-  -- <a-n>, <a-p> as keymaps, <a-i> as textobject, without the i and a verbs
-  -- lazyvim also provides reference movements:[[,]], Not overridden: [], ][
-  -- --> replace with mini.cursorword:
-  -- disadvantage: no prev and next with treesitter/lsp/regexp
-  { "RRethy/vim-illuminate", enabled = false },
+  -- use bdelete[!], or bwipeout
+  { "echasnovski/mini.bufremove", enabled = false },
 
   -- ---------------------------------------------
   -- overriding ....
@@ -112,6 +121,7 @@ return {
       -- stylua: ignore end
     end,
     opts = function(_, opts)
+      opts.defaults["<leader>b"] = nil
       opts.defaults["<leader>q"] = nil -- no submenu, immediate quit
       opts.defaults["<leader>w"] = nil -- no submenu, immediate write
 
@@ -145,26 +155,6 @@ return {
     },
   },
 
-  -- {
-  --   "echasnovski/mini.comment",
-  --   event = function()
-  --     return { "BufReadPost", "BufNewFile", "BufWritePost" } -- VeryLazy
-  --   end,
-  -- },
-  --
-  -- {
-  --   "echasnovski/mini.pairs",
-  --   event = function()
-  --     return { "BufReadPost", "BufNewFile", "BufWritePost" } -- VeryLazy
-  --   end,
-  -- },
-  --
-  -- {
-  --   "echasnovski/mini.ai",
-  --   event = function()
-  --     return { "BufReadPost", "BufNewFile", "BufWritePost" } -- VeryLazy
-  --   end,
-  -- },
   -- ---------------------------------------------
   -- adding ....
   -- ---------------------------------------------
@@ -202,9 +192,6 @@ return {
     end,
   },
 
-  -- replaces vim-illuminate
-  { "echasnovski/mini.cursorword", event = { "BufReadPost", "BufNewFile" }, config = true },
-
   { --To map /: use <C-_> instead of <C-/>.
     "akinsho/toggleterm.nvim",
     version = "*",
@@ -227,8 +214,7 @@ return {
     },
   },
 
-  {
-    -- keys seen in other configs: <leader> ha hn hp ht, ctrln ctrlp for prev and next
+  { -- keys seen in other configs: <leader> ha hn hp ht, ctrln ctrlp for prev and next
     "ThePrimeagen/harpoon",
     keys = function()
       local function nav(a_number)
@@ -297,8 +283,7 @@ return {
     },
   },
 
-  -- git blame
-  {
+  { -- git blame
     "f-person/git-blame.nvim",
     cmd = "GitBlameToggle",
     keys = {

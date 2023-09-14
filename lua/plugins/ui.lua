@@ -2,29 +2,21 @@ return {
   -- ---------------------------------------------
   -- observing ....
   -- ---------------------------------------------
-  -- NOTE: mini.indentscope, in ui:
-  -- augments indent_blankline with current indent
-  -- also creates textobjects: The "i" object scope
-  -- [i: goto top, ]i goto bottom
+  -- NOTE: mini.indentscope: augments indent_blankline with current indent
+  -- has textobjects: The "i" object scope [i: goto top, ]i goto bottom
 
   -- ---------------------------------------------
   -- disabling ....
   -- ---------------------------------------------
   -- always disabled:
   { "akinsho/bufferline.nvim", enabled = false },
-  -- testing:
-  -- { "stevearc/dressing.nvim", enabled = false },
-  -- { "rcarriga/nvim-notify", enabled = false },
-  --
-  -- { "echasnovski/mini.indentscope", enabled = false },
-  -- { "lukas-reineke/indent-blankline.nvim", enabled = false },
+  { "rcarriga/nvim-notify", enabled = false },
 
   -- ---------------------------------------------
   -- overriding ....
   -- ---------------------------------------------
   {
     "folke/noice.nvim",
-    -- enabled = false,
     keys = {
       { "<S-Enter>", false, mode = "c" }, -- does not trigger, change to alt
       {
@@ -77,7 +69,7 @@ return {
       table.insert(opts.sections.lualine_x, "encoding")
       opts.sections.lualine_y = { "progress" } -- default lualine
       opts.sections.lualine_z = { "location" } -- default lualine
-      -- opts.extensions = {} -- this costs peformance? Loads devicons...
+      -- opts.extensions = {} -- peformance? Loads devicons...
       --
       return opts
     end,
@@ -91,9 +83,7 @@ return {
         if vim.fn.argc() > 0 then
           return false
         end
-
-        -- more logic here
-
+        -- ... more logic here
         return true
       end
 
@@ -121,27 +111,10 @@ return {
   -- adding ....
   -- ---------------------------------------------
 
-  -- { -- also deprecated, maybe move to https://gitlab.com/HiPhish/rainbow-delimiters.nvim
-  --   "nvim-treesitter/nvim-treesitter",
-  --   dependencies = { "HiPhish/rainbow-delimiters.nvim" },
-  --   opts = function(_, opts)
-  --     opts.rainbow = {
-  --       enable = true,
-  --       query = "rainbow-delimiters",
-  --       strategy = require("rainbow-delimiters").strategy.global,
-  --     }
-  --   end,
-  -- },
-
   -- { -- using mini-hipatterns:
   --   "norcalli/nvim-colorizer.lua",
   --   keys = {
-  --     {
-  --       "<leader>uz",
-  --       mode = { "n" },
-  --       "<cmd>ColorizerToggle<cr>",
-  --       desc = { "Toggle Colorizer" },
-  --     },
+  --     { "<leader>uz", mode = { "n" }, "<cmd>ColorizerToggle<cr>", desc = { "Toggle Colorizer" },},
   --   },
   --   config = true,
   -- },

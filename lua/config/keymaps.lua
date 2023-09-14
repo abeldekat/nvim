@@ -1,6 +1,7 @@
 -- Keymaps are automatically loaded on the VeryLazy event
 --
 -- disabled bufferline, removes mappings pin with leader bP and bp
+-- disabled mini.bufremove: leader b available
 -- disabled neotree: leader e available
 -- remapped lazy "leader l" to leader zz: leader l available
 -- remapped persistence to "leader z": leader q available
@@ -51,6 +52,7 @@ for _, key in pairs({
   "<c-/>", -- dummy which key, lazyterm
   "<S-h>", -- bprev
   "<S-l>", -- bnext
+  "<leader>bb", -- switch to other buffer, using: <leader>`
   -- "<leader>l", -- lazy, now harpoon 4
   "<leader>L", -- lazy changelog
   "<leader>wd", -- delete window, <C-W>c, now just quit

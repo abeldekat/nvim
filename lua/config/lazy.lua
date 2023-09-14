@@ -8,11 +8,6 @@ vim.opt.rtp:prepend(vim.env.LAZY or lazypath)
 -- approach: group each extra with its override
 local full_spec = {
   { "LazyVim/LazyVim", import = "lazyvim.plugins" },
-  --> editor:
-  { import = "lazyvim.plugins.extras.editor.mini-files" },
-  { import = "plugins.extras.editor.mini-files" },
-  --> ui:
-  -- { import = "lazyvim.plugins.extras.ui.mini-starter" },
   --> util:
   -- { import = "lazyvim.plugins.extras.util.mini-hipatterns" },
   --> test:
@@ -33,15 +28,15 @@ local full_spec = {
   -- { import = "plugins.extras.colors.group_three" },
 
   -- currently operator pending is discouraged:
-  { "echasnovski/mini.clue", lazy = true },
   -- { import = "plugins.extras.editor.mini-clue" }, -- added, not in LazyVim
 }
 
-local dev_plugins = {} -- { "LazyVim", "lazy.nvim" } -- jit.os:find("Windows") and {}
-local fallback = false -- default
+-- local dev_plugins = { "LazyVim" } -- jit.os:find("Windows") and {}
+local dev_plugins = {}
 require("lazy").setup({
   spec = full_spec,
-  dev = { path = "~/projects/lazydev", patterns = dev_plugins, fallback = fallback },
+  ---@diagnostic disable-next-line:assign-type-mismatch
+  dev = { path = "~/projects/lazydev", patterns = dev_plugins }, -- fallback false
   defaults = {
     lazy = false,
     version = false, -- always use the latest git commit, recommended for now

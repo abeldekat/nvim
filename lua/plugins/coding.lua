@@ -3,9 +3,7 @@ return {
   -- observing ....
   -- ---------------------------------------------
   -- NOTE: mini.ai: see treesitter.lua
-
-  -- NOTE: mini.pairs
-  -- in insertmode, press C-v, now the character will not be interpreted
+  -- NOTE: mini.pairs, insertmode, press C-v, the character will not be paired
 
   -- ---------------------------------------------
   -- disabling ....
