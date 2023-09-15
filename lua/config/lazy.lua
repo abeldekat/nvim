@@ -26,9 +26,6 @@ local full_spec = {
   { import = "plugins.extras.colors.group_one" },
   -- { import = "plugins.extras.colors.group_two" },
   -- { import = "plugins.extras.colors.group_three" },
-
-  -- currently operator pending is discouraged:
-  -- { import = "plugins.extras.editor.mini-clue" }, -- added, not in LazyVim
 }
 
 -- local dev_plugins = { "LazyVim" } -- jit.os:find("Windows") and {}
