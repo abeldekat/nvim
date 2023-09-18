@@ -5,6 +5,7 @@ require("misc.colortoggle").add_toggle({
     "onedark",
     "onedark_dark",
     "onelight",
+    "rio",
   },
   toggle = function(flavour)
     vim.cmd.colorscheme(flavour)

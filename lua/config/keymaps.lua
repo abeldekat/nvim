@@ -126,3 +126,4 @@ map("n", "<C-u>", "<C-u>zz", { desc = "better ctrl-u" })
 -- c-w x: swap current with next
 -- c-w w: switch windows
 -- :tab help -- open help in new tab
+-- M: meta, alt

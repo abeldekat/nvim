@@ -1,7 +1,6 @@
--- { -- testing lazy loading vim functions call floaterm#new(v:true, 'fzf', {}, {})
---   "voldikss/vim-floaterm",
---   lazy = true, -- as expected, cannot call the function when lazy
--- },
+local dummy_function = function()
+  return {}
+end
 
 local Util = require("lazyvim.util")
 local which_key_autoload = false
@@ -24,9 +23,11 @@ return {
   -- ---------------------------------------------
   -- disabling ....
   -- ---------------------------------------------
-  { "nvim-neo-tree/neo-tree.nvim", enabled = false },
+  -- stylua: ignore start
+  { "nvim-neo-tree/neo-tree.nvim", enabled = false, keys = dummy_function, cmd = dummy_function},
   -- use bdelete[!], or bwipeout
-  { "echasnovski/mini.bufremove", enabled = false },
+  { "echasnovski/mini.bufremove", enabled = false, keys = dummy_function},
+  -- stylua: ignore end
 
   -- ---------------------------------------------
   -- overriding ....

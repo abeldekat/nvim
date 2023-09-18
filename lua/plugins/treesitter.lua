@@ -3,7 +3,7 @@
 
 return {
 
-  -- Note: Mini does not override capital B
+  -- Mini.ai, disabled in coding.lua.
   --
   -- incremental, g[: never used...
   -- ia b: alias for [({, use vim's b and B
@@ -16,10 +16,6 @@ return {
   -- punctuation (like `_`, `*`, `,`, etc.),
   -- whitespace (space, tab, etc.)
   -- --> Without mini.ai, first navigate to identifier
-  {
-    "echasnovski/mini.ai",
-    enabled = false,
-  },
 
   -- treesitter textobjects: b is stock neovim, uses k for block
   {

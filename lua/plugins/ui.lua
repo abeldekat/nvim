@@ -1,20 +1,61 @@
+local dummy_function = function()
+  return {}
+end
+
 return {
   -- ---------------------------------------------
   -- observing ....
   -- ---------------------------------------------
-  -- NOTE: mini.indentscope: augments indent_blankline with current indent
-  -- has textobjects: The "i" object scope [i: goto top, ]i goto bottom
 
   -- ---------------------------------------------
   -- disabling ....
   -- ---------------------------------------------
-  -- always disabled:
-  { "akinsho/bufferline.nvim", enabled = false },
-  { "rcarriga/nvim-notify", enabled = false },
+  -- stylua: ignore start
+  { "akinsho/bufferline.nvim", enabled = false, keys = dummy_function, event = dummy_function },
+  { "rcarriga/nvim-notify", enabled = false, keys = dummy_function },
+  { "echasnovski/mini.indentscope", enabled = false, event = dummy_function },
+  -- stylua: ignore end
 
   -- ---------------------------------------------
   -- overriding ....
   -- ---------------------------------------------
+  { -- adds "[i", "]i", replacing mini.indentscope
+    "lukas-reineke/indent-blankline.nvim",
+    opts = {
+      -- replacing mini.indentscope:
+      -- note: use other textobjects for ii/ai, example: viB
+      show_current_context = true,
+      show_current_context_start = false,
+    },
+    config = function(_, opts)
+      local function current_context()
+        return require("indent_blankline.utils").get_current_context(
+          vim.g.indent_blankline_context_patterns,
+          vim.g.indent_blankline_use_treesitter_scope
+        )
+      end
+      local function add_go_to_indent_scope_key(context_callback, keymap, desc)
+        vim.keymap.set({ "n", "x" }, keymap, function() -- nvchad
+          local ok, move_to = context_callback()
+          if ok then
+            vim.api.nvim_win_set_cursor(vim.api.nvim_get_current_win(), { move_to, 0 })
+            vim.cmd([[normal! _]])
+          end
+        end, { desc = desc })
+      end
+
+      require("indent_blankline").setup(opts)
+      add_go_to_indent_scope_key(function()
+        local ok, node_start = current_context()
+        return ok, node_start
+      end, "[i", "Go to indent scope top")
+      add_go_to_indent_scope_key(function()
+        local ok, _, node_end = current_context()
+        return ok, node_end
+      end, "]i", "Go to indent scope bottom")
+    end,
+  },
+
   {
     "folke/noice.nvim",
     keys = {
