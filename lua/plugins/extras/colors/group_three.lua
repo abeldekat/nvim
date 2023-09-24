@@ -8,6 +8,17 @@ local is_cond = true
 
 return {
 
+  { -- has its own toggle_style
+    "ribru17/bamboo.nvim",
+    name = "colors_bamboo",
+    main = "bamboo",
+    opts = function()
+      return { style = "vulgaris", toggle_style_key = "<leader>a" }
+    end,
+    lazy = is_lazy,
+    cond = is_cond,
+  },
+
   { --combi dark and light ("", low, flat, hight). Skip high
     "lifepillar/vim-solarized8",
     name = "colors_solarized8",
@@ -35,21 +46,6 @@ return {
       vim.g.gruvbox_baby_transparent_mode = false
 
       vim.g.gruvbox_baby_background_color = "medium"
-    end,
-    lazy = is_lazy,
-    cond = is_cond,
-  },
-
-  { -- dark and light with soft, medium and hard contrast. Three palettes.
-    "sainnhe/gruvbox-material",
-    name = "colors_gruvbox-material",
-    main = "gruvbox-material",
-    config = function()
-      vim.g.gruvbox_material_better_performance = 1
-
-      vim.o.background = Dynamic.prefer_light and "light" or "dark"
-      vim.g.gruvbox_material_background = "soft"
-      vim.g.gruvbox_material_foreground = "material"
     end,
     lazy = is_lazy,
     cond = is_cond,

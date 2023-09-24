@@ -250,12 +250,11 @@ return {
 
   {
     "stevearc/oil.nvim",
-    -- stylua: ignore
-    keys = {{ "mk", "<cmd>Oil<cr>", desc = "Oil Open Directory" }},
-    -- stylua: ignore
+    keys = { { "mk", "<cmd>Oil<cr>", desc = "Oil Open Directory" } },
     dependencies = { "nvim-tree/nvim-web-devicons" },
     init = function() -- see LazyVim, neotree
       if vim.fn.argc() == 1 then
+        ---@diagnostic disable-next-line: param-type-mismatch
         local stat = vim.loop.fs_stat(vim.fn.argv(0))
         if stat and stat.type == "directory" then
           require("oil")
@@ -263,24 +262,21 @@ return {
       end
     end,
     opts = {
-      keymaps = {
-        ["g?"] = "actions.show_help",
-        -- ["<CR>"] = "actions.select",
-        ["l"] = "actions.select", -- changed
-        ["<C-s>"] = "actions.select_vsplit",
-        ["<C-h>"] = "actions.select_split",
-        ["<C-t>"] = "actions.select_tab",
-        ["<C-p>"] = "actions.preview",
-        ["<C-c>"] = "actions.close",
-        ["<C-l>"] = "actions.refresh",
-        -- ["-"] = "actions.parent", -- changed
-        ["h"] = "actions.parent",
-        ["_"] = "actions.open_cwd",
-        ["`"] = "actions.cd",
-        ["~"] = "actions.tcd",
-        ["g."] = "actions.toggle_hidden",
+      keymaps = { -- ["g?"] = "actions.show_help",
+        ["<CR>"] = false,
+        ["l"] = "actions.select", --  "CR"
+        ["<C-h>"] = false,
+        ["<C-s>"] = "actions.select_split", --  "C-h" window navigation
+        ["<C-v>"] = "actions.select_vsplit", -- "C-s"
+        ["<C-c>"] = false,
+        ["q"] = "actions.close", --  "<C-c>"
+        ["<C-l>"] = false,
+        ["<C-r>"] = "actions.refresh", --  "C-l" window navigation
+        ["-"] = false,
+        ["h"] = "actions.parent", --  "-"
+        ["_"] = false, -- "actions.open_cwd"
       },
-      use_default_keymaps = false, -- changed
+      use_default_keymaps = true, -- false
     },
   },
 

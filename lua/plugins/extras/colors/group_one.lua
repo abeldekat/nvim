@@ -2,6 +2,7 @@ local Dynamic = require("misc.colorscheme")
 local is_lazy = true
 local is_cond = true
 
+-- lazyvim: tokyonight and catppuccin
 return {
 
   {
@@ -51,18 +52,6 @@ return {
     cond = is_cond,
   },
 
-  { -- dark and light with soft, "", and hard contrast
-    "ellisonleao/gruvbox.nvim",
-    name = "colors_gruvbox",
-    main = "gruvbox",
-    opts = function()
-      vim.o.background = Dynamic.prefer_light and "light" or "dark"
-      return { contrast = "soft", italic = { strings = false } }
-    end,
-    lazy = is_lazy,
-    cond = is_cond,
-  },
-
   {
     "rebelot/kanagawa.nvim",
     name = "colors_kanagawa",
@@ -92,7 +81,7 @@ return {
     name = "colors_onedark",
     main = "onedark",
     opts = function()
-      local style = Dynamic.prefer_light == true and "light" or "warm"
+      local style = Dynamic.prefer_light == true and "light" or "dark"
       local styles = {
         "warm",
         "light",
@@ -128,6 +117,47 @@ return {
       local theme = Dynamic.prefer_light and "onelight" or "onedark_vivid"
       require("onedarkpro").setup(opts)
       require("onedarkpro.config").set_theme(theme)
+    end,
+    lazy = is_lazy,
+    cond = is_cond,
+  },
+
+  { -- dark and light with soft, "", and hard contrast
+    "ellisonleao/gruvbox.nvim",
+    name = "colors_gruvbox",
+    main = "gruvbox",
+    opts = function()
+      vim.o.background = Dynamic.prefer_light and "light" or "dark"
+      return { contrast = "soft", italic = { strings = false } }
+    end,
+    lazy = is_lazy,
+    cond = is_cond,
+  },
+
+  { -- dark and light with soft, medium and hard contrast. Three palettes.
+    "sainnhe/gruvbox-material",
+    name = "colors_gruvbox-material",
+    main = "gruvbox-material",
+    config = function()
+      vim.g.gruvbox_material_better_performance = 1
+
+      vim.o.background = Dynamic.prefer_light and "light" or "dark"
+      vim.g.gruvbox_material_background = "soft"
+      vim.g.gruvbox_material_foreground = "material"
+    end,
+    lazy = is_lazy,
+    cond = is_cond,
+  },
+
+  { -- 6 flavours, no light theme
+    "loctvl842/monokai-pro.nvim",
+    name = "colors_monokai",
+    main = "monokai-pro",
+    config = function()
+      local opts = {
+        filter = "pro",
+      }
+      require("monokai-pro").setup(opts)
     end,
     lazy = is_lazy,
     cond = is_cond,

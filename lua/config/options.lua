@@ -19,6 +19,7 @@
 -- basic
 vim.opt.showtabline = 0 -- never show tabs, 1 is default, 2, -- always show tabs
 vim.opt.colorcolumn = "80"
+vim.opt.cmdheight = 0
 
 -- splits
 -- vim.opt.splitbelow = false -- Put new windows below current

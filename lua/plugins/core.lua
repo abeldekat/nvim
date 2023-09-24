@@ -3,11 +3,11 @@ Icons & colorscheme can be configured as options for the LazyVim plugin.
 
 Each colorscheme has a corresponding file in the colors directory.
 Purpose:
-  as an indicator for dmenu selection
-  when applicable, setup <leader>a to switch palettes
+  - as an entry to dmenu selection
+  - when applicable, setup <leader>a to switch palettes
 
 Some colorschemes need to be activated with "load", because in the config
-a default theme other than the name has been configured
+a default theme other than the plugin name has been configured
 --]]
 
 local use_load = { "nightfox", "onedark", "onedarkpro" }

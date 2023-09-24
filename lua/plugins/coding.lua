@@ -28,7 +28,7 @@ return {
   -- ---------------------------------------------
 
   { -- replacing mini.comment(VeryLazy):
-    "numToStr/Comment.nvim",
+    "numToStr/Comment.nvim", --astronvim
     keys = {
       { "gc", mode = { "n", "v" }, desc = "Comment toggle linewise" },
       { "gb", mode = { "n", "v" }, desc = "Comment toggle blockwise" },
@@ -41,7 +41,7 @@ return {
 
   { -- replacing mini.pairs
     -- note: insertmode, press C-v, the character will not be paired
-    "windwp/nvim-autopairs",
+    "windwp/nvim-autopairs", -- astronvim
     event = "InsertEnter",
     opts = {
       check_ts = true,
@@ -69,18 +69,48 @@ return {
     end,
   },
 
+  { -- replacing mini.ai, also providing ii/ai textobjects
+    -- NOTE: WIP
+
+    --> subWord aS/iS, camelcase, _,-,.
+    --> lineCharacterwise i_,a_, current line characterwise
+    --> entireBuffer gG
+
+    --> indentation ii ai iI aI
+    --> restOfIndentation R
+    --> restOfParagraph r, like }, but linewise
+    --
+    -- toNextClosingBracket C
+    -- toNextQuotationMark Q
+    -- column |, column down until indent
+    "chrisgrieser/nvim-various-textobjs",
+    event = { "BufReadPost", "BufNewFile" },
+    -- event = "InsertEnter",
+    opts = {
+      useDefaultKeymaps = true,
+      disabledKeymaps = {
+        -- overrides next search result:
+        "n", -- nearEol, from cursor to end of line minus one
+        -- not that useful
+        "ag", -- greedyOuterIndentation ag/ig
+        "ig",
+      },
+    },
+  },
+
   -- replacing mini.surround:
-  -- curly square round angle...
-  -- B {}, curly [B]rackets, braces, bretels, braces programming
-  -- r [], squa[r]e brackets, brackets[US]
-  -- b (), [b]rackets[UK], round brackets, parenthesis, parens
+  -- b (), round brackets, [b]rackets(UK), parenthesis, parens
+  -- B {}, curly [B]rackets, braces, bretels, "braces programming"
   -- a <>, [a]ngle brackets, chevrons(v shape)
+  -- r [], squa[r]e brackets, brackets[US]
   --
   -- tabular aliases, only when modifying existing, the nearest such pair:
   -- q, quotes { '"', "'", "`" },
   -- s, symbols: brackets and quotes { "}", "]", ")", ">", '"', "'", "`" },
   -- Note: Tabular aliases cannot be used to add surrounding pairs, e.g. `ysa)q` is
   -- invalid, since it's ambiguous which pair should be added.
+  --
+  --  Invalid keys are accepted: "di ", deletes the word surrounded by spaces
   --
   -- jumping preference
   -- * pairs that surround the cursor, before
@@ -89,20 +119,19 @@ return {
   {
     "kylechui/nvim-surround",
     version = "*",
-    init = function()
-      -- b and B are valid vim motions already:
-      vim.keymap.set("o", "ir", "i[")
-      vim.keymap.set("o", "ar", "a[")
-      vim.keymap.set("o", "ia", "i<")
-      vim.keymap.set("o", "aa", "a<")
-    end,
+    -- init = function()
+    --   -- b and B are valid vim motions already
+    --   -- add a/i to angle and square aliases
+    --   vim.keymap.set("o", "ia", "i<") -- treesitter [a]rgument
+    --   vim.keymap.set("o", "aa", "a<")
+    --   vim.keymap.set("o", "ir", "i[")
+    --   vim.keymap.set("o", "ar", "a[")
+    -- end,
     keys = { -- switch to capital: "surrounding pair on new line"
-
       -- insert: pairs-like behavior. Surround with any char
       { "<C-g>z", desc = "Add a surrounding pair around the cursor (insert mode)", mode = { "i" } },
       -- insert_line
       { "<C-g>Z", desc = "Add a surrounding pair around the cursor, on new lines (insert mode)", mode = { "i" } },
-
       -- normal
       { "yz", desc = "Add a surrounding pair around a motion (normal mode)" },
       -- normal_cur
@@ -111,12 +140,10 @@ return {
       { "yZ", desc = "Add a surrounding pair around a motion, on new lines (normal mode)" },
       -- normal_cur_line
       { "yZZ", desc = "Add a surrounding pair around the current line, on new lines (normal mode)" },
-
       -- visual
       { "Z", desc = "Add a surrounding pair around a visual selection", mode = { "x" } },
       -- visual_line
       { "gZ", desc = "Add a surrounding pair around a visual selection, on new lines", mode = { "x" } },
-
       -- change
       { "dz", desc = "Delete a surrounding pair" },
       -- delete
@@ -124,6 +151,8 @@ return {
       { "cZ", desc = "Change a surrounding pair, on new lines" },
     },
     opts = {
+      -- indent_lines = false
+      -- move_cursor = false
       keymaps = {
         insert = "<C-g>z",
         insert_line = "<C-g>Z",

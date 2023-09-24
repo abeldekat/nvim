@@ -1,3 +1,4 @@
+-- if true then return {} end
 -- Keymaps are automatically loaded on the VeryLazy event
 --
 -- disabled bufferline, removes mappings pin with leader bP and bp
