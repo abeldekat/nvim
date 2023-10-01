@@ -1,7 +1,3 @@
-local dummy_function = function()
-  return {}
-end
-
 return {
   -- ---------------------------------------------
   -- observing ....
@@ -10,14 +6,10 @@ return {
   -- ---------------------------------------------
   -- disabling ....
   -- ---------------------------------------------
-
-  -- stylua: ignore start
-  { "echasnovski/mini.ai", enabled = false, event = dummy_function }, -- see treesitter.lua
-  { "echasnovski/mini.comment", enabled = false, event = dummy_function },
-  { "echasnovski/mini.pairs", enabled = false, event = dummy_function },
-  -- performance: empty the keys to be generated in super.keys:
-  { "echasnovski/mini.surround", enabled = false, opts = function() return { mappings = {} } end},
-  -- stylua: ignore end
+  { "echasnovski/mini.ai", enabled = false }, -- see treesitter.lua
+  { "echasnovski/mini.comment", enabled = false },
+  { "echasnovski/mini.pairs", enabled = false },
+  { "echasnovski/mini.surround", enabled = false },
 
   -- ---------------------------------------------
   -- overriding ....
@@ -83,6 +75,13 @@ return {
     -- toNextClosingBracket C
     -- toNextQuotationMark Q
     -- column |, column down until indent
+
+    -- found in subversive:
+    -- " ie = inner entire buffer
+    -- onoremap ie :exec "normal! ggVG"<cr>
+
+    -- " iv = current viewable text in the buffer
+    -- onoremap iv :exec "normal! HVL"<cr>
     "chrisgrieser/nvim-various-textobjs",
     event = { "BufReadPost", "BufNewFile" },
     -- event = "InsertEnter",
@@ -169,14 +168,63 @@ return {
     },
   },
 
-  { -- cr: replace, gx: exchange, g=:evaluate, gm: multiply, gs: sort
-    -- multiply: overrides half a screen width to the right
-    -- sort: overrides go sleep
-    -- exchange: overrides netrw mapping
-    "echasnovski/mini.operators",
-    event = "VeryLazy",
-    opts = {
-      replace = { prefix = "cr" }, -- lsp: gr is taken...
+  { -- substitute(aka replace): svermeulen/vim-subversive.
+    -- exchange: tommcdo/vim-exchange
+    -- alternative: mini.operators
+    --
+    -- Subversive: undermine, overthrow, overturn
+    -- Abolish: to end an activity or custom
+    -- it's possible to specify the register
+    -- integrations, ie abolish
+    --
+    -- substitute gs: overrides go sleep
+    -- exchange gx: overrides netrw mapping
+    -- range gm: range, overrides half a screen width to the right
+    --
+    -- The line variants:
+    -- nvim-various-textobjs provides line textobject
+    -- "_" is a textobject for current line!
+    --
+    "gbprod/substitute.nvim",
+    keys = {
+      -- stylua: ignore start
+      {"gs", function() require("substitute").operator() end, desc = "Substitute operator"},
+      -- {"gss", function() require("substitute").line() end, desc = "Substitute line"},
+      {"gs", function() require("substitute").visual() end, mode = {"x"}, desc = "Substitute visual"},
+      -- no "S" for eol, use dollar
+
+      {"gx", function() require("substitute.exchange").operator() end, desc = "Exchange operator"},
+      -- {"gxx", function() require("substitute.exchange").line() end, desc = "Exchange line"},
+      {"gx", function() require("substitute.exchange").visual() end, mode = {"x"}, desc = "Exchange visual"},
+
+      -- Using gm instead of <leader>s.
+      -- Mnemonic for now: go more, go multiply as in mini.operators
+      -- also uses a register if specified, instead of the prompt
+      {"gm", function() require("substitute.range").operator() end, desc = "Range operator"},
+      {"gmm", function() require("substitute.range").word() end, desc = "Range word"},
+      {"gm", function() require("substitute.range").visual() end, mode = {"x"}, desc = "Range visual"},
+      -- stylua: ignore end
     },
+    opts = { -- range: S fails to substitute using abolish
+      highlight_substituted_text = { enabled = false },
+    },
+    -- dependencies = {
+    --   { -- three superficially unrelated plugins: working with variants of a word.
+    --     -- coercion (ie coerce to snake_case) crs --> Adds a cr mapping!
+    --     -- abolish iabbrev, subvert substitution
+    --     "tpope/vim-abolish",
+    --     config = function()
+    --       vim.cmd("Abolish {despa,sepe}rat{e,es,ed,ing,ely,ion,ions,or}  {despe,sepa}rat{}")
+    --     end,
+    --   },
+    -- },
   },
+
+  -- { -- not using multiply(gm), evaluate(g=) and sort(gs)
+  --   "echasnovski/mini.operators",
+  --   event = "VeryLazy",
+  --   opts = { -- gm multiply gs sort g= evaluate gx exchange
+  --     replace = { prefix = "cr" }, -- lsp uses gr is taken
+  --   },
+  -- },
 }

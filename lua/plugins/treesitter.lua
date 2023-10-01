@@ -17,14 +17,23 @@ return {
   -- whitespace (space, tab, etc.)
   -- --> Without mini.ai, first navigate to identifier
 
-  -- treesitter textobjects: b is stock neovim, uses k for block
+  -- { "nvim-treesitter/playground", cmd = "TSPlaygroundToggle" },
+
+  {
+    "nvim-treesitter/nvim-treesitter-context",
+    event = "BufReadPre",
+    enabled = true,
+    opts = { mode = "cursor" },
+  },
+
+  -- TODO: [i, ]i, the scope textobject
+  -- treesitter textobjects: uses k for block, b is as stock neovim,
   {
     "nvim-treesitter/nvim-treesitter",
     dependencies = {
       {
         "nvim-treesitter/nvim-treesitter-textobjects",
-        -- mini.ai disabled: override lazyvim's conditional loading
-        init = function() end, -- override
+        init = function() end, -- override, mini.ai disabled
       },
     },
     opts = function(_, opts)
@@ -97,9 +106,7 @@ return {
         "rust",
       })
     end,
-    config = function(_, opts) -- override
-      -- mini.ai disabled: override lazyvim's conditional loading
-
+    config = function(_, opts) -- override, mini.ai disabled
       if type(opts.ensure_installed) == "table" then
         ---@type table<string, boolean>
         local added = {}

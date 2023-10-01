@@ -22,8 +22,8 @@ vim.opt.colorcolumn = "80"
 vim.opt.cmdheight = 0
 
 -- splits
--- vim.opt.splitbelow = false -- Put new windows below current
--- vim.opt.splitright = false -- Put new windows right of current
+vim.opt.splitbelow = false -- Put new windows below current
+vim.opt.splitright = false -- Put new windows right of current
 
 -- without which-key, 300  seconds is too fast.
 vim.opt.timeoutlen = 600 --300

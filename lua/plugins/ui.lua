@@ -1,7 +1,3 @@
-local dummy_function = function()
-  return {}
-end
-
 return {
   -- ---------------------------------------------
   -- observing ....
@@ -10,52 +6,28 @@ return {
   -- ---------------------------------------------
   -- disabling ....
   -- ---------------------------------------------
-  -- stylua: ignore start
-  { "echasnovski/mini.indentscope", enabled = false, event = dummy_function },
-  { "akinsho/bufferline.nvim", enabled = false, keys = dummy_function, event = dummy_function },
-  { "rcarriga/nvim-notify", enabled = false, init = dummy_function, keys = dummy_function },
-  { "folke/noice.nvim", enabled = false, keys = dummy_function, event = dummy_function},
+  { "echasnovski/mini.indentscope", enabled = false },
+  { "akinsho/bufferline.nvim", enabled = false },
+  { "rcarriga/nvim-notify", enabled = false },
+  { "folke/noice.nvim", enabled = false },
   { "SmiteshP/nvim-navic", enabled = false },
-  -- stylua: ignore end
 
   -- ---------------------------------------------
   -- overriding ....
   -- ---------------------------------------------
-  { -- adding "[i", "]i", replacing mini.indentscope
+
+  { -- highlight the scope where variables and functions are accessible
     "lukas-reineke/indent-blankline.nvim",
     opts = {
-      -- replacing mini.indentscope:
-      -- note: use other textobjects for ii/ai, example: viB
-      show_current_context = true,
-      show_current_context_start = false,
+      scope = {
+        enabled = true,
+        show_start = false,
+        show_end = false,
+        include = {
+          node_type = { lua = { "return_statement", "table_constructor" } },
+        },
+      },
     },
-    config = function(_, opts)
-      local function current_context()
-        return require("indent_blankline.utils").get_current_context(
-          vim.g.indent_blankline_context_patterns,
-          vim.g.indent_blankline_use_treesitter_scope
-        )
-      end
-      local function add_go_to_indent_scope_key(context_callback, keymap, desc)
-        vim.keymap.set({ "n", "x" }, keymap, function() -- nvchad
-          local ok, move_to = context_callback()
-          if ok then
-            vim.api.nvim_win_set_cursor(vim.api.nvim_get_current_win(), { move_to, 0 })
-            vim.cmd([[normal! _]])
-          end
-        end, { desc = desc })
-      end
-
-      require("indent_blankline").setup(opts)
-      add_go_to_indent_scope_key(function()
-        local ok, node_start = current_context()
-        return ok, node_start
-      end, "[i", "Go to indent scope top")
-      add_go_to_indent_scope_key(function()
-        local ok, _, node_end = current_context()
-        return ok, node_end
-      end, "]i", "Go to indent scope bottom")
-    end,
   },
 
   {
@@ -70,7 +42,7 @@ return {
           disabled_filetypes = { statusline = { "dashboard", "alpha" } },
         },
         sections = {
-          lualine_c = { { "filename", path = 1, shortening_target = 40 } },
+          lualine_c = { { "filename", path = 1, shortening_target = 40, symbols = { unnamed = "" } } },
         },
       }
     end,

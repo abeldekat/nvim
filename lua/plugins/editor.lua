@@ -1,7 +1,3 @@
-local dummy_function = function()
-  return {}
-end
-
 local Util = require("lazyvim.util")
 local which_key_autoload = false
 
@@ -23,11 +19,9 @@ return {
   -- ---------------------------------------------
   -- disabling ....
   -- ---------------------------------------------
-  -- stylua: ignore start
-  { "nvim-neo-tree/neo-tree.nvim", enabled = false, keys = dummy_function, cmd = dummy_function},
+  { "nvim-neo-tree/neo-tree.nvim", enabled = false },
   -- use bdelete[!], or bwipeout
-  { "echasnovski/mini.bufremove", enabled = false, keys = dummy_function},
-  -- stylua: ignore end
+  { "echasnovski/mini.bufremove", enabled = false },
 
   -- ---------------------------------------------
   -- overriding ....
@@ -99,7 +93,7 @@ return {
       },
       -- plugins, from the example:
       {
-        "<leader>fp",
+        "<leader>fP", -- fp is for project.nvim
         function()
           require("telescope.builtin").find_files({ cwd = require("lazy.core.config").options.root })
         end,
