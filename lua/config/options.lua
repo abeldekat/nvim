@@ -6,16 +6,6 @@
 -- vim.opt.listchars = "tab:▸ ,trail:·,nbsp:␣,extends:❯,precedes:❮" -- show symbols for whitespace
 -- vim.opt.listchars = "trail:·,nbsp:◇,tab:→ ,extends:▸,precedes:◂"
 
--- TODO:
--- vim.opt.fillchars = {
---   foldopen = "",
---   foldclose = "",
---   fold = " ",
---   foldsep = " ",
---   diff = "╱",
---   eob = " ",
--- }
-
 -- basic
 vim.opt.showtabline = 0 -- never show tabs, 1 is default, 2, -- always show tabs
 vim.opt.colorcolumn = "80"
@@ -27,11 +17,6 @@ vim.opt.splitright = false -- Put new windows right of current
 
 -- without which-key, 300  seconds is too fast.
 vim.opt.timeoutlen = 600 --300
-
--- folding
-vim.opt.foldmethod = "expr"
-vim.opt.foldexpr = "nvim_treesitter#foldexpr()"
-vim.opt.foldlevel = 99
 
 -- checkhealth:
 vim.g.python3_host_prog = "/usr/bin/python" -- archlinux: global python-pynvim

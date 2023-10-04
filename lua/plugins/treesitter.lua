@@ -26,18 +26,12 @@ return {
     opts = { mode = "cursor" },
   },
 
-  -- TODO: [i, ]i, the scope textobject
+  -- TODO: [i, ]i, the scope textobject. Perhaps: vim matchup instead?
   -- treesitter textobjects: uses k for block, b is as stock neovim,
   {
     "nvim-treesitter/nvim-treesitter",
-    dependencies = {
-      {
-        "nvim-treesitter/nvim-treesitter-textobjects",
-        init = function() end, -- override, mini.ai disabled
-      },
-    },
     opts = function(_, opts)
-      -- mini.ai disabled: textobjects taken from AstroNvim:
+      -- textobjects, initially copied from AstroNvim:
       opts.textobjects = {
         select = {
           enable = true,
@@ -62,25 +56,29 @@ return {
             ["ia"] = { query = "@parameter.inner", desc = "inside argument" },
           },
         },
-        move = {
+        move = { -- now supported by LazyVim --> copied the c, already have the f
           enable = true,
           set_jumps = true,
           goto_next_start = {
+            ["]c"] = { query = "@class.outer", desc = "Next class start" },
             ["]k"] = { query = "@block.outer", desc = "Next block start" },
             ["]f"] = { query = "@function.outer", desc = "Next function start" },
             ["]a"] = { query = "@parameter.inner", desc = "Next argument start" },
           },
           goto_next_end = {
+            ["]C"] = { query = "@class.outer", desc = "Next class end" },
             ["]K"] = { query = "@block.outer", desc = "Next block end" },
             ["]F"] = { query = "@function.outer", desc = "Next function end" },
             ["]A"] = { query = "@parameter.inner", desc = "Next argument end" },
           },
           goto_previous_start = {
+            ["[c"] = { query = "@class.outer", desc = "Previous class start" },
             ["[k"] = { query = "@block.outer", desc = "Previous block start" },
             ["[f"] = { query = "@function.outer", desc = "Previous function start" },
             ["[a"] = { query = "@parameter.inner", desc = "Previous argument start" },
           },
           goto_previous_end = {
+            ["[C"] = { query = "@class.outer", desc = "Previous class end" },
             ["[K"] = { query = "@block.outer", desc = "Previous block end" },
             ["[F"] = { query = "@function.outer", desc = "Previous function end" },
             ["[A"] = { query = "@parameter.inner", desc = "Previous argument end" },
@@ -105,20 +103,6 @@ return {
         "awk",
         "rust",
       })
-    end,
-    config = function(_, opts) -- override, mini.ai disabled
-      if type(opts.ensure_installed) == "table" then
-        ---@type table<string, boolean>
-        local added = {}
-        opts.ensure_installed = vim.tbl_filter(function(lang)
-          if added[lang] then
-            return false
-          end
-          added[lang] = true
-          return true
-        end, opts.ensure_installed)
-      end
-      require("nvim-treesitter.configs").setup(opts)
     end,
   },
 }

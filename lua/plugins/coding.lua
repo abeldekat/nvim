@@ -6,7 +6,7 @@ return {
   -- ---------------------------------------------
   -- disabling ....
   -- ---------------------------------------------
-  { "echasnovski/mini.ai", enabled = false }, -- see treesitter.lua
+  { "echasnovski/mini.ai", enabled = false },
   { "echasnovski/mini.comment", enabled = false },
   { "echasnovski/mini.pairs", enabled = false },
   { "echasnovski/mini.surround", enabled = false },

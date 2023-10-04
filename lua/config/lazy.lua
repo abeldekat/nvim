@@ -1,3 +1,5 @@
+---@diagnostic disable:assign-type-mismatch
+
 local function bootstrap(lazypath)
   if not vim.loop.fs_stat(lazypath) then
     -- stylua: ignore
@@ -7,14 +9,15 @@ local function bootstrap(lazypath)
 end
 bootstrap(vim.fn.stdpath("data") .. "/lazy/lazy.nvim")
 
-local dev_plugins = { "lazyflex" }
+-- local dev_plugins = { "lazyflex" }
+local dev_plugins = {}
 local use_flex = false
 local plugin_flex = not use_flex and {}
   or {
     "abeldekat/lazyflex.nvim",
     import = "lazyflex.plugins.intercept",
     opts = {
-      presets_personal = { "test" },
+      user = { mod = "config.lazyflex", presets = { "test" } },
     },
   }
 
@@ -28,8 +31,9 @@ local plugins = { -- approach: grouping extra and override
   { import = "lazyvim.plugins.extras.test.core" },
   { import = "plugins.extras.test.core_override" },
   --> dap: { import = "lazyvim.plugins.extras.dap.core" },
-  --> lang, json:
+  --> lang, json and yaml:
   { import = "lazyvim.plugins.extras.lang.json" },
+  { import = "lazyvim.plugins.extras.lang.yaml" },
   --> lang, python:
   { import = "lazyvim.plugins.extras.lang.python" },
   { import = "lazyvim.plugins.extras.lang.python-semshi" },
@@ -44,7 +48,6 @@ local plugins = { -- approach: grouping extra and override
 }
 require("lazy").setup({
   spec = plugins,
-  ---@diagnostic disable-next-line:assign-type-mismatch
   dev = { path = "~/projects/lazydev", patterns = dev_plugins },
   defaults = {
     lazy = false,
