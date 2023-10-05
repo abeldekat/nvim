@@ -1,5 +1,4 @@
 ---@diagnostic disable:assign-type-mismatch
-
 local function bootstrap(lazypath)
   if not vim.loop.fs_stat(lazypath) then
     -- stylua: ignore
@@ -11,19 +10,22 @@ bootstrap(vim.fn.stdpath("data") .. "/lazy/lazy.nvim")
 
 -- local dev_plugins = { "lazyflex" }
 local dev_plugins = {}
-local use_flex = false
-local plugin_flex = not use_flex and {}
-  or {
-    "abeldekat/lazyflex.nvim",
-    import = "lazyflex.plugins.intercept",
-    opts = {
-      user = { mod = "config.lazyflex", presets = { "test" } },
-    },
-  }
+local cond_flex = false
+local import_flex = cond_flex and "lazyflex.plugins.intercept" or "lazyflex.plugins.noop"
 
 local plugins = { -- approach: grouping extra and override
-  plugin_flex,
+  {
+    "abeldekat/lazyflex.nvim",
+    cond = cond_flex,
+    import = import_flex,
+    opts = {
+      -- user = { presets = { "test" } },
+      -- keywords = { "dark" },
+    },
+  },
   { "LazyVim/LazyVim", import = "lazyvim.plugins" },
+
+  --> extras
   --> util: { import = "lazyvim.plugins.extras.util.mini-hipatterns" },
   { import = "lazyvim.plugins.extras.util.project" },
   { import = "plugins.extras.util.project_override" },
