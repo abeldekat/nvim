@@ -1,7 +1,7 @@
 -- Minimal `init.lua` to reproduce an issue. Save as `repro.lua` and run with `nvim -u repro.lua`
 
--- bootstrap lazy.nvim:
-local function bootstrap(root) -- sets std paths and installs lazy
+-- sets std paths to use .repro and bootstraps lazy
+local function bootstrap(root) -- DO NOT change the paths
   for _, name in ipairs({ "config", "data", "state", "cache" }) do
     vim.env[("XDG_%s_HOME"):format(name:upper())] = root .. "/" .. name
   end
@@ -9,23 +9,15 @@ local function bootstrap(root) -- sets std paths and installs lazy
   if not vim.loop.fs_stat(lazypath) then
     vim.fn.system({ "git", "clone", "--filter=blob:none", "https://github.com/folke/lazy.nvim.git", lazypath })
   end
-  vim.opt.rtp:prepend(lazypath)
+  vim.opt.rtp:prepend(vim.env.LAZY or lazypath)
 end
 local root = vim.fn.fnamemodify("./.repro", ":p")
 bootstrap(root)
 
--- enable/disable multiple plugins:
-local use_flex = false -- activate the plugin
-local plugin_flex = not use_flex and {}
-  or {
-    "abeldekat/lazyflex.nvim",
-    import = "lazyflex.plugins.intercept",
-    opts = {},
-  }
-
--- install plugins:
+-- install plugins
 local plugins = {
-  plugin_flex,
+  -- optional: reduce the number of plugins needed to reproduce the problem
+  { "abeldekat/lazyflex.nvim", enabled = false, import = "lazyflex.plugins.intercept" },
   "folke/tokyonight.nvim",
   { "LazyVim/LazyVim", import = "lazyvim.plugins" },
   -- add any other plugins here
