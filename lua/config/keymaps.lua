@@ -96,9 +96,9 @@ map("n", "<leader>q", "<cmd>q<cr>", { desc = "[Q]uit" })
 map("n", "<leader>w", "<cmd>w<cr><esc>", { desc = "[W]rite" })
 
 -- Remap lazy ui, leader l now available, see unmap above
-map("n", "<leader>mz", "<cmd>Lazy<cr>", { desc = "La[z]y" })
+map("n", "<leader>ml", "<cmd>Lazy<cr>", { desc = "[L]azy" })
 -- LazyVim Changelog, see unmap above
-map("n", "<leader>mC", Util.changelog, { desc = "Lazy [c]hangelog" })
+map("n", "<leader>mc", Util.changelog, { desc = "Lazy [c]hangelog" })
 
 --------------------------------------------------------------------------
 -- Primeagen:

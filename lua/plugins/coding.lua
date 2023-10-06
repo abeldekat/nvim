@@ -93,6 +93,8 @@ return {
         -- not that useful
         "ag", -- greedyOuterIndentation ag/ig
         "ig",
+        "R", -- restOfIndentation: flash...
+        "r", -- restOfParagraph: flash...
       },
     },
   },

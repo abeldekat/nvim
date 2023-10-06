@@ -15,7 +15,7 @@ return {
           desc = "[S]ession restore",
         },
         {
-          "<leader>ml",
+          "<leader>mL",
           function()
             require("persistence").load({ last = true })
           end,
