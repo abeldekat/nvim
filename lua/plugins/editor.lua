@@ -29,14 +29,6 @@ return {
   {
     "nvim-telescope/telescope.nvim",
     dependencies = {
-      -- add fzf native
-      {
-        "nvim-telescope/telescope-fzf-native.nvim",
-        build = "make",
-        config = function()
-          require("telescope").load_extension("fzf")
-        end,
-      },
       -- Zoxide file integration, c-b integration to file browser fails...
       {
         "jvgrootveld/telescope-zoxide",

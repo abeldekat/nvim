@@ -13,6 +13,7 @@ a default theme other than the plugin name has been configured
 local use_load = { "nightfox", "onedark", "onedarkpro" }
 local chosen = require("misc.colorscheme").color
 return {
+  -- { "folke/lazy.nvim", version = false },
   {
     "LazyVim/LazyVim",
     opts = {
