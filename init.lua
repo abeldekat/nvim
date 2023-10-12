@@ -6,15 +6,12 @@ local lazyflex = {
   opts = function()
     -- local config = { enabled = { true } }
     -- local presets = { "coding" }
-    -- local lazyvim = { config = config, presets = presets }
-    -- local user = { config = config, presets = presets }
-    -- local enable_match = true
+    -- local l = { config = config, presets = presets } -- lazyvim
+    -- local u = { config = config, presets = presets } --user
+    -- local a = { "lazy", require("misc.colorscheme").color } -- kw_always_enable
     -- local kw = {}
-    --
-    -- if enable_match then
-    --   table.insert(kw, require("misc.colorscheme").color)
-    -- end
-    -- return { enable_match = enable_match, lazyvim = lazyvim, user = user, kw = kw }
+    -- local e = true -- enable_match
+    -- return { enable_match = e, lazyvim = l, user = u, kw_always_enable = a, kw = kw }
   end,
 }
 

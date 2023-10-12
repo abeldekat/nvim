@@ -1,7 +1,10 @@
 -- stylua: ignore start
 -- if true then return {} end
 -- stylua: ignore end
---
+
+-- ---------------------------------------------
+-- adding, not in lazyvim
+-- ---------------------------------------------
 local spec = { -- the default when not invoked by the browser addon
   "glacambre/firenvim",
   build = function()

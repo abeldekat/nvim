@@ -47,38 +47,39 @@ return {
     end,
   },
 
-  -- TODO: v10.0
-  -- {
-  --   "goolord/alpha-nvim",
-  --   event = function()
-  --     local should_load = function()
-  --       -- don't start when opening a file
-  --       if vim.fn.argc() > 0 then
-  --         return false
-  --       end
-  --       -- ... more logic here
-  --       return true
-  --     end
-  --
-  --     if should_load() then
-  --       return { "VimEnter" }
-  --     else
-  --       return {}
-  --     end
-  --   end,
-  --   opts = function(_, opts)
-  --     local versioninfo = vim.version() or {}
-  --     local major = versioninfo.major or ""
-  --     local minor = versioninfo.minor or ""
-  --     local patch = versioninfo.patch or ""
-  --     local prerelease = versioninfo.api_prerelease and "-dev" or ""
-  --     local header = string.format("NVIM v%s.%s.%s%s", major, minor, patch, prerelease)
-  --
-  --     -- opts.section.header.val = vim.split(header, "\n")
-  --     opts.section.header.val = header
-  --     return opts
-  --   end,
-  -- },
+  {
+    "glepnir/dashboard-nvim",
+    event = function() -- vimenter
+      local should_load = function()
+        -- don't start when opening a file
+        if vim.fn.argc() > 0 then
+          return false
+        end
+        -- ... more logic here
+        return true
+      end
+
+      if should_load() then
+        return { "VimEnter" }
+      else
+        return {}
+      end
+    end,
+    opts = function(_, opts)
+      local versioninfo = vim.version() or {}
+      local major = versioninfo.major or ""
+      local minor = versioninfo.minor or ""
+      local patch = versioninfo.patch or ""
+      local prerelease = versioninfo.api_prerelease and "-dev" or ""
+      local version = string.format("NVIM v%s.%s.%s%s", major, minor, patch, prerelease)
+      local logo = [[ ]]
+
+      logo = string.rep("\n", 8) .. logo .. "\n\n"
+      local header = vim.split(logo, "\n")
+      header[8] = version
+      opts.config.header = header
+    end,
+  },
 
   -- ---------------------------------------------
   -- adding ....
