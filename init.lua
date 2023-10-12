@@ -21,15 +21,15 @@ local lazyflex = {
 require("config.lazy")({
   debug = false,
   pde = { -- centralizing custom settings
-    dap_support = false,
+    -- dap_support = false,
     -- dev_plugins = { "lazyflex" },
     dev_plugins = {},
     lang = {
       json = true,
-      python = true,
+      -- python = true,
       yaml = true,
     },
     lazyflex = lazyflex,
-    test_support = true,
+    -- test_support = true,
   },
 })

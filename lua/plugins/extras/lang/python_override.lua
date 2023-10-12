@@ -11,19 +11,21 @@
 -- "
 --]]
 return {
-  {
-    "nvimtools/none-ls.nvim",
-    optional = true,
-    opts = function(_, opts)
-      if type(opts.sources) == "table" then
-        local nls = require("null-ls")
-        vim.list_extend(opts.sources, {
-          nls.builtins.formatting.black,
-        })
-      end
-    end,
-  },
+  -- TODO: v10.0
+  -- {
+  --   "nvimtools/none-ls.nvim",
+  --   optional = true,
+  --   opts = function(_, opts)
+  --     if type(opts.sources) == "table" then
+  --       local nls = require("null-ls")
+  --       vim.list_extend(opts.sources, {
+  --         nls.builtins.formatting.black,
+  --       })
+  --     end
+  --   end,
+  -- },
 
+  -- TODO: v10.0, black extra
   -- Ensure Python debugger and black are installed
   {
     "williamboman/mason.nvim",

@@ -19,12 +19,13 @@ return {
 
   -- { "nvim-treesitter/playground", cmd = "TSPlaygroundToggle" },
 
-  {
-    "nvim-treesitter/nvim-treesitter-context",
-    event = "BufReadPre",
-    enabled = true,
-    opts = { mode = "cursor" },
-  },
+  -- TODO: v10
+  -- {
+  --   "nvim-treesitter/nvim-treesitter-context",
+  --   event = "BufReadPre",
+  --   enabled = true,
+  --   opts = { mode = "cursor" },
+  -- },
 
   -- TODO: [i, ]i, the scope textobject. Perhaps: vim matchup instead?
   -- treesitter textobjects: uses k for block, b is as stock neovim,

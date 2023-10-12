@@ -17,25 +17,26 @@ bootstrap(vim.fn.stdpath("data") .. "/lazy/lazy.nvim")
 return function(opts)
   local pde = opts.pde
 
+  -- TODO: v10.0
   local plugins = { -- approach: grouping extra and override
     pde.lazyflex,
     { "LazyVim/LazyVim", import = "lazyvim.plugins" },
 
     --> extras:
     -->  util:
-    { import = "lazyvim.plugins.extras.util.project" },
-    { import = "plugins.extras.util.project_override" },
+    -- { import = "lazyvim.plugins.extras.util.project" },
+    -- { import = "plugins.extras.util.project_override" },
     -->  test:
-    { import = "lazyvim.plugins.extras.test.core", cond = pde.test_support },
-    { import = "plugins.extras.test.core_override", cond = pde.test_support },
+    -- { import = "lazyvim.plugins.extras.test.core", cond = pde.test_support },
+    -- { import = "plugins.extras.test.core_override", cond = pde.test_support },
     -->  dap:
-    { import = "lazyvim.plugins.extras.dap.core", enabled = pde.dap_support },
+    -- { import = "lazyvim.plugins.extras.dap.core", enabled = pde.dap_support },
     -->  lang:
     { import = "lazyvim.plugins.extras.lang.json", cond = pde.lang.json },
     { import = "lazyvim.plugins.extras.lang.yaml", cond = pde.lang.yaml },
-    { import = "lazyvim.plugins.extras.lang.python", cond = pde.lang.python },
-    { import = "lazyvim.plugins.extras.lang.python-semshi", cond = pde.lang.python },
-    { import = "plugins.extras.lang.python_override", cond = pde.lang.python },
+    -- { import = "lazyvim.plugins.extras.lang.python", cond = pde.lang.python },
+    -- { import = "lazyvim.plugins.extras.lang.python-semshi", cond = pde.lang.python },
+    -- { import = "plugins.extras.lang.python_override", cond = pde.lang.python },
 
     --> custom:
     { import = "plugins" },

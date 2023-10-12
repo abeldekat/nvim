@@ -20,18 +20,19 @@ return {
     },
   },
 
-  {
-    "nvimtools/none-ls.nvim",
-    opts = function(_, opts)
-      if type(opts.sources) == "table" then
-        local nls = require("null-ls")
-        vim.list_extend(opts.sources, {
-          nls.builtins.diagnostics.markdownlint,
-          nls.builtins.formatting.prettierd,
-        })
-      end
-    end,
-  },
+  -- TODO: v10.0
+  -- {
+  --   "nvimtools/none-ls.nvim",
+  --   opts = function(_, opts)
+  --     if type(opts.sources) == "table" then
+  --       local nls = require("null-ls")
+  --       vim.list_extend(opts.sources, {
+  --         nls.builtins.diagnostics.markdownlint,
+  --         nls.builtins.formatting.prettierd,
+  --       })
+  --     end
+  --   end,
+  -- },
 
   { -- lazyvim has stylua and shfmt
     "williamboman/mason.nvim",
@@ -47,12 +48,13 @@ return {
   -- adding ....
   -- ---------------------------------------------
 
-  { -- from lazyvim example
-    "simrat39/symbols-outline.nvim",
-    cmd = "SymbolsOutline",
-    keys = { { "<leader>cs", "<cmd>SymbolsOutline<cr>", desc = "Symbols Outline" } },
-    opts = {
-      position = "right",
-    },
-  },
+  -- TODO: v10.0
+  -- { -- from lazyvim example
+  --   "simrat39/symbols-outline.nvim",
+  --   cmd = "SymbolsOutline",
+  --   keys = { { "<leader>cs", "<cmd>SymbolsOutline<cr>", desc = "Symbols Outline" } },
+  --   opts = {
+  --     position = "right",
+  --   },
+  -- },
 }
