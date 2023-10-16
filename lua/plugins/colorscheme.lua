@@ -20,7 +20,7 @@ return {
     "folke/tokyonight.nvim",
     opts = function(_, opts)
       opts.dim_inactive = true
-      opts.style = Dynamic.prefer_light and "day" or "moon"
+      opts.style = Dynamic.prefer_light and "day" or "storm"
       -- only needed for light theme. Normal darktheme shows white as fg:
       -- change fg = c.fg into:
       if Dynamic.prefer_light then

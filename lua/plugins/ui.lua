@@ -48,7 +48,7 @@ return {
   },
 
   {
-    "glepnir/dashboard-nvim",
+    "nvimdev/dashboard-nvim",
     event = function() -- vimenter
       local should_load = function()
         -- don't start when opening a file

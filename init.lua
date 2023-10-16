@@ -2,16 +2,17 @@ local lazyflex = {
   "abeldekat/lazyflex.nvim",
   cond = true,
   version = "*",
-  import = "lazyflex.hook",
+  import = "lazyflex.entry.lazyvim",
   opts = function()
-    -- local config = { enabled = { true } }
-    -- local presets = { "coding" }
-    -- local l = { config = config, presets = presets } -- lazyvim
-    -- local u = { config = config, presets = presets } --user
-    -- local a = { "lazy", require("misc.colorscheme").color } -- kw_always_enable
-    -- local kw = {}
-    -- local e = true -- enable_match
-    -- return { enable_match = e, lazyvim = l, user = u, kw_always_enable = a, kw = kw }
+    local em = true -- enable_match
+    local settings = { enabled = true }
+    local presets = { "editor" }
+    local kw = {}
+    local l = { settings = settings, presets = presets } -- lazyvim
+    local u = { settings = settings, presets = presets } --user
+    local a = { require("misc.colorscheme").color } -- kw_always_enable
+    -- return { enable_match = em, lazyvim = l, user = u, kw_always_enable = a, kw = kw }
+    return {}
   end,
 }
 

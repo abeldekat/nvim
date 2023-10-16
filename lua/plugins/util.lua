@@ -51,14 +51,17 @@ return {
 
   {
     "iamcco/markdown-preview.nvim",
-    ft = "markdown",
-    keys = {
-      { "<leader>mm", "<cmd>MarkdownPreviewToggle<cr>", desc = "[M]arkdown preview" },
-    },
-    build = "cd app && npm install && git reset --hard",
     init = function()
       vim.g.mkdp_filetypes = { "markdown" }
       vim.g.mkdp_browser = "firefox"
+    end,
+    cmd = { "MarkdownPreviewToggle", "MarkdownPreview", "MarkdownPreviewStop" },
+    keys = {
+      { "<leader>mm", "<cmd>MarkdownPreviewToggle<cr>", desc = "[M]arkdown preview" },
+    },
+    ft = { "markdown" },
+    build = function()
+      vim.fn["mkdp#util#install"]()
     end,
   },
 

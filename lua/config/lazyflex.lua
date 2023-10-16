@@ -1,6 +1,6 @@
 local M = {}
 
-local presets = { -- added
+local presets = {
   coding = {
     "comment.nvim",
     "nvim-autopairs",
@@ -31,10 +31,8 @@ local presets = { -- added
   },
 }
 
--- only act on plenary when enabling plugins
--- other plugins might crash with plenary disabled
 local when_enabling = {
-  editor = { "plenary" }, -- TODO: Test and expand!
+  editor = { "plenary" },
 }
 
 M.get_preset_keywords = function(name, enable_on_match)
@@ -49,13 +47,17 @@ M.get_preset_keywords = function(name, enable_on_match)
   return result or {}
 end
 
-M.return_spec = function(config) -- config
-  -- TODO:
-  if config.autocmds == false then
-    -- package.loaded["config.autocmds"] = true
+M.change_settings = function(settings)
+  if settings.options == false then
+    package.loaded["config.options"] = true
+    vim.g.mapleader = " "
+    vim.g.maplocalleader = "\\"
   end
-  if config.keymaps == false then
-    -- package.loaded["config.keymaps"] = true
+  if settings.autocmds == false then
+    package.loaded["config.autocmds"] = true
+  end
+  if settings.keymaps == false then
+    package.loaded["config.keymaps"] = true
   end
 
   return {}
