@@ -4,30 +4,33 @@ local lazyflex = {
   version = "*",
   import = "lazyflex.entry.lazyvim",
   opts = function()
-    local em = true -- enable_match
+    local pass_through = true
+
+    if pass_through then
+      return {}
+    end
+
     local settings = { enabled = true }
-    local presets = { "editor" }
-    local kw = {}
-    local l = { settings = settings, presets = presets } -- lazyvim
-    local u = { settings = settings, presets = presets } --user
-    local a = { require("misc.colorscheme").color } -- kw_always_enable
-    -- return { enable_match = em, lazyvim = l, user = u, kw_always_enable = a, kw = kw }
-    return {}
+    local presets = {}
+    return {
+      kw_always_enable = { require("misc.colorscheme").color },
+      lazyvim = { settings = settings, presets = presets },
+      user = { settings = settings, presets = presets },
+      enable_match = true,
+      kw = { "tokyo", "trees", "test", "pyth", "plen" },
+      override_kw = { "context" },
+    }
   end,
 }
 
 require("config.lazy")({
   debug = false,
-  pde = { -- centralizing custom settings
-    -- dap_support = false,
-    -- dev_plugins = { "lazyflex" },
+  pde = { -- centralizing settings subject to change
+    -- dev_path:
+    -- dev_path = "~/projects/lazydev",
+    -- dev_path = "~/projects/clone",
     dev_plugins = {},
-    lang = {
-      json = true,
-      -- python = true,
-      yaml = true,
-    },
+    -- dev_plugins = { "LazyVim", "lazyflex" },
     lazyflex = lazyflex,
-    -- test_support = true,
   },
 })

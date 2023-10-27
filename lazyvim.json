@@ -1,9 +1,20 @@
 {
   "extras": [
-
+    "lazyvim.plugins.extras.test.core",
+    "lazyvim.plugins.extras.formatting.black",
+    "lazyvim.plugins.extras.lang.json",
+    "lazyvim.plugins.extras.lang.markdown",
+    "lazyvim.plugins.extras.lang.python",
+    "lazyvim.plugins.extras.lang.python-semshi",
+    "lazyvim.plugins.extras.lang.yaml",
+    "plugins.extras.lang.markdown_override",
+    "plugins.extras.lang.python_override",
+    "plugins.extras.test.core_override",
+    "lazyvim.plugins.extras.editor.aerial"
   ],
   "news": {
-    "NEWS.md": "2123"
+    "NEWS.md": "2123",
+    "doc/news.txt": "13995"
   },
   "version": 2
 }
