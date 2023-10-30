@@ -1,36 +1,12 @@
-local lazyflex = {
-  "abeldekat/lazyflex.nvim",
-  cond = true,
-  version = "*",
-  import = "lazyflex.entry.lazyvim",
-  opts = function()
-    local pass_through = true
-
-    if pass_through then
-      return {}
-    end
-
-    local settings = { enabled = true }
-    local presets = {}
-    return {
-      kw_always_enable = { require("misc.colorscheme").color },
-      lazyvim = { settings = settings, presets = presets },
-      user = { settings = settings, presets = presets },
-      enable_match = true,
-      kw = { "tokyo", "trees", "test", "pyth", "plen" },
-      override_kw = { "context" },
-    }
-  end,
-}
-
-require("config.lazy")({
+require("config.lazy")({ -- centralizing settings subject to change
   debug = false,
-  pde = { -- centralizing settings subject to change
-    -- dev_path:
-    -- dev_path = "~/projects/lazydev",
-    -- dev_path = "~/projects/clone",
-    dev_plugins = {},
-    -- dev_plugins = { "LazyVim", "lazyflex" },
-    lazyflex = lazyflex,
-  },
+
+  dev_patterns = {},
+  -- dev_patterns = { "lazyflex" },
+
+  dev_path = "~/projects/lazydev",
+  -- dev_path = "~/projects/clone",
+
+  flex = require("flex")({ use = false }), -- use nil to not load the plugin
+  -- clone_flex = true, -- useful when starting from scratch
 })

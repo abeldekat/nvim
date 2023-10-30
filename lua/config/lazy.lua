@@ -1,42 +1,34 @@
 ---@diagnostic disable:assign-type-mismatch
--- { import = "lazyvim.plugins.extras.util.mini-hipatterns" },
-
-local function bootstrap(lazypath)
-  if not vim.loop.fs_stat(lazypath) then
-    -- stylua: ignore
-    vim.fn.system({
-      "git", "clone", "--filter=blob:none", "https://github.com/folke/lazy.nvim.git",
-      "--branch=stable",
-      lazypath
-    })
+local function clone(owner, name)
+  local url = string.format("%s/%s/%s.git", "https://github.com", owner, name)
+  local path = vim.fn.stdpath("data") .. "/lazy/" .. name
+  if not vim.loop.fs_stat(path) then
+    vim.fn.system({ "git", "clone", "--filter=blob:none", url, "--branch=stable", path })
   end
-  vim.opt.rtp:prepend(vim.env.LAZY or lazypath)
+  return path
 end
-bootstrap(vim.fn.stdpath("data") .. "/lazy/lazy.nvim")
 
 return function(opts)
-  local pde = opts.pde
+  local lazypath = clone("folke", "lazy.nvim")
+  vim.opt.rtp:prepend(vim.env.LAZY or lazypath)
 
   local plugins = {
-    pde.lazyflex,
+    opts.flex and opts.flex or {},
     { "LazyVim/LazyVim", import = "lazyvim.plugins" },
     { import = "plugins" },
   }
 
   require("lazy").setup({
+    defaults = { lazy = false, version = false }, -- "*" = latest stable version
     spec = plugins,
-    dev = { path = pde.dev_path, patterns = pde.dev_plugins },
-    defaults = {
-      lazy = false,
-      version = false, -- "*", -- try installing the latest stable version
-    },
-    install = { colorscheme = { "tokyonight", "habamax" } }, -- try during install
-    checker = { enabled = false }, -- check for plugin updates
-    change_detection = { enabled = false }, -- reload ui on config file changes
+    dev = { path = opts.dev_path, patterns = opts.dev_patterns },
+    install = { colorscheme = { "tokyonight", "habamax" } },
+    checker = { enabled = false },
+    change_detection = { enabled = false },
     performance = {
-      -- "matchit", "matchparen",
-      rtp = {
+      rtp = { -- "matchit", "matchparen",
         disabled_plugins = { "gzip", "netrwPlugin", "tarPlugin", "tohtml", "tutor", "zipPlugin" },
+        paths = opts.flex and opts.clone_flex and { clone("abeldekat", "lazyflex.nvim") } or {},
       },
     },
     debug = opts.debug,

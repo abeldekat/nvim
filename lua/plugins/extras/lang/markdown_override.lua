@@ -2,6 +2,7 @@ return {
 
   {
     "lukas-reineke/headlines.nvim",
+    enabled = false, -- sometimes flickers...
     opts = function(_, opts)
       opts.markdown = {
         -- https://github.com/lukas-reineke/headlines.nvim/issues/41#issuecomment-1556334775

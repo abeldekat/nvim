@@ -11,6 +11,8 @@ local presets = {
   },
   editor = {
     "telescope-zoxide",
+    "telescope-file-browser.nvim",
+    "telescope-project.nvim",
     "eyeliner.nvim",
     "vim-hardtime",
     "toggleterm.nvim",

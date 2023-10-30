@@ -1,12 +1,50 @@
--- Test:askify/visual_studio_code
--- Test:talha-akram/noctis.nvim
--- Test:verf/deepwhite.nvim
-
+-- when activating extra, also change the max-depth in dmenu script
 local Dynamic = require("misc.colorscheme")
 local is_lazy = true
 local is_cond = true
 
 return {
+
+  { -- the light theme is good... Gruvbox like
+    "rebelot/kanagawa.nvim",
+    name = "colors_kanagawa",
+    main = "kanagawa",
+    config = function()
+      -- light bg -> lotus, dark bg -> wave
+      vim.o.background = Dynamic.prefer_light and "light" or "dark"
+
+      if Dynamic.prefer_light then
+        require("kanagawa").setup({
+          overrides = function(colors)
+            return {
+              -- Improve FlashLabel:
+              -- Substitute = { fg = theme.ui.fg, bg = theme.vcs.removed },
+              Substitute = { fg = colors.theme.ui.fg_reverse, bg = colors.theme.vcs.removed },
+            }
+          end,
+        })
+      end
+    end,
+    lazy = is_lazy,
+    cond = is_cond,
+  },
+
+  { -- combi (dark, light) and (soft, medium, hard)
+    -- lazygit colors are not always readable
+    -- good light theme
+    "sainnhe/everforest",
+    name = "colors_everforest",
+    main = "everforest",
+    config = function()
+      vim.g.everforest_better_performance = 1
+      vim.g.everforest_enable_italic = 1
+
+      vim.o.background = Dynamic.prefer_light and "light" or "dark"
+      vim.g.everforest_background = "medium"
+    end,
+    lazy = is_lazy,
+    cond = is_cond,
+  },
 
   { -- unique colors, light is a little bit vague
     "Shatur/neovim-ayu",

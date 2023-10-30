@@ -14,16 +14,17 @@ Note that this will always return a string, regardless of whether the package is
 --]]
 return {
 
+  -- https://github.com/LazyVim/LazyVim/discussions/1898
   -- Ensure Python debugger is installed
-  {
-    "williamboman/mason.nvim",
-    optional = true,
-    opts = function(_, opts)
-      if type(opts.ensure_installed) == "table" then
-        if require("lazyvim.util").has("nvim-dap") then
-          vim.list_extend(opts.ensure_installed, { "debugpy" })
-        end
-      end
-    end,
-  },
+  -- {
+  --   "williamboman/mason.nvim",
+  --   optional = true,
+  --   opts = function(_, opts)
+  --     if type(opts.ensure_installed) == "table" then
+  --       if require("lazyvim.util").has("nvim-dap") then
+  --         vim.list_extend(opts.ensure_installed, { "debugpy" })
+  --       end
+  --     end
+  --   end,
+  -- },
 }

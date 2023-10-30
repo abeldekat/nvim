@@ -5,8 +5,8 @@ require("misc.colortoggle").add_toggle({
     "nightfox",
     "duskfox",
     "terafox",
-    "carbonfox",
-    "dayfox",
+    -- "carbonfox",
+    -- "dayfox",
     "dawnfox",
   },
   toggle = function(flavour)

@@ -1,21 +1,24 @@
 --[[
-Number of themes: 14 + 2(tokyonight and catppuccin)
+Number of themes: 12 + 2(tokyonight and catppuccin)
 
 Best light themes:
   tokyonight
   solarized8
   gruvbox-material
   nightfox dawnfox
-  everforest
   gruvbox
   bamboo
   nano
-  kanagawa
   onedarkpro
   astrotheme
   rose-pine
   onedark
   catppuccin(latte is similar to tokyonight)
+
+
+-- Test:askify/visual_studio_code
+-- Test:talha-akram/noctis.nvim
+-- Test:verf/deepwhite.nvim
 --]]
 
 local Dynamic = require("misc.colorscheme")
@@ -145,30 +148,6 @@ return {
     cond = is_cond,
   },
 
-  {
-    "rebelot/kanagawa.nvim",
-    name = "colors_kanagawa",
-    main = "kanagawa",
-    config = function()
-      -- light bg -> lotus, dark bg -> wave
-      vim.o.background = Dynamic.prefer_light and "light" or "dark"
-
-      if Dynamic.prefer_light then
-        require("kanagawa").setup({
-          overrides = function(colors)
-            return {
-              -- Improve FlashLabel:
-              -- Substitute = { fg = theme.ui.fg, bg = theme.vcs.removed },
-              Substitute = { fg = colors.theme.ui.fg_reverse, bg = colors.theme.vcs.removed },
-            }
-          end,
-        })
-      end
-    end,
-    lazy = is_lazy,
-    cond = is_cond,
-  },
-
   { -- has its own toggle_style
     "navarasu/onedark.nvim",
     name = "colors_onedark",
@@ -237,21 +216,6 @@ return {
       vim.o.background = Dynamic.prefer_light and "light" or "dark"
       vim.g.gruvbox_material_background = "soft"
       vim.g.gruvbox_material_foreground = "material"
-    end,
-    lazy = is_lazy,
-    cond = is_cond,
-  },
-
-  { -- combi (dark, light) and (soft, medium, hard)
-    "sainnhe/everforest",
-    name = "colors_everforest",
-    main = "everforest",
-    config = function()
-      vim.g.everforest_better_performance = 1
-      vim.g.everforest_enable_italic = 1
-
-      vim.o.background = Dynamic.prefer_light and "light" or "dark"
-      vim.g.everforest_background = "medium"
     end,
     lazy = is_lazy,
     cond = is_cond,
