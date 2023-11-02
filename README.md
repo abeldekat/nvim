@@ -11,14 +11,14 @@
 Clone the repository and install the plugins:
 
 ```sh
-git clone git@github.com:abeldekat/nvim ~/.config/abeldekat/nvim
-NVIM_APPNAME=abeldekat/nvim/ nvim --headless +"Lazy! sync" +qa
+git clone git@github.com:abeldekat/nvim ~/.config/abeldekat
+NVIM_APPNAME=abeldekat nvim --headless +"Lazy! sync" +qa
 ```
 
 Open Neovim with this config:
 
 ```sh
-NVIM_APPNAME=abeldekat/nvim/ nvim
+NVIM_APPNAME=abeldekat nvim
 ```
 
 ## Plugins
