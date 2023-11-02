@@ -20,7 +20,7 @@ local function spec(opts)
           settings = settings,
           presets = presets,
         },
-        kw_always_enable = { require("misc.colorscheme").color },
+        kw_always_enable = { require("misc.colorscheme").color, "har", "plen" },
         enable_match = true,
         override_kw = {},
         kw = {},

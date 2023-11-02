@@ -1,27 +1,6 @@
--- maybe: windwp/nvim-ts-autotag
--- maybe: nvim-various-textobjs
-
 return {
 
-  -- Mini.ai, disabled in coding.lua.
-  --
-  -- incremental, g[: never used...
-  -- ia b: alias for [({, use vim's b and B
-  -- ia q: alias for `"', specify the quotes...
-  -- ia ?, user prompt: use flash s...
-  --
-  -- Rarely used:
-  -- Default textobject is activated for identifiers
-  -- from digits (0, ..., 9),
-  -- punctuation (like `_`, `*`, `,`, etc.),
-  -- whitespace (space, tab, etc.)
-  -- --> Without mini.ai, first navigate to identifier
-
-  -- { "nvim-treesitter/playground", cmd = "TSPlaygroundToggle" },
-
-  -- TODO: [i, ]i, the scope textobject. Perhaps: vim matchup instead?
-  -- treesitter textobjects: uses k for block, b is as stock neovim,
-  {
+  { -- treesitter textobjects: uses k for block, b is preserved
     "nvim-treesitter/nvim-treesitter",
     opts = function(_, opts)
       -- textobjects, initially copied from AstroNvim:

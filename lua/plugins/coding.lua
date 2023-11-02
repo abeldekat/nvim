@@ -1,25 +1,17 @@
 return {
   -- ---------------------------------------------
-  -- observing ....
-  -- ---------------------------------------------
-
-  -- ---------------------------------------------
   -- disabling ....
   -- ---------------------------------------------
-  { "echasnovski/mini.ai", enabled = false },
   { "echasnovski/mini.comment", enabled = false },
   { "echasnovski/mini.pairs", enabled = false },
+  { "echasnovski/mini.ai", enabled = false },
   { "echasnovski/mini.surround", enabled = false },
-
-  -- ---------------------------------------------
-  -- overriding ....
-  -- ---------------------------------------------
 
   -- ---------------------------------------------
   -- adding ....
   -- ---------------------------------------------
 
-  { -- replacing mini.comment(VeryLazy):
+  { -- mini.comment(VeryLazy).
     "numToStr/Comment.nvim", --astronvim
     keys = {
       { "gc", mode = { "n", "v" }, desc = "Comment toggle linewise" },
@@ -31,8 +23,7 @@ return {
     end,
   },
 
-  { -- replacing mini.pairs
-    -- note: insertmode, press C-v, the character will not be paired
+  { -- mini.pairs. See NOTES.md
     "windwp/nvim-autopairs", -- astronvim
     event = "InsertEnter",
     opts = {
@@ -61,64 +52,25 @@ return {
     end,
   },
 
-  { -- replacing mini.ai, also providing ii/ai textobjects
-    -- NOTE: WIP
-
-    --> subWord aS/iS, camelcase, _,-,.
-    --> lineCharacterwise i_,a_, current line characterwise
-    --> entireBuffer gG
-
-    --> indentation ii ai iI aI
-    --> restOfIndentation R
-    --> restOfParagraph r, like }, but linewise
-    --
-    -- toNextClosingBracket C
-    -- toNextQuotationMark Q
-    -- column |, column down until indent
-
-    -- found in subversive:
-    -- " ie = inner entire buffer
-    -- onoremap ie :exec "normal! ggVG"<cr>
-
-    -- " iv = current viewable text in the buffer
-    -- onoremap iv :exec "normal! HVL"<cr>
+  { -- mini.ai. See NOTES.md
     "chrisgrieser/nvim-various-textobjs",
-    -- event = { "BufReadPost", "BufNewFile" },
     event = { "LazyFile" },
-    -- event = "InsertEnter",
-    opts = {
-      useDefaultKeymaps = true,
-      disabledKeymaps = {
-        -- overrides next search result:
-        "n", -- nearEol, from cursor to end of line minus one
-        -- not that useful
-        "ag", -- greedyOuterIndentation ag/ig
-        "ig",
-        "R", -- restOfIndentation: flash...
-        "r", -- restOfParagraph: flash...
-      },
-    },
+    opts = function(_, _)
+      return {
+        useDefaultKeymaps = true,
+        -- stylua: ignore
+        disabledKeymaps = {
+          "R", "r", -- restOfIndentation, restOfParagraph: flash...
+          "ag", "ig", -- greedyOuterIndentation: not used
+          "gc", -- multiCommentedLines: comment.nvim
+          "n", -- nearEol: minus one char: overrides next search result
+          "ik", "ak", -- key: used by treesitter block
+        },
+      }
+    end,
   },
 
-  -- replacing mini.surround:
-  -- b (), round brackets, [b]rackets(UK), parenthesis, parens
-  -- B {}, curly [B]rackets, braces, bretels, "braces programming"
-  -- a <>, [a]ngle brackets, chevrons(v shape)
-  -- r [], squa[r]e brackets, brackets[US]
-  --
-  -- tabular aliases, only when modifying existing, the nearest such pair:
-  -- q, quotes { '"', "'", "`" },
-  -- s, symbols: brackets and quotes { "}", "]", ")", ">", '"', "'", "`" },
-  -- Note: Tabular aliases cannot be used to add surrounding pairs, e.g. `ysa)q` is
-  -- invalid, since it's ambiguous which pair should be added.
-  --
-  --  Invalid keys are accepted: "di ", deletes the word surrounded by spaces
-  --
-  -- jumping preference
-  -- * pairs that surround the cursor, before
-  -- * pairs that occur after the cursor, before
-  -- * pairs that occur before the cursor.
-  {
+  { -- mini.surround. See NOTES.md
     "kylechui/nvim-surround",
     version = "*",
     -- init = function()
@@ -171,23 +123,7 @@ return {
     },
   },
 
-  { -- substitute(aka replace): svermeulen/vim-subversive.
-    -- exchange: tommcdo/vim-exchange
-    -- alternative: mini.operators
-    --
-    -- Subversive: undermine, overthrow, overturn
-    -- Abolish: to end an activity or custom
-    -- it's possible to specify the register
-    -- integrations, ie abolish
-    --
-    -- substitute gs: overrides go sleep
-    -- exchange gx: overrides netrw mapping
-    -- range gm: range, overrides half a screen width to the right
-    --
-    -- The line variants:
-    -- nvim-various-textobjs provides line textobject
-    -- "_" is a textobject for current line!
-    --
+  { -- mini.operators
     "gbprod/substitute.nvim",
     keys = {
       -- stylua: ignore start

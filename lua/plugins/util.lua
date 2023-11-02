@@ -3,7 +3,7 @@ return {
   -- overriding ....
   -- ---------------------------------------------
 
-  { -- session management, override q keys
+  { -- override q keys
     "folke/persistence.nvim",
     keys = function(_, _)
       return {
@@ -34,11 +34,7 @@ return {
 
   -- ---------------------------------------------
   -- adding ....
-  -- also interesting:
-  -- https://github.com/michaelb/sniprun, included in astro community
-  -- https://github.com/toppair/peek.nvim/issues/47
   -- ---------------------------------------------
-
   {
     -- Find neovim terminal job id: echo &channel
     -- After repl starts: use <c-c><c-c>

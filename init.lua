@@ -1,3 +1,6 @@
+if vim.loader then
+  vim.loader.enable()
+end
 require("config.lazy")({ -- centralizing settings subject to change
   debug = false,
 

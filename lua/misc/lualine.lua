@@ -19,6 +19,12 @@ function M.transform(theme)
         theme[mode].b.fg = theme[mode].c.fg
       end
     end
+    -- if theme[mode] and theme[mode].a then
+    --   if theme[mode].c then
+    --     theme[mode].a.bg = theme[mode].c.bg
+    --     theme[mode].a.fg = theme[mode].c.fg
+    --   end
+    -- end
   end
 
   return theme

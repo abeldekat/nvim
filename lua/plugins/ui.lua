@@ -1,10 +1,6 @@
 local Util = require("lazyvim.util")
 return {
   -- ---------------------------------------------
-  -- observing ....
-  -- ---------------------------------------------
-
-  -- ---------------------------------------------
   -- disabling ....
   -- ---------------------------------------------
   { "echasnovski/mini.indentscope", enabled = false },
@@ -100,8 +96,7 @@ return {
   -- ---------------------------------------------
   -- adding ....
   -- ---------------------------------------------
-  -- replacing noice, lsp feedback
-  {
+  { -- replacing noice for lsp feedback
     "j-hui/fidget.nvim",
     tag = "legacy",
     event = "LspAttach",

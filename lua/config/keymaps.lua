@@ -79,6 +79,10 @@ map("n", "<C-N>", "<C-d>zz", { desc = "Dow[n] half page, better ctrl-d" })
 -- Add mappings
 --------------------------------------------------------------------------
 
+-- Switch tabs
+map("n", "<leader>1", "1gt", { desc = "Move to tab 1" })
+map("n", "<leader>2", "2gt", { desc = "Move to tab 2" })
+map("n", "<leader>3", "3gt", { desc = "Move to tab 3" })
 -- Add show tabs to tabs submenu
 map("n", "<leader><tab>s", "<cmd>tabs<cr>", { desc = "[S]how Tabs" })
 

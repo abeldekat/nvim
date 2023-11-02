@@ -4,22 +4,6 @@ local which_key_autoload = false
 return {
 
   -- ---------------------------------------------
-  -- observing ....
-  -- ---------------------------------------------
-  -- vim-illuminate:
-  --
-  -- lazyvim overrides(using require("illuminate")["goto_" .. dir .. "_reference"](false)):
-  -- [[ section backward or to the previous "{" in the first column.
-  -- ]] section forwards or to the next "{" in the first column.
-  -- quote:
-  -- You'll also get <a-n> and <a-p> as keymaps to move between references
-  -- and <a-i> as a textobject for the reference illuminated under the cursor.
-  --
-  -- gitsigns:
-  --
-  -- <c-w>w moves to preview window...
-
-  -- ---------------------------------------------
   -- disabling ....
   -- ---------------------------------------------
   { "nvim-neo-tree/neo-tree.nvim", enabled = false },
@@ -132,6 +116,43 @@ return {
       { "<leader>gb", "<cmd>Telescope git_bcommits<cr>", desc = "Buffer [b]lame Commits" },
       { "<leader>si", "<cmd>Telescope<cr>", desc = "Telescope built[i]n" },
     },
+    opts = function(_, opts) -- PR #1459 -- also see lua/telescope/mappings.lua
+      local layout_actions = require("telescope.actions.layout")
+      opts.defaults = vim.tbl_deep_extend("force", opts.defaults, {
+        mappings = {
+          i = {
+            ["<a-p>"] = layout_actions.toggle_preview,
+            ["<a-m>"] = layout_actions.toggle_mirror,
+            ["<a-o>"] = layout_actions.toggle_prompt_position,
+            ["<Down>"] = layout_actions.cycle_layout_prev, -- duplicate move_selection_previous
+            ["<Up>"] = layout_actions.cycle_layout_next, -- duplicate move_selection_end
+            ["<C-c>"] = false, -- double escape actions.close,
+            -- LazyVim:
+            ["<C-f>"] = false, -- duplicate actions.preview_scrolling_down,
+            ["<C-b>"] = false, -- duplicate actions.preview_scrolling_up,
+          },
+          n = { -- No LazyVim mappings, use the defaults like select tab in normal mode...
+            ["<Down>"] = false,
+            ["<Up>"] = false,
+          },
+        },
+        layout_strategy = "flex",
+        layout_config = {
+          horizontal = {
+            preview_width = 0.55,
+          },
+          vertical = {
+            width = 0.9,
+            height = 0.95,
+            preview_height = 0.5,
+            preview_cutoff = 0,
+          },
+          flex = {
+            flip_columns = 140,
+          },
+        },
+      })
+    end,
   },
 
   {
@@ -156,7 +177,7 @@ return {
       opts.defaults["<leader>q"] = nil -- no submenu
       opts.defaults["<leader>w"] = nil -- no submenu
 
-      -- delete buffer, session commands and lazy
+      -- session commands and lazy
       opts.defaults["<leader>m"] = { name = "+[m]isc" }
       opts.defaults["gs"] = nil
       return opts
@@ -244,15 +265,15 @@ return {
     },
   },
 
-  { -- keys seen in other configs: <leader> ha hn hp ht, ctrln ctrlp for prev and next
+  {
     "ThePrimeagen/harpoon",
     keys = function()
       local function nav(a_number)
         require("harpoon.ui").nav_file(a_number)
       end
 
+      -- stylua: ignore
       return {
-        -- stylua: ignore start
         { "<leader>,",
           function()
             require("harpoon.ui").toggle_quick_menu()
@@ -271,7 +292,6 @@ return {
             local num = tonumber(vim.fn.input("GoTo terminal window number: "))
             require("harpoon.term").gotoTerminal(num)
           end, desc = "[H]arpoon Terminal Window" },
-        -- stylua: ignore end
       }
     end,
     opts = { tabline = false },
@@ -309,7 +329,7 @@ return {
     },
   },
 
-  { -- git blame
+  {
     "f-person/git-blame.nvim",
     cmd = "GitBlameToggle",
     keys = {
