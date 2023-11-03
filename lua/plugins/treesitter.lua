@@ -16,10 +16,6 @@ return {
             ["a?"] = { query = "@conditional.outer", desc = "around conditional" },
             ["i?"] = { query = "@conditional.inner", desc = "inside conditional" },
 
-            -- TODO: Test this:
-            -- ["at"] = { query = "@function.outer", desc = "around function " },
-            -- ["it"] = { query = "@function.inner", desc = "inside function " },
-
             ["af"] = { query = "@function.outer", desc = "around function " },
             ["if"] = { query = "@function.inner", desc = "inside function " },
             ["al"] = { query = "@loop.outer", desc = "around loop" },

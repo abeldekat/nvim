@@ -71,21 +71,6 @@ end
 
 -- see editor, overriding <c-/> with toggleterm
 
--- right hand improvement:
--- c-n can behave like j and enter, also sometimes "next":
-map("n", "<C-N>", "<C-d>zz", { desc = "Dow[n] half page, better ctrl-d" })
-
---------------------------------------------------------------------------
--- Add mappings
---------------------------------------------------------------------------
-
--- Switch tabs
-map("n", "<leader>1", "1gt", { desc = "Move to tab 1" })
-map("n", "<leader>2", "2gt", { desc = "Move to tab 2" })
-map("n", "<leader>3", "3gt", { desc = "Move to tab 3" })
--- Add show tabs to tabs submenu
-map("n", "<leader><tab>s", "<cmd>tabs<cr>", { desc = "[S]how Tabs" })
-
 -- Remap all leader q mappings, see unmap above
 -- Step 1: See plugins, util, persistence, override q keys
 -- Step 2: map("n", "<leader>qq", "<cmd>qa<cr>", { desc = "Quit all" })
@@ -101,30 +86,23 @@ map("n", "<leader>mc", function()
 end, { desc = "Lazy [c]hangelog" })
 
 --------------------------------------------------------------------------
--- Primeagen:
+-- Add mappings
 --------------------------------------------------------------------------
 
--- lessons:
--- use yiw/yiW
--- overshoot is ok
--- use %, use paragraph
--- go one down, and use yi{}
--- remember di, with cursor before. No need to navigate
+-- Switch tabs
+map("n", "<leader>1", "1gt", { desc = "Move to tab 1" })
+map("n", "<leader>2", "2gt", { desc = "Move to tab 2" })
+map("n", "<leader>3", "3gt", { desc = "Move to tab 3" })
+-- Add show tabs to tabs submenu
+map("n", "<leader><tab>s", "<cmd>tabs<cr>", { desc = "[S]how Tabs" })
 
--- "The greatest remap ever..."
--- ...But v_P is also good... Now using mini.operators
+-- v_P is also good... Using substitute.nvim
 -- map("x", "<leader>p", '"_dP', { desc = "Enhanced paste. Delete to sink" })
 
--- Not compatible with mini.animate:
+-- right hand improvement:
+-- c-n can behave like j and enter, also sometimes "next":
+map("n", "<C-N>", "<C-d>zz", { desc = "Dow[n] half page, better ctrl-d" })
+
+-- Not compatible with animate:
 map("n", "<C-d>", "<C-d>zz", { desc = "better ctrl-d" })
 map("n", "<C-u>", "<C-u>zz", { desc = "better ctrl-u" })
-
---------------------------------------------------------------------------
--- Remember:
--- c-w T convert split to tab, c-w c close window, c-w o only
--- c-w n: new file in split
--- c-w p: previous window
--- c-w x: swap current with next
--- c-w w: switch windows
--- :tab help -- open help in new tab
--- M: meta, alt

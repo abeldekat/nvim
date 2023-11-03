@@ -7,6 +7,7 @@ return {
   -- disabling ....
   -- ---------------------------------------------
   { "nvim-neo-tree/neo-tree.nvim", enabled = false },
+  { "nvim-pack/nvim-spectre", enabled = false },
   -- use bdelete[!], or bwipeout:
   { "echasnovski/mini.bufremove", enabled = false },
 

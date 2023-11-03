@@ -61,10 +61,15 @@ return {
         -- stylua: ignore
         disabledKeymaps = {
           "R", "r", -- restOfIndentation, restOfParagraph: flash...
-          "ag", "ig", -- greedyOuterIndentation: not used
-          "gc", -- multiCommentedLines: comment.nvim
+          "ig", "ag", -- greedyOuterIndentation: not used
+          "gc", -- multiCommentedLines: comment.nvim...
           "n", -- nearEol: minus one char: overrides next search result
-          "ik", "ak", -- key: used by treesitter block
+          "ik", "ak", -- key: treesitter block...
+          "!", -- diagnostic: not used
+          "iz", "az", -- closed fold: not used
+          "im", "am", -- chainMember: not used
+          -- filetype specific: not used
+          "iC", "aC", "ic", "ac", "ix", "ax", "iD", "aD", "iP", "aP",
         },
       }
     end,
@@ -73,14 +78,6 @@ return {
   { -- mini.surround. See NOTES.md
     "kylechui/nvim-surround",
     version = "*",
-    -- init = function()
-    --   -- b and B are valid vim motions already
-    --   -- add a/i to angle and square aliases
-    --   vim.keymap.set("o", "ia", "i<") -- treesitter [a]rgument
-    --   vim.keymap.set("o", "aa", "a<")
-    --   vim.keymap.set("o", "ir", "i[")
-    --   vim.keymap.set("o", "ar", "a[")
-    -- end,
     keys = { -- switch to capital: "surrounding pair on new line"
       -- insert: pairs-like behavior. Surround with any char
       { "<C-g>z", desc = "Add a surrounding pair around the cursor (insert mode)", mode = { "i" } },
@@ -180,5 +177,11 @@ return {
         },
       })
     end,
+  },
+
+  { -- split/join using treesitter
+    "Wansmer/treesj",
+    keys = { { "J", "<cmd>TSJToggle<cr>", desc = "Join Toggle" } },
+    opts = { use_default_keymaps = false, max_join_length = 150 },
   },
 }

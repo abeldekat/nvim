@@ -8,6 +8,7 @@ local presets = {
     "nvim-surround",
     "substitute.nvim",
     "dial.nvim",
+    "treesj",
   },
   editor = {
     "telescope-zoxide",
@@ -22,8 +23,6 @@ local presets = {
   },
   util = {
     "vim-slime",
-    -- "markdown-preview.nvim", -- in extra
-    -- "glow.nvim", -- in extra
   },
 }
 
