@@ -11,7 +11,7 @@ return {
   -- adding ....
   -- ---------------------------------------------
 
-  { -- mini.comment(VeryLazy).
+  { -- mini.comment.
     "numToStr/Comment.nvim", --astronvim
     keys = {
       { "gc", mode = { "n", "v" }, desc = "Comment toggle linewise" },
@@ -24,7 +24,7 @@ return {
   },
 
   { -- mini.pairs. See NOTES.md
-    "windwp/nvim-autopairs", -- astronvim
+    "windwp/nvim-autopairs",
     event = "InsertEnter",
     opts = {
       check_ts = true,
@@ -56,13 +56,14 @@ return {
     "chrisgrieser/nvim-various-textobjs",
     event = { "LazyFile" },
     opts = function(_, _)
+      vim.keymap.set("o", "gc", '<cmd>lua require("various-textobjs").multiCommentedLines()<CR>')
       return {
         useDefaultKeymaps = true,
         -- stylua: ignore
         disabledKeymaps = {
           "R", "r", -- restOfIndentation, restOfParagraph: flash...
           "ig", "ag", -- greedyOuterIndentation: not used
-          "gc", -- multiCommentedLines: comment.nvim...
+          "gc", -- multiCommentedLines: comment.nvim... Only use operator pending
           "n", -- nearEol: minus one char: overrides next search result
           "ik", "ak", -- key: treesitter block...
           "!", -- diagnostic: not used
@@ -179,9 +180,9 @@ return {
     end,
   },
 
-  { -- split/join using treesitter
-    "Wansmer/treesj",
-    keys = { { "J", "<cmd>TSJToggle<cr>", desc = "Join Toggle" } },
-    opts = { use_default_keymaps = false, max_join_length = 150 },
-  },
+  -- { -- split/join using treesitter. See discussion 19. No markdown support.
+  --   "Wansmer/treesj",
+  --   keys = { { "gJ", "<cmd>TSJToggle<cr>", desc = "Join Toggle" } },
+  --   opts = { use_default_keymaps = false, max_join_length = 150 },
+  -- },
 }

@@ -8,7 +8,7 @@ local presets = {
     "nvim-surround",
     "substitute.nvim",
     "dial.nvim",
-    "treesj",
+    -- "treesj",
   },
   editor = {
     "telescope-zoxide",
@@ -20,6 +20,9 @@ local presets = {
     "harpoon",
     "oil.nvim",
     "git-blame.nvim",
+  },
+  ui = {
+    "fidget.nvim",
   },
   util = {
     "vim-slime",

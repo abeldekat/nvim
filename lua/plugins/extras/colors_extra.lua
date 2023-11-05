@@ -1,126 +1,102 @@
--- when activating extra, also change the max-depth in dmenu script
 local Dynamic = require("misc.colorscheme")
 local is_lazy = true
 local is_cond = true
 
 return {
 
-  { -- the light theme is good... Gruvbox like
-    "rebelot/kanagawa.nvim",
-    name = "colors_kanagawa",
-    main = "kanagawa",
-    config = function()
-      -- light bg -> lotus, dark bg -> wave
-      vim.o.background = Dynamic.prefer_light and "light" or "dark"
-
-      if Dynamic.prefer_light then
-        require("kanagawa").setup({
-          overrides = function(colors)
-            return {
-              -- Improve FlashLabel:
-              -- Substitute = { fg = theme.ui.fg, bg = theme.vcs.removed },
-              Substitute = { fg = colors.theme.ui.fg_reverse, bg = colors.theme.vcs.removed },
-            }
-          end,
-        })
-      end
-    end,
-    lazy = is_lazy,
-    cond = is_cond,
-  },
-
-  { -- combi (dark, light) and (soft, medium, hard)
-    -- lazygit colors are not always readable
-    -- good light theme
-    "sainnhe/everforest",
-    name = "colors_everforest",
-    main = "everforest",
-    config = function()
-      vim.g.everforest_better_performance = 1
-      vim.g.everforest_enable_italic = 1
-
-      vim.o.background = Dynamic.prefer_light and "light" or "dark"
-      vim.g.everforest_background = "medium"
-    end,
-    lazy = is_lazy,
-    cond = is_cond,
-  },
-
-  { -- unique colors, light is a little bit vague
-    "Shatur/neovim-ayu",
-    name = "colors_ayu",
-    main = "ayu",
-    config = function()
-      vim.o.background = Dynamic.prefer_light and "light" or "dark"
-      local opts = {
-        mirage = true, -- on dark choose mirage
-        overrides = {},
-      }
-      require("ayu").setup(opts)
-    end,
-    lazy = is_lazy,
-    cond = is_cond,
-  },
-
-  { -- dark with medium and hard contrast
-    "luisiacc/gruvbox-baby",
-    name = "colors_gruvboxbaby",
-    main = "gruvbox-baby",
-    config = function()
-      vim.g.gruvbox_baby_use_original_palette = false
-      vim.g.gruvbox_baby_function_style = "bold"
-      vim.g.gruvbox_baby_keyword_style = "italic"
-      vim.g.gruvbox_baby_comment_style = "italic"
-      vim.g.gruvbox_baby_comment_style = "italic"
-      vim.g.gruvbox_baby_variable_style = "NONE"
-      vim.g.gruvbox_baby_telescope_theme = true
-      vim.g.gruvbox_baby_transparent_mode = false
-
-      vim.g.gruvbox_baby_background_color = "medium"
-    end,
-    lazy = is_lazy,
-    cond = is_cond,
-  },
-
-  { --combi dark(default, aura and neon) and  light(default)
-    "sainnhe/edge",
-    name = "colors_edge",
-    main = "edge",
-    config = function()
-      vim.g.edge_better_performance = 1
-      vim.g.edge_enable_italic = 1
-
-      vim.o.background = Dynamic.prefer_light and "light" or "dark"
-      vim.g.edge_style = "default"
-    end,
-    lazy = is_lazy,
-    cond = is_cond,
-  },
-
-  { -- combi (dark, light) and (low, medium, high)
-    "daschw/leaf.nvim",
-    name = "colors_leaf",
-    main = "leaf",
+  { -- 6 flavours, no light theme
+    "loctvl842/monokai-pro.nvim",
+    name = "colors_monokai",
+    main = "monokai-pro",
     config = function()
       local opts = {
-        contrast = "medium",
+        filter = "octagon",
       }
-      vim.o.background = Dynamic.prefer_light and "light" or "dark"
-      require("leaf").setup(opts)
+      require("monokai-pro").setup(opts)
     end,
     lazy = is_lazy,
     cond = is_cond,
   },
 
-  { -- no good distinction between keyword = value
-    "savq/melange-nvim",
-    name = "colors_melange",
-    main = "melange",
+  { -- 6 styles, monokai variations
+    "sainnhe/sonokai",
+    name = "colors_sonokai",
+    main = "sonokai",
+    config = function()
+      vim.g.sonokai_better_performance = 1
+      vim.g.sonokai_enable_italic = 1
+      vim.g.sonokai_disable_italic_comment = 1
+      vim.g.sonokai_dim_inactive_windows = 1
+
+      vim.g.sonokai_style = "andromeda"
+    end,
+    lazy = is_lazy,
+    cond = is_cond,
+  },
+
+  {
+    "AstroNvim/astrotheme",
+    name = "colors_astrotheme",
+    main = "astrotheme",
     opts = function()
       vim.o.background = Dynamic.prefer_light and "light" or "dark"
-      return {}
+      local opts = {
+        palette = Dynamic.prefer_light and "astrolight" or "astrodark",
+      }
+      return opts
     end,
-    config = function() end, -- no setup
+    lazy = is_lazy,
+    cond = is_cond,
+  },
+
+  { -- four themes. No visible difference between onedark and onedark_vivid
+    "olimorris/onedarkpro.nvim",
+    name = "colors_onedarkpro",
+    main = "onedarkpro",
+    opts = function()
+      return {
+        options = {
+          cursorline = true,
+          highlight_inactive_windows = true,
+        },
+      }
+    end,
+    config = function(_, opts)
+      local theme = Dynamic.prefer_light and "onelight" or "onedark_vivid"
+      require("onedarkpro").setup(opts)
+      require("onedarkpro.config").set_theme(theme)
+    end,
+    lazy = is_lazy,
+    cond = is_cond,
+  },
+
+  { -- dark and light with soft, medium and hard contrast. Three palettes.
+    "sainnhe/gruvbox-material",
+    name = "colors_gruvbox-material",
+    main = "gruvbox-material",
+    config = function()
+      vim.g.gruvbox_material_better_performance = 1
+
+      vim.o.background = Dynamic.prefer_light and "light" or "dark"
+      vim.g.gruvbox_material_background = "soft"
+      vim.g.gruvbox_material_foreground = "material"
+    end,
+    lazy = is_lazy,
+    cond = is_cond,
+  },
+
+  { -- has its own toggle_style
+    "ribru17/bamboo.nvim",
+    name = "colors_bamboo",
+    main = "bamboo",
+    opts = function()
+      vim.o.background = Dynamic.prefer_light and "light" or "dark"
+      return {
+        style = "vulgaris",
+        toggle_style_key = "<leader>a",
+        dim_inactive = true,
+      }
+    end,
     lazy = is_lazy,
     cond = is_cond,
   },

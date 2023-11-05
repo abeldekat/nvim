@@ -14,19 +14,20 @@
 -- "leader o": telescope switch buffer
 -- "leader ,": harpoon ui, replacing telescope switch buffer
 --
+-- "leader a": harpoon add
 -- "leader h": harpoon file 1
 -- "leader j": harpoon file 2
 -- "leader k": harpoon file 3
 -- "leader l": harpoon file 4
+-- "leader n": harpoon next
+-- "leader p": harpoon prev
 --
 -- "leader e": telescope live grep, replacing neotree
 -- "leader /": telescope current buffer search, replacing telescope live grep
 -- "leader r": telescope oldfiles, current working dir
 --
--- Special mark keys(a, k, l):
--- "ma": harpoon add
+-- Special mark keys(k):
 -- "mk": oil file browser (strongest rolling fingers...)
--- "ml": mini file browser
 
 local Util = require("lazyvim.util")
 

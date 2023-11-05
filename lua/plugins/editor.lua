@@ -165,11 +165,11 @@ return {
       return which_key_autoload and {}
         or {
           {
-            "<leader>mw",
+            "<leader>uk",
             function()
               require("which-key")
             end,
-            desc = "[W]hich-key",
+            desc = "Activate Which-[k]ey",
           },
         }
     end,
@@ -269,30 +269,37 @@ return {
   {
     "ThePrimeagen/harpoon",
     keys = function()
+      local function add()
+        require("harpoon.mark").add_file()
+      end
+      local function ui()
+        require("harpoon.ui").toggle_quick_menu()
+      end
       local function nav(a_number)
         require("harpoon.ui").nav_file(a_number)
+      end
+      local function prev()
+        require("harpoon.ui").nav_prev()
+      end
+      local function next()
+        require("harpoon.ui").nav_next()
+      end
+      local function to_terminal()
+        local num = tonumber(vim.fn.input("GoTo terminal window number: "))
+        require("harpoon.term").gotoTerminal(num)
       end
 
       -- stylua: ignore
       return {
-        { "<leader>,",
-          function()
-            require("harpoon.ui").toggle_quick_menu()
-          end, desc = "[H]arpoon", },
-        { "ma",
-          function()
-            require("harpoon.mark").add_file()
-          end, desc = "Harpoon [A]dd", },
-        { "<leader>h", function() nav(1) end, desc = "Harpoon 1", },
-        { "<leader>j", function() nav(2) end, desc = "Harpoon 2", },
-        { "<leader>k", function() nav(3) end, desc = "Harpoon 3", },
-        { "<leader>l", function() nav(4) end, desc = "Harpoon 4", },
-
-        { "<leader>fh",
-          function()
-            local num = tonumber(vim.fn.input("GoTo terminal window number: "))
-            require("harpoon.term").gotoTerminal(num)
-          end, desc = "[H]arpoon Terminal Window" },
+        { "<leader>a", add, desc = "Harpoon [a]dd" },
+        { "<leader>,", ui, desc = "Harpoon ui" },
+        { "<leader>h", function() nav(1) end, desc = "Harpoon 1" },
+        { "<leader>j", function() nav(2) end, desc = "Harpoon 2" },
+        { "<leader>k", function() nav(3) end, desc = "Harpoon 3" },
+        { "<leader>l", function() nav(4) end, desc = "Harpoon 4" },
+        { "<leader>n", next, desc = "Harpoon [n]ext file" },
+        { "<leader>p", prev, desc = "Harpoon [p]rev file" },
+        { "<leader>fh", to_terminal, desc = "[H]arpoon terminal" },
       }
     end,
     opts = { tabline = false },

@@ -3,7 +3,6 @@ return {
   { -- treesitter textobjects: uses k for block, b is preserved
     "nvim-treesitter/nvim-treesitter",
     opts = function(_, opts)
-      -- textobjects, initially copied from AstroNvim:
       opts.textobjects = {
         select = {
           enable = true,
@@ -15,7 +14,6 @@ return {
             ["ic"] = { query = "@class.inner", desc = "inside class" },
             ["a?"] = { query = "@conditional.outer", desc = "around conditional" },
             ["i?"] = { query = "@conditional.inner", desc = "inside conditional" },
-
             ["af"] = { query = "@function.outer", desc = "around function " },
             ["if"] = { query = "@function.inner", desc = "inside function " },
             ["al"] = { query = "@loop.outer", desc = "around loop" },

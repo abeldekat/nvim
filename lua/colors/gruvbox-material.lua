@@ -20,7 +20,7 @@ require("misc.colortoggle").add_toggle({
 })
 require("misc.colortoggle").add_toggle({
   name = name,
-  key = "<leader>A",
+  key = "<leader>uA",
   flavours = { -- 'palettes'
     "material",
     "mix",

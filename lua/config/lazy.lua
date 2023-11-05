@@ -27,7 +27,14 @@ return function(opts)
     change_detection = { enabled = false },
     performance = {
       rtp = { -- "matchit", "matchparen",
-        disabled_plugins = { "gzip", "netrwPlugin", "tarPlugin", "tohtml", "tutor", "zipPlugin" },
+        disabled_plugins = {
+          "gzip",
+          "netrwPlugin",
+          "tarPlugin",
+          "tohtml",
+          "tutor",
+          "zipPlugin",
+        },
         paths = opts.flex and opts.clone_flex and { clone("abeldekat", "lazyflex.nvim") } or {},
       },
     },
