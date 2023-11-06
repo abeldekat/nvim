@@ -2,7 +2,7 @@ local M = {}
 
 function M.add_toggle(opts)
   local current = 1
-  vim.keymap.set("n", opts.key and opts.key or "<leader>ua", function()
+  vim.keymap.set("n", opts.key and opts.key or "<leader>a", function()
     current = current == #opts.flavours and 1 or (current + 1)
     local flavour = opts.flavours[current]
 

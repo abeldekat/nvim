@@ -4,23 +4,15 @@
 -- disabled bufferline, removes mappings pin with leader bP and bp
 -- disabled mini.bufremove: leader b available
 -- disabled neotree: leader e available
--- remapped lazy "leader l" to leader zz: leader l available
--- remapped persistence to "leader z": leader q available
--- remapped all "leader w": leader w available
---
+-- remapped persistence to "leader m": leader q available
+-- removed all "leader w": leader w available
+
+--------------------------------------------------------------------------
 -- file navigation design:
---
+--------------------------------------------------------------------------
+-- "leader ,": not used
 -- "leader space": LazyVim default, telescope files
--- "leader o": telescope switch buffer
--- "leader ,": harpoon ui, replacing telescope switch buffer
---
--- "leader a": harpoon add
--- "leader h": harpoon file 1
--- "leader j": harpoon file 2
--- "leader k": harpoon file 3
--- "leader l": harpoon file 4
--- "leader n": harpoon next
--- "leader p": harpoon prev
+-- "leader o": telescope switch buffer(other buffers, "leader ,")
 --
 -- "leader e": telescope live grep, replacing neotree
 -- "leader /": telescope current buffer search, replacing telescope live grep
@@ -28,8 +20,17 @@
 --
 -- Special mark keys(k):
 -- "mk": oil file browser (strongest rolling fingers...)
+--
+-- "leader j": harpoon ui
+-- "leader k": harpoon add(next to j)
+-- "leader n": harpoon next
+-- "leader p": harpoon prev
+-- "ctrl j": harpoon file 1
+-- "ctrl k": harpoon file 2
+-- "ctrl h": harpoon file 3
+-- "ctrl l": harpoon file 4
 
-local Util = require("lazyvim.util")
+-- local Util = require("lazyvim.util")
 
 local function map(mode, lhs, rhs, opts)
   opts = opts or {}
@@ -41,16 +42,13 @@ local function map(mode, lhs, rhs, opts)
 end
 
 --------------------------------------------------------------------------
--- Delete mappings, making l, w and q menus available
+-- Delete mappings: b, w and q menus available
 --------------------------------------------------------------------------
 
 for _, key in pairs({
-  "<c-/>", -- dummy which key, lazyterm
-  "<S-h>", -- bprev
-  "<S-l>", -- bnext
+  "<S-h>", -- top instead of bprev
+  "<S-l>", -- lower instead of bnext
   "<leader>bb", -- switch to other buffer, using: <leader>`
-  -- "<leader>l", -- lazy, now harpoon 4
-  "<leader>L", -- lazy changelog
   "<leader>wd", -- delete window, <C-W>c, now just quit
   "<leader>ww", -- other window, <C-W>p, not necessary
   "<leader>w-", -- duplicate split window <C-W>s
@@ -58,6 +56,14 @@ for _, key in pairs({
   "<leader>qq", -- quit all
 }) do
   vim.keymap.del("n", key)
+end
+for _, key in pairs({
+  "<c-h>", -- harpoon consistency
+  "<c-j>",
+  "<c-k>",
+  "<c-l>",
+}) do
+  vim.keymap.del("t", key)
 end
 
 -- save file with C-s in all modes
@@ -70,21 +76,10 @@ end
 -- Change mappings
 --------------------------------------------------------------------------
 
--- see editor, overriding <c-/> with toggleterm
-
--- Remap all leader q mappings, see unmap above
--- Step 1: See plugins, util, persistence, override q keys
--- Step 2: map("n", "<leader>qq", "<cmd>qa<cr>", { desc = "Quit all" })
+-- Remap all leader q mappings
 map("n", "<leader>q", "<cmd>q<cr>", { desc = "[Q]uit" })
 -- Lazy uses ctrl-s
 map("n", "<leader>w", "<cmd>w<cr><esc>", { desc = "[W]rite" })
-
--- Remap lazy ui, leader l now available, see unmap above
-map("n", "<leader>ml", "<cmd>Lazy<cr>", { desc = "[L]azy" })
--- LazyVim Changelog, see unmap above
-map("n", "<leader>mc", function()
-  Util.news.changelog()
-end, { desc = "Lazy [c]hangelog" })
 
 --------------------------------------------------------------------------
 -- Add mappings

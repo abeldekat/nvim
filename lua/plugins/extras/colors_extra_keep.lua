@@ -29,23 +29,6 @@ return {
     cond = is_cond,
   },
 
-  { -- combi (dark, light) and (soft, medium, hard)
-    -- lazygit colors are not always readable
-    -- good light theme
-    "sainnhe/everforest",
-    name = "colors_everforest",
-    main = "everforest",
-    config = function()
-      vim.g.everforest_better_performance = 1
-      vim.g.everforest_enable_italic = 1
-
-      vim.o.background = Dynamic.prefer_light and "light" or "dark"
-      vim.g.everforest_background = "medium"
-    end,
-    lazy = is_lazy,
-    cond = is_cond,
-  },
-
   { -- unique colors, light is a little bit vague
     "Shatur/neovim-ayu",
     name = "colors_ayu",
@@ -92,15 +75,33 @@ return {
     cond = is_cond,
   },
 
-  { -- no good distinction between keyword = value
-    "savq/melange-nvim",
-    name = "colors_melange",
-    main = "melange",
+  { -- 6 styles, monokai variations
+    "sainnhe/sonokai",
+    name = "colors_sonokai",
+    main = "sonokai",
+    config = function()
+      vim.g.sonokai_better_performance = 1
+      vim.g.sonokai_enable_italic = 1
+      vim.g.sonokai_disable_italic_comment = 1
+      vim.g.sonokai_dim_inactive_windows = 1
+
+      vim.g.sonokai_style = "andromeda"
+    end,
+    lazy = is_lazy,
+    cond = is_cond,
+  },
+
+  {
+    "AstroNvim/astrotheme",
+    name = "colors_astrotheme",
+    main = "astrotheme",
     opts = function()
       vim.o.background = Dynamic.prefer_light and "light" or "dark"
-      return {}
+      local opts = {
+        palette = Dynamic.prefer_light and "astrolight" or "astrodark",
+      }
+      return opts
     end,
-    config = function() end, -- no setup
     lazy = is_lazy,
     cond = is_cond,
   },
