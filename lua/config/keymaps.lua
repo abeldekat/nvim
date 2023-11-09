@@ -10,27 +10,32 @@
 --------------------------------------------------------------------------
 -- file navigation design:
 --------------------------------------------------------------------------
--- "leader ,": not used
+-- "leader ,": unmapped, telescope switch buffer, harder to type
 -- "leader space": LazyVim default, telescope files
--- "leader o": telescope switch buffer(other buffers, "leader ,")
+-- "leader o": telescope switch buffer, list open buffers
 --
 -- "leader e": telescope live grep, replacing neotree
 -- "leader /": telescope current buffer search, replacing telescope live grep
 -- "leader r": telescope oldfiles, current working dir
 --
--- Special mark keys(k):
+-- special mark keys(k):
 -- "mk": oil file browser (strongest rolling fingers...)
+-- "ml": last accessed window
+-- "mw": next window
+-- "me": explore alternate( projectionist or telescope-alternate)
+-- "ma ms md mf": undefined, reserved for marking inside buffer
 --
+-- harpoon leader:
 -- "leader j": harpoon ui
 -- "leader k": harpoon add(next to j)
 -- "leader n": harpoon next
 -- "leader p": harpoon prev
+
+-- harpoon overriding window navigation:
 -- "ctrl j": harpoon file 1
 -- "ctrl k": harpoon file 2
--- "ctrl h": harpoon file 3
--- "ctrl l": harpoon file 4
-
--- local Util = require("lazyvim.util")
+-- "ctrl l": harpoon file 3
+-- "ctrl h": harpoon file 4
 
 local function map(mode, lhs, rhs, opts)
   opts = opts or {}
@@ -76,14 +81,18 @@ end
 -- Change mappings
 --------------------------------------------------------------------------
 
--- Remap all leader q mappings
+-- leader q now available:
 map("n", "<leader>q", "<cmd>q<cr>", { desc = "[Q]uit" })
--- Lazy uses ctrl-s
+-- leader w now available. Lazy uses ctrl-s
 map("n", "<leader>w", "<cmd>w<cr><esc>", { desc = "[W]rite" })
 
 --------------------------------------------------------------------------
 -- Add mappings
 --------------------------------------------------------------------------
+
+-- previous window:
+map("n", "ml", "<C-W>p", { desc = "Last accessed window", remap = true })
+map("n", "mw", "<C-W>w", { desc = "Next window", remap = true })
 
 -- Switch tabs
 map("n", "<leader>1", "1gt", { desc = "Move to tab 1" })

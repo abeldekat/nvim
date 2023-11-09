@@ -73,7 +73,7 @@ return {
 
       -- "leader ,", switch buffer:
 
-      { "<leader>o", "<cmd>Telescope buffers sort_mru=true sort_lastused=true<cr>", desc = "[O]ther buffers" },
+      { "<leader>o", "<cmd>Telescope buffers sort_mru=true sort_lastused=true<cr>", desc = "[O]pen buffers" },
       { "<leader>,", false }, -- disable to use harpoon
 
       -- "leader /", live grep:
@@ -299,8 +299,8 @@ return {
         -- test changing from <leader>{hjkl}:
         { "<c-j>", function() nav(1) end, desc = "Harpoon 1" },
         { "<c-k>", function() nav(2) end, desc = "Harpoon 2" },
-        { "<c-h>", function() nav(3) end, desc = "Harpoon 3" },
-        { "<c-l>", function() nav(4) end, desc = "Harpoon 4" },
+        { "<c-l>", function() nav(3) end, desc = "Harpoon 3" },
+        { "<c-h>", function() nav(4) end, desc = "Harpoon 4" },
       }
     end,
     opts = { tabline = false },

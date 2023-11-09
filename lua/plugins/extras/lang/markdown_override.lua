@@ -12,8 +12,8 @@ return {
     end,
   },
 
-  { -- 20231102: https://github.com/toppair/peek.nvim/issues/47
-    "saimo/peek.nvim", -- toppair/peek.nvim
+  {
+    "toppair/peek.nvim", -- toppair/peek.nvim
     -- enabled = function()
     --   if vim.fn.executable("deno") == 1 then
     --     return true

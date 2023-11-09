@@ -36,57 +36,57 @@ return {
     },
   },
 
-  -- Alternative to vim-projectionist:
-  -- Not in use:
-  -- {
-  --   "otavioschwanck/telescope-alternate.nvim",
-  --   keys = {
-  --     {
-  --       "<space>fo",
-  --       ":Telescope telescope-alternate alternate_file<cr>",
-  --       desc = "Find alternate other file",
-  --     },
-  --   },
-  --   opts = {
-  --     mappings = {
-  --       -- python with pytest...
-  --       {
-  --         "src/(.*)/(.*).py",
-  --         { { "tests/[1]/test_[2].py", "Test", true } },
-  --       },
-  --       {
-  --         "tests/(.*)/test_(.*).py",
-  --         { { "src/[1]/[2].py", "Source", true } },
-  --       },
-  --     },
-  --     presets = {},
-  --   },
-  --   config = function(_, opts)
-  --     require("telescope-alternate").setup(opts)
-  --     require("telescope").load_extension("telescope-alternate")
-  --   end,
-  -- },
+  {
+    "telescope.nvim",
+    optional = true,
+    dependencies = {
+      {
+        "otavioschwanck/telescope-alternate.nvim",
+        keys = {
+          {
+            "me",
+            ":Telescope telescope-alternate alternate_file<cr>",
+            desc = "Alternate file",
+          },
+        },
+        opts = {
+          mappings = {
+            {
+              "src/(.*)/(.*).py",
+              { { "tests/**/test_[2].py", "Test", false } },
+            },
+            {
+              "tests/(.*)/test_(.*).py",
+              { { "src/**/[2].py", "Source", false } },
+            },
+          },
+        },
+        config = function(_, opts)
+          require("telescope-alternate").setup(opts)
+          require("telescope").load_extension("telescope-alternate")
+        end,
+      },
+    },
+  },
 
-  -- Also see .projections json, project specific. The json is faster
+  -- NOTE: Projectionist could be used project specific: .projections.json
+  --
   -- {
   --   "tpope/vim-projectionist",
   --   lazy = true,
-  --   config = function()
-  --     vim.cmd([[
-  --       let g:projectionist_heuristics = {
-  --       \  '*' : {
-  --       \    "sfk4ph/*.py": {
-  --       \      "alternate" : "tests/{dirname}/test_{basename}.py"
-  --       \    },
-  --       \    "tests/**/test_*.py": {
-  --       \      "alternate" : "sfk4ph/{}.py"
-  --       \    }
-  --       \  }
-  --       \}
-  --     ]])
-  --     vim.keymap.set("n", "<leader>ff", "<cmd>A<cr>", { silent = true, desc = "Alternate" })
-  --   end,
+  --   keys = {
+  --     {
+  --       "me",
+  --       function()
+  --         -- bufreadpost triggers commands in the current buffer
+  --         vim.api.nvim_exec_autocmds("BufReadPost", {})
+  --         vim.cmd("A")
+  --       end,
+  --       desc = "Alternate file",
+  --     },
+  --   },
   -- },
+
   -- {
   --   "vim-test/vim-test",
   --   keys = {
