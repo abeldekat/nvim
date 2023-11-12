@@ -10,8 +10,8 @@
 --------------------------------------------------------------------------
 -- file navigation design:
 --------------------------------------------------------------------------
--- "leader ,": unmapped, telescope switch buffer, harder to type
--- "leader space": LazyVim default, telescope files
+-- "leader ,": unmapped, lazyvim telescope switch buffer, harder to type
+-- "leader space": lazyvim default, telescope files
 -- "leader o": telescope switch buffer, list open buffers
 --
 -- "leader e": telescope live grep, replacing neotree
@@ -22,20 +22,23 @@
 -- "mk": oil file browser (strongest rolling fingers...)
 -- "ml": last accessed window
 -- "mw": next window
--- "me": explore alternate( projectionist or telescope-alternate)
+-- "me": explore alternate(telescope-alternate)
 -- "ma ms md mf": undefined, reserved for marking inside buffer
 --
 -- harpoon leader:
--- "leader j": harpoon ui
--- "leader k": harpoon add(next to j)
+-- "leader h": harpoon add
+-- "leader j": harpoon ui(strongest finger)
 -- "leader n": harpoon next
 -- "leader p": harpoon prev
 
 -- harpoon overriding window navigation:
--- "ctrl j": harpoon file 1
+-- "ctrl j": harpoon file 1(strongest finger)
 -- "ctrl k": harpoon file 2
 -- "ctrl l": harpoon file 3
 -- "ctrl h": harpoon file 4
+
+-- terminal mode overriding window navigation
+-- "ctrl j": to normal mode(strongest finger)
 
 local function map(mode, lhs, rhs, opts)
   opts = opts or {}
@@ -50,6 +53,12 @@ end
 -- Delete mappings: b, w and q menus available
 --------------------------------------------------------------------------
 
+-- all modes
+for _, mode in pairs({ "i", "s", "x", "n" }) do
+  vim.keymap.del(mode, "<C-s>") -- save file in all modes
+end
+
+-- normal mode
 for _, key in pairs({
   "<S-h>", -- top instead of bprev
   "<S-l>", -- lower instead of bnext
@@ -62,20 +71,20 @@ for _, key in pairs({
 }) do
   vim.keymap.del("n", key)
 end
+
+-- terminal mode
 for _, key in pairs({
   "<c-h>", -- harpoon consistency
   "<c-j>",
   "<c-k>",
   "<c-l>",
+  -- "esc esc" causes delay when using zsh vi mode:
+  -- "esc c" is translated into "alt c" and invokes fzf directories
+  "<esc><esc>",
 }) do
   vim.keymap.del("t", key)
 end
-
--- save file with C-s in all modes
--- "s", -- stacktrace ...
-for _, mode in pairs({ "i", "v", "n" }) do
-  vim.keymap.del(mode, "<C-s>")
-end
+map("t", "<c-j>", "<c-\\><c-n>", { desc = "Enter Normal Mode" })
 
 --------------------------------------------------------------------------
 -- Change mappings

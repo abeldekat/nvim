@@ -45,7 +45,9 @@ return {
         keys = {
           {
             "me",
-            ":Telescope telescope-alternate alternate_file<cr>",
+            function()
+              require("telescope").extensions["telescope-alternate"].alternate_file()
+            end,
             desc = "Alternate file",
           },
         },

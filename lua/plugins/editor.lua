@@ -291,8 +291,8 @@ return {
 
       -- stylua: ignore
       return {
+        { "<leader>h", add, desc = "[H]arpoon add" },
         { "<leader>j", ui, desc = "Harpoon ui" },
-        { "<leader>k", add, desc = "Harpoon add" },
         { "<leader>n", next, desc = "Harpoon [n]ext" },
         { "<leader>p", prev, desc = "Harpoon [p]rev" },
         { "<leader>fh", to_terminal, desc = "[H]arpoon terminal" },
