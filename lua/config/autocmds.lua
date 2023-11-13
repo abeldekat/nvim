@@ -47,3 +47,12 @@ autocmd({ "FileType" }, {
   end,
   group = "mygroup",
 })
+
+-- https://github.com/neovim/neovim/issues/4396
+-- https://github.com/neovim/neovim/issues/4867#issuecomment-291249173
+-- autocmd("VimLeave", {
+--   pattern = "*",
+--   callback = function()
+--     vim.cmd("set guicursor=a:ver25-blinkon1000")
+--   end,
+-- })
