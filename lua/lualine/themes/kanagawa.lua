@@ -1,18 +1,4 @@
-local M = {}
-
-require("misc.colortoggle").add_toggle({
-  name = "kanagawa",
-  flavours = {
-    "kanagawa-wave",
-    "kanagawa-dragon",
-    "kanagawa-lotus",
-  },
-  toggle = function(flavour)
-    vim.cmd.colorscheme(flavour)
-  end,
-})
-
-function M.lualine()
+local function lualine()
   local theme = require("kanagawa.colors").setup().theme
 
   local kanagawa = {}
@@ -57,4 +43,4 @@ function M.lualine()
 
   return kanagawa
 end
-return M
+return require("misc.lualine").transform(lualine())

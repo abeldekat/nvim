@@ -1,2 +1,2 @@
-local transformed = require("misc.lualine").transform(require("colors.astrotheme").lualine())
-return transformed
+local Setup = require("lualine.themes.setup_astrotheme")
+return require("misc.lualine").transform(Setup.lualine())

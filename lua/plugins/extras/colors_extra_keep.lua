@@ -1,108 +1,126 @@
--- when activating extra, also change the max-depth in dmenu script
 local Dynamic = require("misc.colorscheme")
-local is_lazy = true
-local is_cond = true
+local keys = {
+  {
+    "<leader>uC",
+    function()
+      require("lazyvim.util").telescope("colorscheme", { enable_preview = true })()
+    end,
+    desc = "Colorscheme with preview",
+  },
+}
+local add_toggle = function(pattern, opts)
+  vim.api.nvim_create_autocmd("ColorScheme", {
+    pattern = type(pattern) == string and { pattern } or pattern,
+    callback = function()
+      require("misc.colortoggle").add_toggle(opts)
+    end,
+  })
+end
 
 return {
 
   { -- the light theme is good... Gruvbox like
-    "rebelot/kanagawa.nvim",
+    "rebelot/kanagawa.nvim", -- light bg -> lotus, dark bg -> wave
     name = "colors_kanagawa",
     main = "kanagawa",
-    config = function()
-      -- light bg -> lotus, dark bg -> wave
+    keys = keys,
+    opts = function()
+      add_toggle("kanagawa*", {
+        name = "kanagawa",
+        flavours = { "kanagawa-wave", "kanagawa-dragon", "kanagawa-lotus" },
+      })
       vim.o.background = Dynamic.prefer_light and "light" or "dark"
-
-      if Dynamic.prefer_light then
-        require("kanagawa").setup({
-          overrides = function(colors)
-            return {
-              -- Improve FlashLabel:
-              -- Substitute = { fg = theme.ui.fg, bg = theme.vcs.removed },
-              Substitute = { fg = colors.theme.ui.fg_reverse, bg = colors.theme.vcs.removed },
-            }
-          end,
-        })
-      end
+      -- stylua: ignore
+      return Dynamic.prefer_light and {
+            overrides = function(colors)
+              return { -- Improve FlashLabel:
+                -- Substitute = { fg = theme.ui.fg, bg = theme.vcs.removed },
+                Substitute = { fg = colors.theme.ui.fg_reverse, bg = colors.theme.vcs.removed },
+              }
+            end,
+          } or {}
     end,
-    lazy = is_lazy,
-    cond = is_cond,
   },
 
   { -- unique colors, light is a little bit vague
     "Shatur/neovim-ayu",
     name = "colors_ayu",
     main = "ayu",
-    config = function()
+    keys = keys,
+    opts = function()
+      add_toggle("ayu*", {
+        name = "ayu",
+        flavours = { "ayu-mirage", "ayu-dark", "ayu-light" },
+      })
       vim.o.background = Dynamic.prefer_light and "light" or "dark"
-      local opts = {
-        mirage = true, -- on dark choose mirage
-        overrides = {},
-      }
-      require("ayu").setup(opts)
+      return { mirage = true, overrides = {} }
     end,
-    lazy = is_lazy,
-    cond = is_cond,
   },
 
   { --combi dark(default, aura and neon) and  light(default)
     "sainnhe/edge",
     name = "colors_edge",
     main = "edge",
+    keys = keys,
     config = function()
+      add_toggle("edge", {
+        name = "edge",
+        -- stylua: ignore
+        flavours = {
+          { "dark", "default" }, { "dark", "aura" }, { "dark", "neon" },
+          { "light", "default" },
+        },
+        toggle = function(flavour)
+          vim.o.background = flavour[1]
+          vim.g.edge_style = flavour[2]
+          vim.cmd.colorscheme("edge")
+        end,
+      })
       vim.g.edge_better_performance = 1
       vim.g.edge_enable_italic = 1
-
       vim.o.background = Dynamic.prefer_light and "light" or "dark"
       vim.g.edge_style = "default"
     end,
-    lazy = is_lazy,
-    cond = is_cond,
   },
 
-  { -- combi (dark, light) and (low, medium, high)
+  { -- based on Leaf KDE Plasma Theme
     "daschw/leaf.nvim",
     name = "colors_leaf",
     main = "leaf",
-    config = function()
-      local opts = {
-        contrast = "medium",
-      }
+    keys = keys,
+    opts = function()
+      add_toggle("leaf", {
+        name = "leaf",
+        -- stylua: ignore
+        flavours = {
+          { "dark", "low" }, { "dark", "medium" }, { "dark", "high" },
+          { "light", "low" }, { "light", "medium" }, { "light", "high" },
+        },
+        toggle = function(flavour)
+          vim.o.background = flavour[1]
+          require("leaf").setup({ contrast = flavour[2] })
+          vim.cmd.colorscheme("leaf")
+        end,
+      })
       vim.o.background = Dynamic.prefer_light and "light" or "dark"
-      require("leaf").setup(opts)
+      return { contrast = "medium" }
     end,
-    lazy = is_lazy,
-    cond = is_cond,
-  },
-
-  { -- 6 styles, monokai variations
-    "sainnhe/sonokai",
-    name = "colors_sonokai",
-    main = "sonokai",
-    config = function()
-      vim.g.sonokai_better_performance = 1
-      vim.g.sonokai_enable_italic = 1
-      vim.g.sonokai_disable_italic_comment = 1
-      vim.g.sonokai_dim_inactive_windows = 1
-
-      vim.g.sonokai_style = "andromeda"
-    end,
-    lazy = is_lazy,
-    cond = is_cond,
   },
 
   {
     "AstroNvim/astrotheme",
     name = "colors_astrotheme",
     main = "astrotheme",
+    keys = keys,
     opts = function()
+      add_toggle("astro*", {
+        name = "astrotheme",
+        flavours = { "astrodark", "astromars", "astrolight" },
+      })
       vim.o.background = Dynamic.prefer_light and "light" or "dark"
-      local opts = {
+      return {
         palette = Dynamic.prefer_light and "astrolight" or "astrodark",
       }
-      return opts
     end,
-    lazy = is_lazy,
-    cond = is_cond,
   },
 }

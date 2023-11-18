@@ -20,9 +20,9 @@
 --
 -- special mark keys(k):
 -- "mk": oil file browser (strongest rolling fingers...)
--- "ml": last accessed window
+-- "me": last accessed window(toggling)
 -- "mw": next window
--- "me": explore alternate(telescope-alternate)
+-- "ml": explore alternate(telescope-alternate)
 -- "ma ms md mf": undefined, reserved for marking inside buffer
 --
 -- harpoon leader:
@@ -99,8 +99,8 @@ map("n", "<leader>w", "<cmd>w<cr><esc>", { desc = "[W]rite" })
 -- Add mappings
 --------------------------------------------------------------------------
 
--- previous window:
-map("n", "ml", "<C-W>p", { desc = "Last accessed window", remap = true })
+-- Windows
+map("n", "me", "<C-W>p", { desc = "Last accessed window", remap = true })
 map("n", "mw", "<C-W>w", { desc = "Next window", remap = true })
 
 -- Switch tabs

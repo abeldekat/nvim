@@ -1,3 +1,2 @@
-local transformed =
-  require("misc.lualine").transform(require("colors.solarized8_flat").lualine(vim.opt.background:get()))
-return transformed
+local Setup = require("lualine.themes.setup_solarized8")
+return require("misc.lualine").transform(Setup.lualine())

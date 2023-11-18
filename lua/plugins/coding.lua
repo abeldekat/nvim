@@ -71,6 +71,7 @@ return {
           "im", "am", -- chainMember: not used
           -- filetype specific: not used
           "iC", "aC", "ic", "ac", "ix", "ax", "iD", "aD", "iP", "aP",
+          "iN", "aN", -- notebookCell
         },
       }
     end,

@@ -1,17 +1,5 @@
 local M = {}
 
-require("misc.colortoggle").add_toggle({
-  name = "astrotheme",
-  flavours = {
-    "astrodark",
-    "astromars",
-    "astrolight",
-  },
-  toggle = function(flavour)
-    vim.cmd.colorscheme(flavour)
-  end,
-})
-
 function M.lualine()
   local C = require("astrotheme.lib.util").set_palettes(require("astrotheme").config)
   return {

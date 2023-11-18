@@ -17,8 +17,23 @@ Best light themes:
 --]]
 
 local Dynamic = require("misc.colorscheme")
-local is_lazy = true
-local is_cond = true
+local keys = {
+  {
+    "<leader>uC",
+    function()
+      require("lazyvim.util").telescope("colorscheme", { enable_preview = true })()
+    end,
+    desc = "Colorscheme with preview",
+  },
+}
+local add_toggle = function(pattern, opts)
+  vim.api.nvim_create_autocmd("ColorScheme", {
+    pattern = type(pattern) == string and { pattern } or pattern,
+    callback = function()
+      require("misc.colortoggle").add_toggle(opts)
+    end,
+  })
+end
 
 return {
 
@@ -26,11 +41,19 @@ return {
   -- LazyVim
   -- ---------------------------------------------
 
-  { -- add to LazyVim config
+  {
     "folke/tokyonight.nvim",
+    keys = keys,
     opts = function(_, opts)
+      add_toggle("tokyonight*", {
+        name = "tokyonight",
+        flavours = { "tokyonight-storm", "tokyonight-moon", "tokyonight-night", "tokyonight-day" },
+      })
+
       opts.dim_inactive = true
       opts.style = Dynamic.prefer_light and "day" or "storm"
+
+      -- Tokyonight has a day-brightness, default 0.3
       -- only needed for light theme. Normal darktheme shows white as fg:
       -- change fg = c.fg into:
       if Dynamic.prefer_light then
@@ -39,11 +62,11 @@ return {
         end
       end
     end,
-    lazy = is_lazy,
   },
 
   { -- add to LazyVim config
     "catppuccin/nvim",
+    keys = keys,
     name = "catppuccin",
     opts = {
       integrations = {
@@ -56,10 +79,13 @@ return {
       },
     },
     config = function(_, opts)
+      add_toggle("catppuccin*", {
+        name = "catppuccin",
+        flavours = { "catppuccin-frappe", "catppuccin-mocha", "catppuccin-macchiato", "catppuccin-latte" },
+      })
       opts.flavour = Dynamic.prefer_light and "latte" or "frappe"
       require("catppuccin").setup(opts)
     end,
-    lazy = is_lazy,
   },
 
   -- ---------------------------------------------
@@ -70,8 +96,13 @@ return {
     "EdenEast/nightfox.nvim",
     name = "colors_nightfox",
     main = "nightfox",
+    keys = keys,
     opts = function()
-      require("nightfox.config").set_fox(Dynamic.prefer_light and "dawnfox" or "nordfox")
+      add_toggle("*fox", {
+        name = "nightfox",
+        -- "carbonfox", "dayfox",
+        flavours = { "nordfox", "nightfox", "duskfox", "terafox", "dawnfox" },
+      })
       local opts = {
         options = {
           dim_inactive = true,
@@ -79,60 +110,64 @@ return {
       }
       return opts
     end,
-    lazy = is_lazy,
-    cond = is_cond,
   },
 
   {
     "rose-pine/neovim",
     name = "colors_rose-pine",
     main = "rose-pine",
+    keys = keys,
     opts = function()
+      add_toggle("rose-pine*", {
+        name = "rose-pine",
+        flavours = { "rose-pine-moon", "rose-pine-main", "rose-pine-dawn" },
+      })
       local opts = {
         variant = Dynamic.prefer_light and "dawn" or "moon",
         disable_italics = true,
       }
       return opts
     end,
-    lazy = is_lazy,
-    cond = is_cond,
   },
 
   { -- has its own toggle_style
+    -- to have the correct style on startup, onedark.load must be used.
+    -- not important enough, use leader a to switch.
     "navarasu/onedark.nvim",
     name = "colors_onedark",
     main = "onedark",
+    keys = keys,
     opts = function()
-      local style = Dynamic.prefer_light == true and "light" or "dark"
-      local styles = {
-        "warm",
-        "light",
-        "warmer",
-        "dark",
-        "darker",
-        "cool",
-        "deep",
-      }
-      return {
+      return { -- the default is dark
+        toggle_style_list = { "warm", "warmer", "light", "dark", "darker", "cool", "deep" },
         toggle_style_key = "<leader>a",
-        style = style,
-        toggle_style_list = styles,
+        style = "dark",
       }
     end,
-    lazy = is_lazy,
-    cond = is_cond,
   },
 
   { -- dark and light with soft, "", and hard contrast
     "ellisonleao/gruvbox.nvim",
     name = "colors_gruvbox",
     main = "gruvbox",
+    keys = keys,
     opts = function()
+      add_toggle("gruvbox", {
+        name = "gruvbox",
+        -- stylua: ignore
+        flavours = {
+          { "dark", "soft" }, { "dark", "" }, { "dark", "hard" },
+          { "light", "soft" }, { "light", "" }, { "light", "hard" },
+        },
+        toggle = function(flavour)
+          vim.o.background = flavour[1]
+          require("gruvbox").setup({ contrast = flavour[2] })
+          vim.cmd.colorscheme("gruvbox")
+        end,
+      })
       vim.o.background = Dynamic.prefer_light and "light" or "dark"
       return { contrast = "soft", italic = { strings = false } }
     end,
-    lazy = is_lazy,
-    cond = is_cond,
   },
 
   { --combi dark and light ("", low, flat, hight). Skip high
@@ -140,23 +175,40 @@ return {
     name = "colors_solarized8",
     main = "vim-solarized8",
     branch = "neovim",
+    keys = keys,
     config = function()
+      add_toggle("solarized8*", {
+        name = "solarized8",
+        -- stylua: ignore
+        flavours = { -- solarized8_high not used
+          { "dark", "solarized8_flat" }, { "dark", "solarized8_low" }, { "dark", "solarized8" },
+          { "light", "solarized8_flat" }, { "light", "solarized8_low" }, { "light", "solarized8" },
+        },
+        toggle = function(flavour)
+          vim.o.background = flavour[1]
+          vim.cmd.colorscheme(flavour[2])
+        end,
+      })
       vim.o.background = Dynamic.prefer_light and "light" or "dark"
     end,
-    lazy = is_lazy,
-    cond = is_cond,
   },
 
   { -- very few colors, solarized look
     "ronisbr/nano-theme.nvim",
     name = "colors_nano",
     main = "nano-theme",
-    opts = function()
+    keys = keys,
+    config = function()
+      add_toggle("nano-theme", {
+        name = "nano-theme",
+        flavours = { "dark", "light" },
+        toggle = function(flavour)
+          vim.o.background = flavour
+          vim.cmd.colorscheme("nano-theme")
+        end,
+      })
       vim.o.background = Dynamic.prefer_light and "light" or "dark"
       return {}
     end,
-    config = function() end, -- no setup in init
-    lazy = is_lazy,
-    cond = is_cond,
   },
 }

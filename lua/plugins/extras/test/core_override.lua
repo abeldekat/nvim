@@ -44,7 +44,7 @@ return {
         "otavioschwanck/telescope-alternate.nvim",
         keys = {
           {
-            "me",
+            "ml",
             function()
               require("telescope").extensions["telescope-alternate"].alternate_file()
             end,
