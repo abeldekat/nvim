@@ -49,11 +49,9 @@ return {
         name = "tokyonight",
         flavours = { "tokyonight-storm", "tokyonight-moon", "tokyonight-night", "tokyonight-day" },
       })
-
       opts.dim_inactive = true
-      opts.style = Dynamic.prefer_light and "day" or "storm"
-
       -- Tokyonight has a day-brightness, default 0.3
+      opts.style = Dynamic.prefer_light and "day" or "storm"
       -- only needed for light theme. Normal darktheme shows white as fg:
       -- change fg = c.fg into:
       if Dynamic.prefer_light then
@@ -69,14 +67,7 @@ return {
     keys = keys,
     name = "catppuccin",
     opts = {
-      integrations = {
-        nvimtree = false,
-        neotree = false,
-        harpoon = true,
-        dropbar = {
-          enabled = false,
-        },
-      },
+      integrations = { nvimtree = false, neotree = false, harpoon = true, dropbar = { enabled = false } },
     },
     config = function(_, opts)
       add_toggle("catppuccin*", {
@@ -103,12 +94,7 @@ return {
         -- "carbonfox", "dayfox",
         flavours = { "nordfox", "nightfox", "duskfox", "terafox", "dawnfox" },
       })
-      local opts = {
-        options = {
-          dim_inactive = true,
-        },
-      }
-      return opts
+      return { options = { dim_inactive = true } }
     end,
   },
 
@@ -122,17 +108,14 @@ return {
         name = "rose-pine",
         flavours = { "rose-pine-moon", "rose-pine-main", "rose-pine-dawn" },
       })
-      local opts = {
+      return {
         variant = Dynamic.prefer_light and "dawn" or "moon",
         disable_italics = true,
       }
-      return opts
     end,
   },
 
   { -- has its own toggle_style
-    -- to have the correct style on startup, onedark.load must be used.
-    -- not important enough, use leader a to switch.
     "navarasu/onedark.nvim",
     name = "colors_onedark",
     main = "onedark",
@@ -141,12 +124,12 @@ return {
       return { -- the default is dark
         toggle_style_list = { "warm", "warmer", "light", "dark", "darker", "cool", "deep" },
         toggle_style_key = "<leader>a",
-        style = "dark",
+        style = "dark", -- ignored on startup, onedark.load must be used.
       }
     end,
   },
 
-  { -- dark and light with soft, "", and hard contrast
+  {
     "ellisonleao/gruvbox.nvim",
     name = "colors_gruvbox",
     main = "gruvbox",
@@ -170,7 +153,7 @@ return {
     end,
   },
 
-  { --combi dark and light ("", low, flat, hight). Skip high
+  {
     "lifepillar/vim-solarized8",
     name = "colors_solarized8",
     main = "vim-solarized8",

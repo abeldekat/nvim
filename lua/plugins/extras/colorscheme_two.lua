@@ -19,13 +19,13 @@ end
 
 return {
 
-  { -- 6 styles, monokai variations
+  { -- monokai variations
     "sainnhe/sonokai",
     name = "colors_sonokai",
     main = "sonokai",
     keys = keys,
     config = function()
-      -- The shusia, maia and espresso variants are basically modified versions of Monokai Pro
+      -- shusia, maia and espresso variants are modified versions of Monokai Pro
       add_toggle("sonokai", {
         name = "sonokai",
         flavours = { "andromeda", "espresso", "atlantis", "shusia", "maia", "default" },
@@ -42,7 +42,7 @@ return {
     end,
   },
 
-  { -- 6 flavours, no light theme
+  {
     "loctvl842/monokai-pro.nvim",
     name = "colors_monokai",
     main = "monokai-pro",
@@ -59,9 +59,7 @@ return {
     end,
   },
 
-  { -- combi (dark, light) and (soft, medium, hard)
-    -- lazygit colors are not always readable
-    -- good light theme
+  { -- lazygit colors are not always readable,  good light theme
     "sainnhe/everforest",
     name = "colors_everforest",
     main = "everforest",
@@ -87,7 +85,7 @@ return {
     end,
   },
 
-  { -- dark and light with soft, medium and hard contrast. Three palettes.
+  {
     "sainnhe/gruvbox-material",
     name = "colors_gruvbox-material",
     main = "gruvbox-material",

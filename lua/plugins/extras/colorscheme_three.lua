@@ -19,8 +19,8 @@ end
 
 return {
 
-  { -- the light theme is good... Gruvbox like
-    "rebelot/kanagawa.nvim", -- light bg -> lotus, dark bg -> wave
+  { -- good gruvbox-like light theme
+    "rebelot/kanagawa.nvim", -- light is lotus, dark is wave
     name = "colors_kanagawa",
     main = "kanagawa",
     keys = keys,
@@ -32,17 +32,17 @@ return {
       vim.o.background = Dynamic.prefer_light and "light" or "dark"
       -- stylua: ignore
       return Dynamic.prefer_light and {
-            overrides = function(colors)
-              return { -- Improve FlashLabel:
-                -- Substitute = { fg = theme.ui.fg, bg = theme.vcs.removed },
-                Substitute = { fg = colors.theme.ui.fg_reverse, bg = colors.theme.vcs.removed },
-              }
-            end,
-          } or {}
+        overrides = function(colors)
+          return { -- Improve FlashLabel:
+            -- Substitute = { fg = theme.ui.fg, bg = theme.vcs.removed },
+            Substitute = { fg = colors.theme.ui.fg_reverse, bg = colors.theme.vcs.removed },
+          }
+        end,
+      } or {}
     end,
   },
 
-  { -- unique colors, light is a little bit vague
+  { -- unique colors, light is vague
     "Shatur/neovim-ayu",
     name = "colors_ayu",
     main = "ayu",
@@ -57,7 +57,7 @@ return {
     end,
   },
 
-  { --combi dark(default, aura and neon) and  light(default)
+  {
     "sainnhe/edge",
     name = "colors_edge",
     main = "edge",
