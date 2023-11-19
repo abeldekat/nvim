@@ -11,20 +11,20 @@ end
 
 function M.keys()
   -- stylua: ignore
-  local buildins = { "zellner", "torte", "slate", "shine", "ron", "quiet", "peachpuff",
+  local builtins = { "zellner", "torte", "slate", "shine", "ron", "quiet", "peachpuff",
   "pablo", "murphy", "lunaperche", "koehler", "industry", "evening", "elflord",
   "desert", "delek", "default", "darkblue", "blue" }
 
   return {
     {
       "<leader>uu",
-      function() -- prevent buildin colors from being displayed in the picker
+      function() -- prevent builtin colors from being displayed in the picker
         local target = vim.fn.getcompletion
 
         ---@diagnostic disable-next-line: duplicate-set-field
         vim.fn.getcompletion = function()
           return vim.tbl_filter(function(color)
-            return not vim.tbl_contains(buildins, color)
+            return not vim.tbl_contains(builtins, color)
           end, target("", "color"))
         end
 
