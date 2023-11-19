@@ -1,4 +1,4 @@
-local Dynamic = require("misc.colorscheme")
+local Color = require("misc.color")
 local keys = {
   {
     "<leader>uC",
@@ -29,9 +29,9 @@ return {
         name = "kanagawa",
         flavours = { "kanagawa-wave", "kanagawa-dragon", "kanagawa-lotus" },
       })
-      vim.o.background = Dynamic.prefer_light and "light" or "dark"
+      vim.o.background = Color.prefer_light and "light" or "dark"
       -- stylua: ignore
-      return Dynamic.prefer_light and {
+      return Color.prefer_light and {
         overrides = function(colors)
           return { -- Improve FlashLabel:
             -- Substitute = { fg = theme.ui.fg, bg = theme.vcs.removed },
@@ -52,7 +52,7 @@ return {
         name = "ayu",
         flavours = { "ayu-mirage", "ayu-dark", "ayu-light" },
       })
-      vim.o.background = Dynamic.prefer_light and "light" or "dark"
+      vim.o.background = Color.prefer_light and "light" or "dark"
       return { mirage = true, overrides = {} }
     end,
   },
@@ -78,7 +78,7 @@ return {
       })
       vim.g.edge_better_performance = 1
       vim.g.edge_enable_italic = 1
-      vim.o.background = Dynamic.prefer_light and "light" or "dark"
+      vim.o.background = Color.prefer_light and "light" or "dark"
       vim.g.edge_style = "default"
     end,
   },
@@ -102,7 +102,7 @@ return {
           vim.cmd.colorscheme("leaf")
         end,
       })
-      vim.o.background = Dynamic.prefer_light and "light" or "dark"
+      vim.o.background = Color.prefer_light and "light" or "dark"
       return { contrast = "medium" }
     end,
   },
@@ -117,9 +117,9 @@ return {
         name = "astrotheme",
         flavours = { "astrodark", "astromars", "astrolight" },
       })
-      vim.o.background = Dynamic.prefer_light and "light" or "dark"
+      vim.o.background = Color.prefer_light and "light" or "dark"
       return {
-        palette = Dynamic.prefer_light and "astrolight" or "astrodark",
+        palette = Color.prefer_light and "astrolight" or "astrodark",
       }
     end,
   },

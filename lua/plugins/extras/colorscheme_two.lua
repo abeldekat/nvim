@@ -1,4 +1,4 @@
-local Dynamic = require("misc.colorscheme")
+local Color = require("misc.color")
 local keys = {
   {
     "<leader>uC",
@@ -80,7 +80,7 @@ return {
       })
       vim.g.everforest_better_performance = 1
       vim.g.everforest_enable_italic = 1
-      vim.o.background = Dynamic.prefer_light and "light" or "dark"
+      vim.o.background = Color.prefer_light and "light" or "dark"
       vim.g.everforest_background = "medium"
     end,
   },
@@ -109,7 +109,7 @@ return {
       vim.g.gruvbox_material_better_performance = 1
       vim.g.gruvbox_material_background = "soft"
       vim.g.gruvbox_material_foreground = "material"
-      vim.o.background = Dynamic.prefer_light and "light" or "dark"
+      vim.o.background = Color.prefer_light and "light" or "dark"
     end,
   },
 
@@ -119,7 +119,7 @@ return {
     main = "bamboo",
     keys = keys,
     opts = function() -- regular vulgaris greener multiplex light mode
-      vim.o.background = Dynamic.prefer_light and "light" or "dark"
+      vim.o.background = Color.prefer_light and "light" or "dark"
       return {
         style = "vulgaris",
         toggle_style_key = "<leader>a",
@@ -142,7 +142,7 @@ return {
           vim.cmd.colorscheme("melange")
         end,
       })
-      vim.o.background = Dynamic.prefer_light and "light" or "dark"
+      vim.o.background = Color.prefer_light and "light" or "dark"
     end,
   },
 }

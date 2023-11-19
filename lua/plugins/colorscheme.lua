@@ -16,7 +16,7 @@ Best light themes:
   catppuccin(latte is similar to tokyonight)
 --]]
 
-local Dynamic = require("misc.colorscheme")
+local Color = require("misc.color")
 local keys = {
   {
     "<leader>uC",
@@ -51,10 +51,10 @@ return {
       })
       opts.dim_inactive = true
       -- Tokyonight has a day-brightness, default 0.3
-      opts.style = Dynamic.prefer_light and "day" or "storm"
+      opts.style = Color.prefer_light and "day" or "storm"
       -- only needed for light theme. Normal darktheme shows white as fg:
       -- change fg = c.fg into:
-      if Dynamic.prefer_light then
+      if Color.prefer_light then
         opts.on_highlights = function(hl, c)
           hl.FlashLabel = { bg = c.magenta2, bold = true, fg = c.bg }
         end
@@ -74,7 +74,7 @@ return {
         name = "catppuccin",
         flavours = { "catppuccin-frappe", "catppuccin-mocha", "catppuccin-macchiato", "catppuccin-latte" },
       })
-      opts.flavour = Dynamic.prefer_light and "latte" or "frappe"
+      opts.flavour = Color.prefer_light and "latte" or "frappe"
       require("catppuccin").setup(opts)
     end,
   },
@@ -109,7 +109,7 @@ return {
         flavours = { "rose-pine-moon", "rose-pine-main", "rose-pine-dawn" },
       })
       return {
-        variant = Dynamic.prefer_light and "dawn" or "moon",
+        variant = Color.prefer_light and "dawn" or "moon",
         disable_italics = true,
       }
     end,
@@ -148,7 +148,7 @@ return {
           vim.cmd.colorscheme("gruvbox")
         end,
       })
-      vim.o.background = Dynamic.prefer_light and "light" or "dark"
+      vim.o.background = Color.prefer_light and "light" or "dark"
       return { contrast = "soft", italic = { strings = false } }
     end,
   },
@@ -172,7 +172,7 @@ return {
           vim.cmd.colorscheme(flavour[2])
         end,
       })
-      vim.o.background = Dynamic.prefer_light and "light" or "dark"
+      vim.o.background = Color.prefer_light and "light" or "dark"
     end,
   },
 
@@ -190,7 +190,7 @@ return {
           vim.cmd.colorscheme("nano-theme")
         end,
       })
-      vim.o.background = Dynamic.prefer_light and "light" or "dark"
+      vim.o.background = Color.prefer_light and "light" or "dark"
       return {}
     end,
   },
