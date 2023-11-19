@@ -1,37 +1,20 @@
-local Color = require("misc.color")
-local keys = {
-  {
-    "<leader>uC",
-    function()
-      require("lazyvim.util").telescope("colorscheme", { enable_preview = true })()
-    end,
-    desc = "Colorscheme with preview",
-  },
-}
-local add_toggle = function(pattern, opts)
-  vim.api.nvim_create_autocmd("ColorScheme", {
-    pattern = type(pattern) == string and { pattern } or pattern,
-    callback = function()
-      require("misc.colortoggle").add_toggle(opts)
-    end,
-  })
-end
+local Utils = require("misc.colorutils")
+local prefer_light = require("misc.color").prefer_light
 
 return {
-
   { -- good gruvbox-like light theme
     "rebelot/kanagawa.nvim", -- light is lotus, dark is wave
     name = "colors_kanagawa",
     main = "kanagawa",
-    keys = keys,
+    keys = Utils.keys(),
     opts = function()
-      add_toggle("kanagawa*", {
+      Utils.add_toggle("kanagawa*", {
         name = "kanagawa",
         flavours = { "kanagawa-wave", "kanagawa-dragon", "kanagawa-lotus" },
       })
-      vim.o.background = Color.prefer_light and "light" or "dark"
+      vim.o.background = prefer_light and "light" or "dark"
       -- stylua: ignore
-      return Color.prefer_light and {
+      return prefer_light and {
         overrides = function(colors)
           return { -- Improve FlashLabel:
             -- Substitute = { fg = theme.ui.fg, bg = theme.vcs.removed },
@@ -46,13 +29,13 @@ return {
     "Shatur/neovim-ayu",
     name = "colors_ayu",
     main = "ayu",
-    keys = keys,
+    keys = Utils.keys(),
     opts = function()
-      add_toggle("ayu*", {
+      Utils.add_toggle("ayu*", {
         name = "ayu",
         flavours = { "ayu-mirage", "ayu-dark", "ayu-light" },
       })
-      vim.o.background = Color.prefer_light and "light" or "dark"
+      vim.o.background = prefer_light and "light" or "dark"
       return { mirage = true, overrides = {} }
     end,
   },
@@ -61,9 +44,9 @@ return {
     "sainnhe/edge",
     name = "colors_edge",
     main = "edge",
-    keys = keys,
+    keys = Utils.keys(),
     config = function()
-      add_toggle("edge", {
+      Utils.add_toggle("edge", {
         name = "edge",
         -- stylua: ignore
         flavours = {
@@ -78,7 +61,7 @@ return {
       })
       vim.g.edge_better_performance = 1
       vim.g.edge_enable_italic = 1
-      vim.o.background = Color.prefer_light and "light" or "dark"
+      vim.o.background = prefer_light and "light" or "dark"
       vim.g.edge_style = "default"
     end,
   },
@@ -87,9 +70,9 @@ return {
     "daschw/leaf.nvim",
     name = "colors_leaf",
     main = "leaf",
-    keys = keys,
+    keys = Utils.keys(),
     opts = function()
-      add_toggle("leaf", {
+      Utils.add_toggle("leaf", {
         name = "leaf",
         -- stylua: ignore
         flavours = {
@@ -102,7 +85,7 @@ return {
           vim.cmd.colorscheme("leaf")
         end,
       })
-      vim.o.background = Color.prefer_light and "light" or "dark"
+      vim.o.background = prefer_light and "light" or "dark"
       return { contrast = "medium" }
     end,
   },
@@ -111,15 +94,15 @@ return {
     "AstroNvim/astrotheme",
     name = "colors_astrotheme",
     main = "astrotheme",
-    keys = keys,
+    keys = Utils.keys(),
     opts = function()
-      add_toggle("astro*", {
+      Utils.add_toggle("astro*", {
         name = "astrotheme",
         flavours = { "astrodark", "astromars", "astrolight" },
       })
-      vim.o.background = Color.prefer_light and "light" or "dark"
+      vim.o.background = prefer_light and "light" or "dark"
       return {
-        palette = Color.prefer_light and "astrolight" or "astrodark",
+        palette = prefer_light and "astrolight" or "astrodark",
       }
     end,
   },

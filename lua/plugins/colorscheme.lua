@@ -16,45 +16,24 @@ Best light themes:
   catppuccin(latte is similar to tokyonight)
 --]]
 
-local Color = require("misc.color")
-local keys = {
-  {
-    "<leader>uC",
-    function()
-      require("lazyvim.util").telescope("colorscheme", { enable_preview = true })()
-    end,
-    desc = "Colorscheme with preview",
-  },
-}
-local add_toggle = function(pattern, opts)
-  vim.api.nvim_create_autocmd("ColorScheme", {
-    pattern = type(pattern) == string and { pattern } or pattern,
-    callback = function()
-      require("misc.colortoggle").add_toggle(opts)
-    end,
-  })
-end
+local Utils = require("misc.colorutils")
+local prefer_light = require("misc.color").prefer_light
 
 return {
-
-  -- ---------------------------------------------
-  -- LazyVim
-  -- ---------------------------------------------
-
   {
     "folke/tokyonight.nvim",
-    keys = keys,
+    keys = Utils.keys(),
     opts = function(_, opts)
-      add_toggle("tokyonight*", {
+      Utils.add_toggle("tokyonight*", {
         name = "tokyonight",
         flavours = { "tokyonight-storm", "tokyonight-moon", "tokyonight-night", "tokyonight-day" },
       })
       opts.dim_inactive = true
       -- Tokyonight has a day-brightness, default 0.3
-      opts.style = Color.prefer_light and "day" or "storm"
+      opts.style = prefer_light and "day" or "storm"
       -- only needed for light theme. Normal darktheme shows white as fg:
       -- change fg = c.fg into:
-      if Color.prefer_light then
+      if prefer_light then
         opts.on_highlights = function(hl, c)
           hl.FlashLabel = { bg = c.magenta2, bold = true, fg = c.bg }
         end
@@ -62,19 +41,19 @@ return {
     end,
   },
 
-  { -- add to LazyVim config
+  {
     "catppuccin/nvim",
-    keys = keys,
+    keys = Utils.keys(),
     name = "catppuccin",
     opts = {
       integrations = { nvimtree = false, neotree = false, harpoon = true, dropbar = { enabled = false } },
     },
     config = function(_, opts)
-      add_toggle("catppuccin*", {
+      Utils.add_toggle("catppuccin*", {
         name = "catppuccin",
         flavours = { "catppuccin-frappe", "catppuccin-mocha", "catppuccin-macchiato", "catppuccin-latte" },
       })
-      opts.flavour = Color.prefer_light and "latte" or "frappe"
+      opts.flavour = prefer_light and "latte" or "frappe"
       require("catppuccin").setup(opts)
     end,
   },
@@ -87,9 +66,9 @@ return {
     "EdenEast/nightfox.nvim",
     name = "colors_nightfox",
     main = "nightfox",
-    keys = keys,
+    keys = Utils.keys(),
     opts = function()
-      add_toggle("*fox", {
+      Utils.add_toggle("*fox", {
         name = "nightfox",
         -- "carbonfox", "dayfox",
         flavours = { "nordfox", "nightfox", "duskfox", "terafox", "dawnfox" },
@@ -102,14 +81,14 @@ return {
     "rose-pine/neovim",
     name = "colors_rose-pine",
     main = "rose-pine",
-    keys = keys,
+    keys = Utils.keys(),
     opts = function()
-      add_toggle("rose-pine*", {
+      Utils.add_toggle("rose-pine*", {
         name = "rose-pine",
         flavours = { "rose-pine-moon", "rose-pine-main", "rose-pine-dawn" },
       })
       return {
-        variant = Color.prefer_light and "dawn" or "moon",
+        variant = prefer_light and "dawn" or "moon",
         disable_italics = true,
       }
     end,
@@ -119,7 +98,7 @@ return {
     "navarasu/onedark.nvim",
     name = "colors_onedark",
     main = "onedark",
-    keys = keys,
+    keys = Utils.keys(),
     opts = function()
       return { -- the default is dark
         toggle_style_list = { "warm", "warmer", "light", "dark", "darker", "cool", "deep" },
@@ -133,9 +112,9 @@ return {
     "ellisonleao/gruvbox.nvim",
     name = "colors_gruvbox",
     main = "gruvbox",
-    keys = keys,
+    keys = Utils.keys(),
     opts = function()
-      add_toggle("gruvbox", {
+      Utils.add_toggle("gruvbox", {
         name = "gruvbox",
         -- stylua: ignore
         flavours = {
@@ -148,7 +127,7 @@ return {
           vim.cmd.colorscheme("gruvbox")
         end,
       })
-      vim.o.background = Color.prefer_light and "light" or "dark"
+      vim.o.background = prefer_light and "light" or "dark"
       return { contrast = "soft", italic = { strings = false } }
     end,
   },
@@ -158,9 +137,9 @@ return {
     name = "colors_solarized8",
     main = "vim-solarized8",
     branch = "neovim",
-    keys = keys,
+    keys = Utils.keys(),
     config = function()
-      add_toggle("solarized8*", {
+      Utils.add_toggle("solarized8*", {
         name = "solarized8",
         -- stylua: ignore
         flavours = { -- solarized8_high not used
@@ -172,7 +151,7 @@ return {
           vim.cmd.colorscheme(flavour[2])
         end,
       })
-      vim.o.background = Color.prefer_light and "light" or "dark"
+      vim.o.background = prefer_light and "light" or "dark"
     end,
   },
 
@@ -180,9 +159,9 @@ return {
     "ronisbr/nano-theme.nvim",
     name = "colors_nano",
     main = "nano-theme",
-    keys = keys,
+    keys = Utils.keys(),
     config = function()
-      add_toggle("nano-theme", {
+      Utils.add_toggle("nano-theme", {
         name = "nano-theme",
         flavours = { "dark", "light" },
         toggle = function(flavour)
@@ -190,7 +169,7 @@ return {
           vim.cmd.colorscheme("nano-theme")
         end,
       })
-      vim.o.background = Color.prefer_light and "light" or "dark"
+      vim.o.background = prefer_light and "light" or "dark"
       return {}
     end,
   },

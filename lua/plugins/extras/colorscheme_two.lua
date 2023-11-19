@@ -1,21 +1,5 @@
-local Color = require("misc.color")
-local keys = {
-  {
-    "<leader>uC",
-    function()
-      require("lazyvim.util").telescope("colorscheme", { enable_preview = true })()
-    end,
-    desc = "Colorscheme with preview",
-  },
-}
-local add_toggle = function(pattern, opts)
-  vim.api.nvim_create_autocmd("ColorScheme", {
-    pattern = type(pattern) == string and { pattern } or pattern,
-    callback = function()
-      require("misc.colortoggle").add_toggle(opts)
-    end,
-  })
-end
+local Utils = require("misc.colorutils")
+local prefer_light = require("misc.color").prefer_light
 
 return {
 
@@ -23,10 +7,10 @@ return {
     "sainnhe/sonokai",
     name = "colors_sonokai",
     main = "sonokai",
-    keys = keys,
+    keys = Utils.keys(),
     config = function()
       -- shusia, maia and espresso variants are modified versions of Monokai Pro
-      add_toggle("sonokai", {
+      Utils.add_toggle("sonokai", {
         name = "sonokai",
         flavours = { "andromeda", "espresso", "atlantis", "shusia", "maia", "default" },
         toggle = function(flavour)
@@ -46,9 +30,9 @@ return {
     "loctvl842/monokai-pro.nvim",
     name = "colors_monokai",
     main = "monokai-pro",
-    keys = keys,
+    keys = Utils.keys(),
     opts = function()
-      add_toggle("monokai-pro*", {
+      Utils.add_toggle("monokai-pro*", {
         name = "monokai-pro",
         -- "monokai-pro-default", "monokai-pro-ristretto", "monokai-pro-spectrum",
         flavours = { "monokai-pro-octagon", "monokai-pro-machine", "monokai-pro-classic" },
@@ -63,9 +47,9 @@ return {
     "sainnhe/everforest",
     name = "colors_everforest",
     main = "everforest",
-    keys = keys,
+    keys = Utils.keys(),
     config = function()
-      add_toggle("everforest", {
+      Utils.add_toggle("everforest", {
         name = "everforest",
         -- stylua: ignore
         flavours = {
@@ -80,7 +64,7 @@ return {
       })
       vim.g.everforest_better_performance = 1
       vim.g.everforest_enable_italic = 1
-      vim.o.background = Color.prefer_light and "light" or "dark"
+      vim.o.background = prefer_light and "light" or "dark"
       vim.g.everforest_background = "medium"
     end,
   },
@@ -89,10 +73,10 @@ return {
     "sainnhe/gruvbox-material",
     name = "colors_gruvbox-material",
     main = "gruvbox-material",
-    keys = keys,
+    keys = Utils.keys(),
     config = function()
       local name = "gruvbox-material"
-      add_toggle("*material", {
+      Utils.add_toggle("*material", {
         name = name,
         -- stylua: ignore
         flavours = {
@@ -109,17 +93,17 @@ return {
       vim.g.gruvbox_material_better_performance = 1
       vim.g.gruvbox_material_background = "soft"
       vim.g.gruvbox_material_foreground = "material"
-      vim.o.background = Color.prefer_light and "light" or "dark"
+      vim.o.background = prefer_light and "light" or "dark"
     end,
   },
 
-  { -- has its own toggle_style
+  {
     "ribru17/bamboo.nvim",
     name = "colors_bamboo",
     main = "bamboo",
-    keys = keys,
+    keys = Utils.keys(),
     opts = function() -- regular vulgaris greener multiplex light mode
-      vim.o.background = Color.prefer_light and "light" or "dark"
+      vim.o.background = prefer_light and "light" or "dark"
       return {
         style = "vulgaris",
         toggle_style_key = "<leader>a",
@@ -132,9 +116,9 @@ return {
     "savq/melange-nvim",
     name = "colors_melange",
     main = "melange",
-    keys = keys,
+    keys = Utils.keys(),
     config = function()
-      add_toggle("melange", {
+      Utils.add_toggle("melange", {
         name = "melange",
         flavours = { "dark", "light" },
         toggle = function(flavour)
@@ -142,7 +126,7 @@ return {
           vim.cmd.colorscheme("melange")
         end,
       })
-      vim.o.background = Color.prefer_light and "light" or "dark"
+      vim.o.background = prefer_light and "light" or "dark"
     end,
   },
 }
