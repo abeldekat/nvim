@@ -1,15 +1,9 @@
 if vim.loader then
   vim.loader.enable()
 end
-require("config.lazy")({ -- centralizing settings subject to change
-  debug = false,
 
-  dev_patterns = {},
-  -- dev_patterns = { "lazyflex" },
-
-  dev_path = "~/projects/lazydev",
-  -- dev_path = "~/projects/clone",
-
-  flex = require("flex")({ use = false }), -- use nil to not load the plugin
-  -- clone_flex = true, -- useful when starting from scratch
-})
+if vim.loop.fs_stat(".nvim.lua") then
+  vim.opt.exrc = true -- allow local .nvim.lua .vimrc .exrc files
+else
+  require("config.lazy")()
+end

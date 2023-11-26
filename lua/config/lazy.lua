@@ -8,11 +8,14 @@ local function clone(owner, name)
   return path
 end
 
-return function(opts)
+return function(extraspec)
+  local opts = require("config.defaults")
+  local _ = opts.flex and { clone("abeldekat", "lazyflex.nvim") } or {}
+
   local lazypath = clone("folke", "lazy.nvim")
   vim.opt.rtp:prepend(vim.env.LAZY or lazypath)
 
-  local plugins = {
+  local spec = {
     opts.flex and opts.flex or {},
     { "LazyVim/LazyVim", import = "lazyvim.plugins" },
     { import = "plugins" },
@@ -20,7 +23,7 @@ return function(opts)
 
   require("lazy").setup({
     defaults = { lazy = false, version = false }, -- "*" = latest stable version
-    spec = plugins,
+    spec = extraspec and vim.list_extend(spec, extraspec) or spec,
     dev = { path = opts.dev_path, patterns = opts.dev_patterns },
     install = { colorscheme = { "tokyonight", "habamax" } },
     checker = { enabled = false },
@@ -28,7 +31,6 @@ return function(opts)
     performance = {
       rtp = { -- "matchit", "matchparen",
         disabled_plugins = { "gzip", "netrwPlugin", "tarPlugin", "tohtml", "tutor", "zipPlugin" },
-        paths = opts.flex and opts.clone_flex and { clone("abeldekat", "lazyflex.nvim") } or {},
       },
     },
     debug = opts.debug,
