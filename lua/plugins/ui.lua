@@ -96,30 +96,9 @@ return {
   -- ---------------------------------------------
   -- adding ....
   -- ---------------------------------------------
-  { -- replacing noice for lsp feedback
+  {
     "j-hui/fidget.nvim",
-    tag = "legacy",
     event = "LspAttach",
-    opts = {
-      text = {
-        spinner = "dots", -- "grow_vertical",
-      },
-      window = {
-        blend = 10,
-      },
-      fmt = {
-        stack_upwards = true,
-      },
-      timer = {
-        spinner_rate = 1000, --125,
-        fidget_decay = 100, -- 2000 after all tasks have been completed
-        task_decay = 100, -- 1000
-      },
-      sources = {
-        ["null-ls"] = {
-          ignore = true,
-        },
-      },
-    },
+    opts = {},
   },
 }
