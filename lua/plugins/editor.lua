@@ -7,7 +7,7 @@ return {
   -- disabling ....
   -- ---------------------------------------------
   { "nvim-neo-tree/neo-tree.nvim", enabled = false },
-  { "nvim-pack/nvim-spectre", enabled = false },
+  -- { "nvim-pack/nvim-spectre", enabled = false },
   -- use bdelete[!], or bwipeout:
   { "echasnovski/mini.bufremove", enabled = false },
 
@@ -205,15 +205,6 @@ return {
         },
       },
     },
-  },
-
-  { -- temporary fix for #2039 git_signs is broken on nightly
-    "lewis6991/gitsigns.nvim",
-    opts = function(_, opts)
-      if vim.fn.has("nvim-0.10") == 1 then
-        opts._extmark_signs = false
-      end
-    end,
   },
 
   -- ---------------------------------------------

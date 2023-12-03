@@ -55,7 +55,7 @@ end
 
 -- all modes
 for _, mode in pairs({ "i", "s", "x", "n" }) do
-  vim.keymap.del(mode, "<C-s>") -- save file in all modes
+  pcall(vim.keymap.del, mode, "<C-s>")
 end
 
 -- normal mode
@@ -69,7 +69,7 @@ for _, key in pairs({
   "<leader>w|", -- duplicate split window <C-W>v
   "<leader>qq", -- quit all
 }) do
-  vim.keymap.del("n", key)
+  pcall(vim.keymap.del, "n", key)
 end
 
 -- terminal mode
@@ -82,7 +82,7 @@ for _, key in pairs({
   -- "esc c" is translated into "alt c" and invokes fzf directories
   "<esc><esc>",
 }) do
-  vim.keymap.del("t", key)
+  pcall(vim.keymap.del, "t", key)
 end
 map("t", "<c-j>", "<c-\\><c-n>", { desc = "Enter Normal Mode" })
 
@@ -117,6 +117,11 @@ map("n", "<leader><tab>s", "<cmd>tabs<cr>", { desc = "[S]how Tabs" })
 -- c-n can behave like j and enter, also sometimes "next":
 map("n", "<C-N>", "<C-d>zz", { desc = "Dow[n] half page, better ctrl-d" })
 
--- Not compatible with animate:
+-- Not compatible with animations:
 map("n", "<C-d>", "<C-d>zz", { desc = "better ctrl-d" })
 map("n", "<C-u>", "<C-u>zz", { desc = "better ctrl-u" })
+
+-- ThePrimeagen
+-- nnoremap("<C-f>", "<cmd>silent !tmux neww tmux-sessionizer<CR>")
+-- override native scroll windown n pages down. Use ctrl-d
+map("n", "<C-f>", "<cmd>silent !tmux neww tmux-sessionizer<CR>")
