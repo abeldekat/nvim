@@ -22,7 +22,7 @@ return {
           desc = "Session restore [L]ast",
         },
         {
-          "<leader>md",
+          "<leader>mD",
           function()
             require("persistence").stop()
           end,

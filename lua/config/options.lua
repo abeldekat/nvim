@@ -19,8 +19,8 @@ vim.g.python3_host_prog = "/usr/bin/python" -- archlinux: global python-pynvim
 -- allow local .nvim.lua .vimrc .exrc files
 -- vim.opt.exrc = true
 
--- maybe:
--- vim.g.loaded_python3_provider = 0
--- vim.g.loaded_perl_provider = 0
--- vim.g.loaded_ruby_provider = 0
+-- checkhealth:
+vim.g.loaded_perl_provider = 0
+vim.g.loaded_ruby_provider = 0
 -- vim.g.loaded_node_provider = 0
+-- vim.g.loaded_python3_provider = 0

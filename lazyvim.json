@@ -12,7 +12,7 @@
     "plugins.extras.colorscheme_two",
     "plugins.extras.lang.markdown_override",
     "plugins.extras.lang.python_override",
-    "plugins.extras.lazyrc",
+    "plugins.extras.lang.sql",
     "plugins.extras.test.core_override"
   ],
   "news": {

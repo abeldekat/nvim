@@ -155,6 +155,16 @@ return {
     end,
   },
 
+  { -- forked from tokyonight
+    "craftzdog/solarized-osaka.nvim",
+    name = "colors_solarized-osaka",
+    main = "solarized-osaka",
+    keys = Utils.keys(),
+    opts = function()
+      vim.o.background = prefer_light and "light" or "dark"
+    end,
+  },
+
   { -- very few colors, solarized look
     "ronisbr/nano-theme.nvim",
     name = "colors_nano",

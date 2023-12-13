@@ -19,6 +19,7 @@ return function(extraspec)
     opts.flex and opts.flex or {},
     { "LazyVim/LazyVim", import = "lazyvim.plugins" },
     { import = "plugins" },
+    { import = "plugins.extras.lazyrc" },
   }
 
   require("lazy").setup({

@@ -23,6 +23,7 @@
 -- "me": last accessed window(toggling)
 -- "mw": next window
 -- "ml": explore alternate(telescope-alternate)
+-- "mq": execute sql query
 -- "ma ms md mf": undefined, reserved for marking inside buffer
 --
 -- harpoon leader:
