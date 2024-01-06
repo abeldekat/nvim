@@ -54,6 +54,7 @@ return {
 
   { -- mini.ai. See NOTES.md
     "chrisgrieser/nvim-various-textobjs",
+    cond = false, -- TODO: inspect the new textobjs
     event = { "LazyFile" },
     opts = function(_, _)
       vim.keymap.set("o", "gc", '<cmd>lua require("various-textobjs").multiCommentedLines()<CR>')
@@ -62,10 +63,12 @@ return {
         -- stylua: ignore
         disabledKeymaps = {
           "R", "r", -- restOfIndentation, restOfParagraph: flash...
+          "io", "ao", -- anyBracket: in a line, not useful, use ib iB
           "ig", "ag", -- greedyOuterIndentation: not used
           "gc", -- multiCommentedLines: comment.nvim... Only use operator pending
           "n", -- nearEol: minus one char: overrides next search result
           "ik", "ak", -- key: treesitter block...
+          "iv", "av", -- value: use treesitter textobjects
           "!", -- diagnostic: not used
           "iz", "az", -- closed fold: not used
           "im", "am", -- chainMember: not used

@@ -3,34 +3,35 @@ return {
   -- overriding ....
   -- ---------------------------------------------
 
-  { -- override q keys
-    "folke/persistence.nvim",
-    keys = function(_, _)
-      return {
-        {
-          "<leader>ms",
-          function()
-            require("persistence").load()
-          end,
-          desc = "[S]ession restore",
-        },
-        {
-          "<leader>mL",
-          function()
-            require("persistence").load({ last = true })
-          end,
-          desc = "Session restore [L]ast",
-        },
-        {
-          "<leader>mD",
-          function()
-            require("persistence").stop()
-          end,
-          desc = "Session [D]on't Save",
-        },
-      }
-    end,
-  },
+  -- Using lazyvim-menu-addon:
+  -- { -- override q keys
+  --   "folke/persistence.nvim",
+  --   keys = function(_, _)
+  --     return {
+  --       {
+  --         "<leader>ms",
+  --         function()
+  --           require("persistence").load()
+  --         end,
+  --         desc = "[S]ession restore",
+  --       },
+  --       {
+  --         "<leader>mL",
+  --         function()
+  --           require("persistence").load({ last = true })
+  --         end,
+  --         desc = "Session restore [L]ast",
+  --       },
+  --       {
+  --         "<leader>mD",
+  --         function()
+  --           require("persistence").stop()
+  --         end,
+  --         desc = "Session [D]on't Save",
+  --       },
+  --     }
+  --   end,
+  -- },
 
   -- ---------------------------------------------
   -- adding ....
@@ -39,7 +40,7 @@ return {
     -- Find neovim terminal job id: echo &channel
     -- After repl starts: use <c-c><c-c>
     "jpalardy/vim-slime",
-    keys = { { "<leader>mr", "", desc = "[R]epl" } },
+    keys = { { "<leader>mr", "<cmd>echom &channel<cr>", desc = "[R]epl" } },
     init = function()
       vim.g.slime_target = "neovim"
     end,

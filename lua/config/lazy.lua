@@ -17,6 +17,12 @@ return function(extraspec)
 
   local spec = {
     opts.flex and opts.flex or {},
+    {
+      "abeldekat/lazyvim-menu-addon",
+      version = "*",
+      import = "lazyvim_menu_addon.hook",
+      opts = { leaders_to_change = { b = "B", q = "Q", w = "W" } },
+    },
     { "LazyVim/LazyVim", import = "lazyvim.plugins" },
     { import = "plugins" },
     { import = "plugins.extras.lazyrc" },

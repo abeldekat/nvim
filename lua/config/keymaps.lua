@@ -23,7 +23,6 @@
 -- "me": last accessed window(toggling)
 -- "mw": next window
 -- "ml": explore alternate(telescope-alternate)
--- "mq": execute sql query
 -- "ma ms md mf": undefined, reserved for marking inside buffer
 --
 -- harpoon leader:
@@ -63,12 +62,14 @@ end
 for _, key in pairs({
   "<S-h>", -- top instead of bprev
   "<S-l>", -- lower instead of bnext
-  "<leader>bb", -- switch to other buffer, using: <leader>`
-  "<leader>wd", -- delete window, <C-W>c, now just quit
-  "<leader>ww", -- other window, <C-W>p, not necessary
-  "<leader>w-", -- duplicate split window <C-W>s
-  "<leader>w|", -- duplicate split window <C-W>v
-  "<leader>qq", -- quit all
+  --
+  -- Using lazyvim-menu-addon:
+  -- "<leader>bb", -- switch to other buffer, using: <leader>`
+  -- "<leader>wd", -- delete window, <C-W>c, now just quit
+  -- "<leader>ww", -- other window, <C-W>p, not necessary
+  -- "<leader>w-", -- duplicate split window <C-W>s
+  -- "<leader>w|", -- duplicate split window <C-W>v
+  -- "<leader>qq", -- quit all
 }) do
   pcall(vim.keymap.del, "n", key)
 end
@@ -125,4 +126,4 @@ map("n", "<C-u>", "<C-u>zz", { desc = "better ctrl-u" })
 -- ThePrimeagen
 -- nnoremap("<C-f>", "<cmd>silent !tmux neww tmux-sessionizer<CR>")
 -- override native scroll windown n pages down. Use ctrl-d
-map("n", "<C-f>", "<cmd>silent !tmux neww tmux-sessionizer<CR>")
+-- map("n", "<C-f>", "<cmd>silent !tmux neww tmux-sessionizer<CR>")

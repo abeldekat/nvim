@@ -173,14 +173,22 @@ return {
           },
         }
     end,
+    -- opts = { -- also possible, vim.NIL
+    --   defaults = {
+    --     ["<leader>b"] = vim.NIL,
+    --     ["<leader>q"] = vim.NIL,
+    --     ["<leader>w"] = vim.NIL,
+    --     ["<leader>gs"] = vim.NIL,
+    --     ["<leader>m"] = { name = "+[m]isc" },
+    --   },
+    -- },
     opts = function(_, opts)
-      opts.defaults["<leader>b"] = nil
-      opts.defaults["<leader>q"] = nil -- no submenu
-      opts.defaults["<leader>w"] = nil -- no submenu
-
-      -- session commands and lazy
+      -- Using lazyvim-menu-addon:
+      -- opts.defaults["<leader>b"] = nil -- "buffer"
+      -- opts.defaults["<leader>q"] = nil -- "quit/session"
+      -- opts.defaults["<leader>w"] = nil -- "windows"
+      opts.defaults["gs"] = nil -- "surround", using nvim-surround
       opts.defaults["<leader>m"] = { name = "+[m]isc" }
-      opts.defaults["gs"] = nil
       return opts
     end,
   },
@@ -214,6 +222,7 @@ return {
   { -- disabled flash for fFtT
     "jinh0/eyeliner.nvim",
     event = "VeryLazy",
+
     config = function()
       require("eyeliner").setup({
         highlight_on_key = true, -- show highlights only after keypress
@@ -224,7 +233,7 @@ return {
 
   {
     "takac/vim-hardtime",
-    lazy = false,
+    -- lazy = false,
     init = function()
       vim.g.hardtime_default_on = 1
     end,
