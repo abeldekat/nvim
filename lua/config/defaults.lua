@@ -7,5 +7,5 @@ return { -- centralizing defaults subject to change
   dev_path = "~/projects/lazydev",
   -- dev_path = "~/projects/clone",
 
-  flex = require("flex")({ use = false }), -- use nil to not load the plugin
+  flex = require("flex")({ use = false }), -- use flex=nil to not load the plugin
 }

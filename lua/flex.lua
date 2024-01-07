@@ -5,7 +5,7 @@ local function spec(opts)
     import = "lazyflex.hook",
     opts = function()
       if not opts.use then
-        return nil
+        return nil -- lazyflex opts-out early
       end
 
       local settings = { enabled = true }

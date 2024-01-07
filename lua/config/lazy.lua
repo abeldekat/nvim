@@ -25,7 +25,7 @@ return function(extraspec)
     },
     { "LazyVim/LazyVim", import = "lazyvim.plugins" },
     { import = "plugins" },
-    { import = "plugins.extras.lazyrc" },
+    -- { import = "plugins.extras.lazyrc" },
   }
 
   require("lazy").setup({

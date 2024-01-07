@@ -8,6 +8,7 @@
     "lazyvim.plugins.extras.lang.python-semshi",
     "lazyvim.plugins.extras.lang.yaml",
     "lazyvim.plugins.extras.test.core",
+    "plugins.extras.colorscheme_one",
     "plugins.extras.colorscheme_three",
     "plugins.extras.colorscheme_two",
     "plugins.extras.lang.markdown_override",
