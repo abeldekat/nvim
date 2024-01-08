@@ -273,45 +273,45 @@ return {
     },
   },
 
-  {
-    "ThePrimeagen/harpoon",
-    keys = function()
-      local function add()
-        require("harpoon.mark").add_file()
-      end
-      local function ui()
-        require("harpoon.ui").toggle_quick_menu()
-      end
-      local function nav(a_number)
-        require("harpoon.ui").nav_file(a_number)
-      end
-      local function prev()
-        require("harpoon.ui").nav_prev()
-      end
-      local function next()
-        require("harpoon.ui").nav_next()
-      end
-      local function to_terminal()
-        local num = tonumber(vim.fn.input("Terminal window number: "))
-        require("harpoon.term").gotoTerminal(num)
-      end
-
-      -- stylua: ignore
-      return {
-        { "<leader>h", add, desc = "[H]arpoon add" },
-        { "<leader>j", ui, desc = "Harpoon ui" },
-        { "<leader>n", next, desc = "Harpoon [n]ext" },
-        { "<leader>p", prev, desc = "Harpoon [p]rev" },
-        { "<leader>fh", to_terminal, desc = "[H]arpoon terminal" },
-        -- test changing from <leader>{hjkl}:
-        { "<c-j>", function() nav(1) end, desc = "Harpoon 1" },
-        { "<c-k>", function() nav(2) end, desc = "Harpoon 2" },
-        { "<c-l>", function() nav(3) end, desc = "Harpoon 3" },
-        { "<c-h>", function() nav(4) end, desc = "Harpoon 4" },
-      }
-    end,
-    opts = { tabline = false },
-  },
+  -- { -- also see editor_harpoon: harpoon 2
+  --   "ThePrimeagen/harpoon",
+  --   keys = function()
+  --     local function add()
+  --       require("harpoon.mark").add_file()
+  --     end
+  --     local function ui()
+  --       require("harpoon.ui").toggle_quick_menu()
+  --     end
+  --     local function nav(a_number)
+  --       require("harpoon.ui").nav_file(a_number)
+  --     end
+  --     local function prev()
+  --       require("harpoon.ui").nav_prev()
+  --     end
+  --     local function next()
+  --       require("harpoon.ui").nav_next()
+  --     end
+  --     local function to_terminal()
+  --       local num = tonumber(vim.fn.input("Terminal window number: "))
+  --       require("harpoon.term").gotoTerminal(num)
+  --     end
+  --
+  --     -- stylua: ignore
+  --     return {
+  --       { "<leader>h", add, desc = "[H]arpoon add" },
+  --       { "<leader>j", ui, desc = "Harpoon ui" },
+  --       { "<leader>n", next, desc = "Harpoon [n]ext" },
+  --       { "<leader>p", prev, desc = "Harpoon [p]rev" },
+  --       { "<leader>fh", to_terminal, desc = "[H]arpoon terminal" },
+  --       -- test changing from <leader>{hjkl}:
+  --       { "<c-j>", function() nav(1) end, desc = "Harpoon 1" },
+  --       { "<c-k>", function() nav(2) end, desc = "Harpoon 2" },
+  --       { "<c-l>", function() nav(3) end, desc = "Harpoon 3" },
+  --       { "<c-h>", function() nav(4) end, desc = "Harpoon 4" },
+  --     }
+  --   end,
+  --   opts = { tabline = false },
+  -- },
 
   {
     "stevearc/oil.nvim",

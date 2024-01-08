@@ -16,7 +16,7 @@ return function(extraspec)
   vim.opt.rtp:prepend(vim.env.LAZY or lazypath)
 
   local spec = {
-    opts.flex and opts.flex or {},
+    opts.flex or {},
     {
       "abeldekat/lazyvim-menu-addon",
       version = "*",
