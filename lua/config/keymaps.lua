@@ -101,7 +101,7 @@ map("n", "<leader>w", "<cmd>w<cr><esc>", { desc = "[W]rite" })
 -- Add mappings
 --------------------------------------------------------------------------
 
--- Windows
+-- Windows, combining right and left hand
 map("n", "me", "<C-W>p", { desc = "Last accessed window", remap = true })
 map("n", "mw", "<C-W>w", { desc = "Next window", remap = true })
 
@@ -111,9 +111,6 @@ map("n", "<leader>2", "2gt", { desc = "Move to tab 2" })
 map("n", "<leader>3", "3gt", { desc = "Move to tab 3" })
 -- Add show tabs to tabs submenu
 map("n", "<leader><tab>s", "<cmd>tabs<cr>", { desc = "[S]how Tabs" })
-
--- v_P is also good... Using substitute.nvim
--- map("x", "<leader>p", '"_dP', { desc = "Enhanced paste. Delete to sink" })
 
 -- right hand improvement:
 -- c-n can behave like j and enter, also sometimes "next":
@@ -127,3 +124,12 @@ map("n", "<C-u>", "<C-u>zz", { desc = "better ctrl-u" })
 -- nnoremap("<C-f>", "<cmd>silent !tmux neww tmux-sessionizer<CR>")
 -- override native scroll windown n pages down. Use ctrl-d
 -- map("n", "<C-f>", "<cmd>silent !tmux neww tmux-sessionizer<CR>")
+
+-- https://www.reddit.com/r/neovim/comments/mbj8m5/how_to_setup_ctrlshiftkey_mappings_in_neovim_and/
+-- TODO: Modify alacritty.yml. See harpoon setup
+-- vim.keymap.set("n", "<C-S-P>", function()
+--   vim.print("hello")
+-- end)
+-- vim.keymap.set("n", "<C-S-N>", function()
+--   vim.print("goodbye")
+-- end)

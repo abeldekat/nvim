@@ -17,21 +17,14 @@ return {
             require("neotest").run.run({ suite = true, adapter = adapter_id })
           end
         end,
-        desc = "Test Suite",
-      },
-      {
-        "<leader>tl",
-        function()
-          require("neotest").run.run_last()
-        end,
-        desc = "Test Last",
+        desc = "Run Suite",
       },
       { -- existing, adding extra_args
         "<leader>tr",
         function()
           require("neotest").run.run({ extra_args = { "-s", "-vvv" } })
         end,
-        desc = "Test Nearest",
+        desc = "Run Nearest",
       },
     },
   },
