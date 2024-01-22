@@ -2,6 +2,11 @@
 
 Neovim configuration using [LazyVim](https://github.com/LazyVim/LazyVim)
 
+## Notice
+
+This repo is archived.
+My current Neovim configuration can be found [here](https://github.com/abeldekat/nvim_pde)
+
 ## Upstream versions
 
 - LazyVim: 10.9.1 2024-01-21
