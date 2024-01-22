@@ -10,6 +10,7 @@ Neovim configuration using [LazyVim](https://github.com/LazyVim/LazyVim)
 ## Install Instructions
 
  > Requirements: [docs](https://www.lazyvim.org/#%EF%B8%8F-requirements)
+ >
  > Always review the code before installing a configuration.
 
 Clone the repository and install the plugins:
